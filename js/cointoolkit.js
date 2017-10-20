@@ -211,6 +211,18 @@ $(document).ready(function() {
 				$("#signTransaction").val(decode.serialize()).fadeOut().fadeIn();
 				window.location.hash = "#sign";
 			});
+			$("#verifyTransactionData .verifyToLedgerSign").on( "click", function() {
+
+                //$("#verifyScript").val(coinjs.signTxn(6,0,0,decode.serialize())).fadeOut().fadeIn();
+
+                getLedgerSignatures(6,0,0,decode.serialize(), function(result) {
+                    console.log("returned", result);
+                    });
+
+                //$("#verifyScript").val(coinjs.signTxn(6,0,0,12)).fadeOut().fadeIn();
+                //window.location.hash = "#verify";
+			});
+
 			$("#verifyTransactionData .verifyToBroadcast").on( "click", function() {
 				$("#broadcast #rawTransaction").val(decode.serialize()).fadeOut().fadeIn();
 				window.location.hash = "#broadcast";
@@ -580,7 +592,53 @@ $(document).ready(function() {
 		}
 		return r;
 	}
-	
+
+
+    /* ledger */
+
+    function getLedgerAddress(coinid,accountid,addressid,callback) {
+        coinjs.comm.create_async(0, true).then(function(comm) {
+
+            var btc = new ledger.btc(comm);
+            var path = "44'/" + coinid.toString() + "'/" + accountid.toString() + "'/" + addressid.toString() + "/0"
+
+            btc.getWalletPublicKey_async(path).then(function(result) {
+                callback(result);
+            }).fail(function(ex) {console.log(path,ex);});
+        }).fail(function(ex) {console.log(ex);});
+    }
+
+    function getLedgerSignatures(coinid,accountid,addressid,rawtransaction,callback) {
+        coinjs.comm.create_async(0, true).then(function(comm) {
+
+            var btc = new ledger.btc(comm);
+            var path = "44'/" + coinid.toString() + "'/" + accountid.toString() + "'/" + addressid.toString() + "/0"
+
+            btc.getWalletPublicKey_async(path).then(function(result) {
+                publicKey = result.publicKey;
+                var txn = btc.splitTransaction(rawtransaction,1);
+
+                var inputs = [];
+
+                for (var i = 0; i < txn.inputs.length; i++) {
+                    var current = [];
+                    var input = txn.inputs[i];
+                    // fetch and split raw txn
+                    var rawtxn = "010000006676dc5903cc138f16170433bca88f35f974f2fdf8261c0c06fc4b763f820fef29014a6f7b000000006b48304502202a3bcb650364410576b6b49c3552f00a1d6b6fb39678a4bc209dfd247230e155022100e24b77c0460b6b42cc9a6858cff6fe81723c7356c2fa79fe1f2e8b949dfbd3ef01210209526950462e5eb32e2b78a39bdd49a056fe8cf6c984a6f15a21b1dac45428a4ffffffffbe72a30beef7e6a452a1b75f395b22e394e0f911f94fe52086f1073771bcf094050000006b483045022100a99e6ca2e7b718448099676cd9639ccc235df2ba7960cf7bb65d313e7b7d627802202fcaab799977c55a01123a0fb980bde6c7188e7e4a7455c7c97c296018dd1ff8012102ff040d4a77b3100e8592016c7ee2b5559a7b5c393ba9c9ef70edd2582795d361ffffffff876cc16cbb55e88dece9df3889066a8155cf52961403fd79c4a659ad3e06bcf0000000006b483045022042272c9bf73bc731f21d7ec49fc22909faba3e42fe7f5aa7ec21e7574c84038b022100c997348dff9d34098a90f94b34f7148f6ca1f9472aac94f711cddd97529b9fdf0121023bc2656cf3f7f516602599a06c8347ecd3d23fb8dcda65c40439fd43c26ab0a2ffffffff014ace0000000000001976a91465c2553cb76035f4278b7e6c69ce13ed618673ab88ac00000000";
+                    current.push(btc.splitTransaction(rawtxn,1));
+                    current.push(new Uint32Array(input.prevout.slice(32))[0])
+                    current.push(Crypto.util.bytesToHex(input.script))
+                    inputs.push(current);
+                    }
+
+                var outputsBuffer = Crypto.util.bytesToHex(btc.serializeTransactionOutputs(txn));
+
+                btc.signP2SHTransaction_async(inputs, [path], outputsBuffer, undefined, undefined, 1).then(function(result) {
+                    callback({"publicKey":publicKey,"signatures":result});
+                    }).fail(function(ex) {console.log(ex);});
+            }).fail(function(ex) {console.log(path,ex);});
+        }).fail(function(ex) {console.log(ex);});
+    }	
 	/* external providers */
 		
 	var mercatorBasedExplorer = {
@@ -653,6 +711,101 @@ $(document).ready(function() {
                     type: "POST",
                     url: endpoint + '/api/unstable/sendraw/'+txid,
                     data: $("#rawTransaction").val(), //{"tx_hex":$("#rawTransaction").val()},
+                    dataType: "text", //"json",
+                    error: function(data, status, error) {
+                        var obj = data.responseText; //$.parseJSON(data.responseText);
+                        var r = '';
+                        r += obj.length ? obj : '';//(obj.data.tx_hex) ? obj.data.tx_hex : '';
+                        r = (r!='') ? r : ' Failed to broadcast'; // build response 
+                        $("#rawTransactionStatus").addClass('alert-danger').removeClass('alert-success').removeClass("hidden").html(r).prepend('<span class="glyphicon glyphicon-exclamation-sign"></span>');
+                    },
+                        success: function(data) {
+                        //var obj = data.responseText; //$.parseJSON(data.responseText);
+                        if(data.length){
+                            $("#rawTransactionStatus").addClass('alert-success').removeClass('alert-danger').removeClass("hidden").html(' Txid: '+data);
+                        } else {
+                            $("#rawTransactionStatus").addClass('alert-danger').removeClass('alert-success').removeClass("hidden").html(' Unexpected error, please try again').prepend('<span class="glyphicon glyphicon-exclamation-sign"></span>');
+                        }
+                    },
+                    complete: function(data, status) {
+                        $("#rawTransactionStatus").fadeOut().fadeIn();
+                        $(thisbtn).val('Submit').attr('disabled',false);                
+                    }
+                });
+			}
+		}
+	};
+
+
+	var sparkleBasedExplorer = {
+		listUnspent: function(endpoint) {
+			return function(redeem){
+				var msgSucess = '<span class="glyphicon glyphicon-info-sign"></span> Retrieved unspent inputs from address <a href="' + endpoint + '/ext/listunspent/'+redeem.addr+'" target="_blank">'+redeem.addr+'</a>'
+				var msgError = '<span class="glyphicon glyphicon-exclamation-sign"></span> Unexpected error, unable to retrieve unspent outputs! Is <a href="' + endpoint + '/">' + endpoint + '/</a> down?';
+                $.ajax ({
+                    type: "GET",
+                    url: "" + endpoint + "/ext/listunspent/"+redeem.addr,
+                    dataType: "json",
+                    error: function(data) {
+                        $("#redeemFromStatus").removeClass('hidden').html(msgError);
+                        $("#redeemFromBtn").html("Load").attr('disabled',false);
+                    },
+                    success: function(data) {
+                        if (coinjs.debug) {console.log(data)};
+                        if ((data.unspent_outputs)){
+                            $("#redeemFromAddress").removeClass('hidden').html(
+                                '<span class="glyphicon glyphicon-info-sign"></span> Retrieved unspent inputs from address <a href="'+endpoint+'/ext/listunspent/'+
+                                redeem.addr+'" target="_blank">'+redeem.addr+'</a>');
+                            for(i = 0; i < data.unspent_outputs.length; ++i){
+                                var o = data.unspent_outputs[i];
+                                var tx = ""+o.tx_hash;
+                                if(tx.match(/^[a-f0-9]+$/)){
+                                    var n = o.tx_ouput_n;
+                                    var script = (redeem.isMultisig==true) ? $("#redeemFrom").val() : o.script;
+                                    var amount = (o.value /100000000).toFixed(8);;
+                                    addOutput(tx, n, script, amount);
+                                }
+                            }
+                        } else {
+                            $("#redeemFromStatus").removeClass('hidden').html('<span class="glyphicon glyphicon-exclamation-sign"></span> Unexpected error, unable to retrieve unspent outputs.');
+                        }
+                    },
+                    complete: function(data, status) {
+                        $("#redeemFromBtn").html("Load").attr('disabled',false);
+                        totalInputAmount();
+                    }
+                });
+			}
+		},
+		getInputAmount: function(endpoint) {
+			return function(txid, index, callback) {
+	 			$.ajax ({
+                    type: "GET",
+                    url: "" + endpoint + "/ext/txinfo/"+txid,
+                    dataType: "json",
+                    error: function(data) {
+                        callback(false);
+                    },
+                    success: function(data) {
+						if (coinjs.debug) {console.log(data)};
+						if (data.outputs.length > index) {
+							callback(data.outputs[index].amount/100);
+						} else {
+							callback(false);
+						}
+	
+                    },
+                });
+    
+			}
+		},
+		broadcast: function(endpoint) {
+			return function(thisbtn){
+				var orig_html = $(thisbtn).html();
+				$(thisbtn).html('Please wait, loading... <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>').attr('disabled',true);
+                $.ajax ({
+                    type: "GET",
+                    url: "" + endpoint + "/api/sendrawtransaction?hex="+$("#rawTransaction").val(),
                     dataType: "text", //"json",
                     error: function(data, status, error) {
                         var obj = data.responseText; //$.parseJSON(data.responseText);
@@ -1286,6 +1439,28 @@ var bcBasedExplorer = {
 				}
 			}
 		},
+    sparklecoin: {
+			listUnspent: {
+                "iquidus": sparkleBasedExplorer.listUnspent('https://explorer.sparklecoin.com')
+			},
+			broadcast: {
+                "iquidus": sparkleBasedExplorer.broadcast('https://explorer.sparklecoin.com')
+			},
+			getInputAmount: {
+                "iquidus": sparkleBasedExplorer.getInputAmount('https://explorer.sparklecoin.com')
+			}
+		},
+    sparklecoin_testnet: {
+			listUnspent: {
+                "iquidus": sparkleBasedExplorer.listUnspent('https://tseed.sparklecoin.com')
+			},
+			broadcast: {
+                "iquidus": sparkleBasedExplorer.broadcast('https://tseed.sparklecoin.com')
+			},
+			getInputAmount: {
+                "iquidus": sparkleBasedExplorer.getInputAmount('https://tseed.sparklecoin.com')
+			}
+		},
 	    peercoin: {
 			listUnspent: {
                 "cryptoid": peerBasedExplorer.listUnspent('https://chainz.cryptoid.info')
@@ -1795,7 +1970,7 @@ var bcBasedExplorer = {
 	});
 
 	$("#recipients .addressAddTo").click(function(){
-		if($("#recipients .addressRemoveTo").length<19){
+		if($("#recipients .addressRemoveTo").length<99){
 			var clone = '<div class="row recipient"><br>'+$(this).parent().parent().html()+'</div>';
 			$("#recipients").append(clone);
 			$("#recipients .glyphicon-plus:last").removeClass('glyphicon-plus').addClass('glyphicon-minus');
