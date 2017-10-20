@@ -781,7 +781,7 @@ $(document).ready(function() {
 	};
 
 
-	var sparkleBasedExplorer = {
+	var iquidusBasedExplorer = {
 		listUnspent: function(endpoint) {
 			return function(redeem){
 				var msgSucess = '<span class="glyphicon glyphicon-info-sign"></span> Retrieved unspent inputs from address <a href="' + endpoint + '/ext/listunspent/'+redeem.addr+'" target="_blank">'+redeem.addr+'</a>'
@@ -1514,41 +1514,47 @@ var bcBasedExplorer = {
 		},
         sparklecoin: {
 			listUnspent: {
-                "iquidus": sparkleBasedExplorer.listUnspent('https://explorer.sparklecoin.com')
+                "iquidus": iquidusBasedExplorer.listUnspent('https://explorer.sparklecoin.com')
 			},
 			broadcast: {
-                "iquidus": sparkleBasedExplorer.broadcast('https://explorer.sparklecoin.com')
+                "iquidus": iquidusBasedExplorer.broadcast('https://explorer.sparklecoin.com')
 			},
             getTransaction: {
-                "iquidus": sparkleBasedExplorer.getTransaction('https://explorer.sparklecoin.com')
+                "iquidus": iquidusBasedExplorer.getTransaction('https://explorer.sparklecoin.com')
             },
 			getInputAmount: {
-                "iquidus": sparkleBasedExplorer.getInputAmount('https://explorer.sparklecoin.com')
+                "iquidus": iquidusBasedExplorer.getInputAmount('https://explorer.sparklecoin.com')
 			}
 		},
         sparklecoin_testnet: {
 			listUnspent: {
-                "iquidus": sparkleBasedExplorer.listUnspent('https://tseed.sparklecoin.com')
+                "iquidus": iquidusBasedExplorer.listUnspent('https://tseed.sparklecoin.com')
 			},
 			broadcast: {
-                "iquidus": sparkleBasedExplorer.broadcast('https://tseed.sparklecoin.com')
+                "iquidus": iquidusBasedExplorer.broadcast('https://tseed.sparklecoin.com')
 			},
             getTransaction: {
-                "iquidus": sparkleBasedExplorer.getInputAmount('https://tseed.sparklecoin.com')
+                "iquidus": iquidusBasedExplorer.getInputAmount('https://tseed.sparklecoin.com')
             },
 			getInputAmount: {
-                "iquidus": sparkleBasedExplorer.getInputAmount('https://tseed.sparklecoin.com')
+                "iquidus": iquidusBasedExplorer.getInputAmount('https://tseed.sparklecoin.com')
 			}
 		},
 	    peercoin: {
 			listUnspent: {
+                "iquidus": iquidusBasedExplorer.listUnspent('https://explorer.peercoin.net'),
                 "cryptoid": peerBasedExplorer.listUnspent('https://chainz.cryptoid.info')
 			},
 			broadcast: {
-                "cryptoid": peerBasedExplorer.broadcast('https://chainz.cryptoid.info')
+                "iquidus": iquidusBasedExplorer.broadcast('https://explorer.peercoin.net'),
+                "cryptoid": peerBasedExplorer.listUnspent('https://chainz.cryptoid.info')
 			},
+            getTransaction: {
+                "iquidus": iquidusBasedExplorer.getInputAmount('https://explorer.peercoin.net')
+            },
 			getInputAmount: {
-                "cryptoid": peerBasedExplorer.getInputAmount('https://chainz.cryptoid.info')
+                "iquidus": iquidusBasedExplorer.getInputAmount('https://explorer.peercoin.net'),
+                "cryptoid": peerBasedExplorer.listUnspent('https://chainz.cryptoid.info')
 			}
 		},
         peercoin_testnet: {
