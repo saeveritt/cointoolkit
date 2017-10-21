@@ -1558,7 +1558,7 @@ var bcBasedExplorer = {
                 "cryptoid": peerBasedExplorer.listUnspent('https://chainz.cryptoid.info')
 			},
             getTransaction: {
-                "iquidus": iquidusBasedExplorer.getInputAmount('https://explorer.peercoin.net')
+                "iquidus": iquidusBasedExplorer.getTransaction('https://explorer.peercoin.net')
             },
 			getInputAmount: {
                 "iquidus": iquidusBasedExplorer.getInputAmount('https://explorer.peercoin.net'),
