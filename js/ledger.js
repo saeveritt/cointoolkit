@@ -1,9 +1,9 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function (process,global){
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-    typeof define === 'function' && define.amd ? define(['exports'], factory) :
-    (factory((global.async = global.async || {})));
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+	typeof define === 'function' && define.amd ? define(['exports'], factory) :
+	(factory((global.async = global.async || {})));
 }(this, (function (exports) { 'use strict';
 
 /**
@@ -18,10 +18,10 @@
  */
 function apply(func, thisArg, args) {
   switch (args.length) {
-    case 0: return func.call(thisArg);
-    case 1: return func.call(thisArg, args[0]);
-    case 2: return func.call(thisArg, args[0], args[1]);
-    case 3: return func.call(thisArg, args[0], args[1], args[2]);
+	case 0: return func.call(thisArg);
+	case 1: return func.call(thisArg, args[0]);
+	case 2: return func.call(thisArg, args[0], args[1]);
+	case 3: return func.call(thisArg, args[0], args[1], args[2]);
   }
   return func.apply(thisArg, args);
 }
@@ -41,21 +41,21 @@ var nativeMax = Math.max;
 function overRest$1(func, start, transform) {
   start = nativeMax(start === undefined ? (func.length - 1) : start, 0);
   return function() {
-    var args = arguments,
-        index = -1,
-        length = nativeMax(args.length - start, 0),
-        array = Array(length);
+	var args = arguments,
+		index = -1,
+		length = nativeMax(args.length - start, 0),
+		array = Array(length);
 
-    while (++index < length) {
-      array[index] = args[start + index];
-    }
-    index = -1;
-    var otherArgs = Array(start + 1);
-    while (++index < start) {
-      otherArgs[index] = args[index];
-    }
-    otherArgs[start] = transform(array);
-    return apply(func, this, otherArgs);
+	while (++index < length) {
+	  array[index] = args[start + index];
+	}
+	index = -1;
+	var otherArgs = Array(start + 1);
+	while (++index < start) {
+	  otherArgs[index] = args[index];
+	}
+	otherArgs[start] = transform(array);
+	return apply(func, this, otherArgs);
   };
 }
 
@@ -82,30 +82,30 @@ function identity(value) {
 // Lodash rest function without function.toString()
 // remappings
 function rest(func, start) {
-    return overRest$1(func, start, identity);
+	return overRest$1(func, start, identity);
 }
 
 var initialParams = function (fn) {
-    return rest(function (args /*..., callback*/) {
-        var callback = args.pop();
-        fn.call(this, args, callback);
-    });
+	return rest(function (args /*..., callback*/) {
+		var callback = args.pop();
+		fn.call(this, args, callback);
+	});
 };
 
 function applyEach$1(eachfn) {
-    return rest(function (fns, args) {
-        var go = initialParams(function (args, callback) {
-            var that = this;
-            return eachfn(fns, function (fn, cb) {
-                fn.apply(that, args.concat([cb]));
-            }, callback);
-        });
-        if (args.length) {
-            return go.apply(this, args);
-        } else {
-            return go;
-        }
-    });
+	return rest(function (fns, args) {
+		var go = initialParams(function (args, callback) {
+			var that = this;
+			return eachfn(fns, function (fn, cb) {
+				fn.apply(that, args.concat([cb]));
+			}, callback);
+		});
+		if (args.length) {
+			return go.apply(this, args);
+		} else {
+			return go;
+		}
+	});
 }
 
 /** Detect free variable `global` from Node.js. */
@@ -145,20 +145,20 @@ var symToStringTag$1 = Symbol$1 ? Symbol$1.toStringTag : undefined;
  */
 function getRawTag(value) {
   var isOwn = hasOwnProperty.call(value, symToStringTag$1),
-      tag = value[symToStringTag$1];
+	  tag = value[symToStringTag$1];
 
   try {
-    value[symToStringTag$1] = undefined;
-    var unmasked = true;
+	value[symToStringTag$1] = undefined;
+	var unmasked = true;
   } catch (e) {}
 
   var result = nativeObjectToString.call(value);
   if (unmasked) {
-    if (isOwn) {
-      value[symToStringTag$1] = tag;
-    } else {
-      delete value[symToStringTag$1];
-    }
+	if (isOwn) {
+	  value[symToStringTag$1] = tag;
+	} else {
+	  delete value[symToStringTag$1];
+	}
   }
   return result;
 }
@@ -200,12 +200,12 @@ var symToStringTag = Symbol$1 ? Symbol$1.toStringTag : undefined;
  */
 function baseGetTag(value) {
   if (value == null) {
-    return value === undefined ? undefinedTag : nullTag;
+	return value === undefined ? undefinedTag : nullTag;
   }
   value = Object(value);
   return (symToStringTag && symToStringTag in value)
-    ? getRawTag(value)
-    : objectToString(value);
+	? getRawTag(value)
+	: objectToString(value);
 }
 
 /**
@@ -263,7 +263,7 @@ var proxyTag = '[object Proxy]';
  */
 function isFunction(value) {
   if (!isObject(value)) {
-    return false;
+	return false;
   }
   // The use of `Object#toString` avoids issues with the `typeof` operator
   // in Safari 9 which returns 'object' for typed arrays and other constructors.
@@ -302,7 +302,7 @@ var MAX_SAFE_INTEGER = 9007199254740991;
  */
 function isLength(value) {
   return typeof value == 'number' &&
-    value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
+	value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
 }
 
 /**
@@ -351,18 +351,18 @@ function noop() {
 }
 
 function once(fn) {
-    return function () {
-        if (fn === null) return;
-        var callFn = fn;
-        fn = null;
-        callFn.apply(this, arguments);
-    };
+	return function () {
+		if (fn === null) return;
+		var callFn = fn;
+		fn = null;
+		callFn.apply(this, arguments);
+	};
 }
 
 var iteratorSymbol = typeof Symbol === 'function' && Symbol.iterator;
 
 var getIterator = function (coll) {
-    return iteratorSymbol && coll[iteratorSymbol] && coll[iteratorSymbol]();
+	return iteratorSymbol && coll[iteratorSymbol] && coll[iteratorSymbol]();
 };
 
 /**
@@ -376,10 +376,10 @@ var getIterator = function (coll) {
  */
 function baseTimes(n, iteratee) {
   var index = -1,
-      result = Array(n);
+	  result = Array(n);
 
   while (++index < n) {
-    result[index] = iteratee(index);
+	result[index] = iteratee(index);
   }
   return result;
 }
@@ -444,7 +444,7 @@ var propertyIsEnumerable = objectProto$3.propertyIsEnumerable;
  * @category Lang
  * @param {*} value The value to check.
  * @returns {boolean} Returns `true` if `value` is an `arguments` object,
- *  else `false`.
+ *	else `false`.
  * @example
  *
  * _.isArguments(function() { return arguments; }());
@@ -455,7 +455,7 @@ var propertyIsEnumerable = objectProto$3.propertyIsEnumerable;
  */
 var isArguments = baseIsArguments(function() { return arguments; }()) ? baseIsArguments : function(value) {
   return isObjectLike(value) && hasOwnProperty$2.call(value, 'callee') &&
-    !propertyIsEnumerable.call(value, 'callee');
+	!propertyIsEnumerable.call(value, 'callee');
 };
 
 /**
@@ -551,8 +551,8 @@ var reIsUint = /^(?:0|[1-9]\d*)$/;
 function isIndex(value, length) {
   length = length == null ? MAX_SAFE_INTEGER$1 : length;
   return !!length &&
-    (typeof value == 'number' || reIsUint.test(value)) &&
-    (value > -1 && value % 1 == 0 && value < length);
+	(typeof value == 'number' || reIsUint.test(value)) &&
+	(value > -1 && value % 1 == 0 && value < length);
 }
 
 /** `Object#toString` result references. */
@@ -607,7 +607,7 @@ typedArrayTags[weakMapTag] = false;
  */
 function baseIsTypedArray(value) {
   return isObjectLike(value) &&
-    isLength(value.length) && !!typedArrayTags[baseGetTag(value)];
+	isLength(value.length) && !!typedArrayTags[baseGetTag(value)];
 }
 
 /**
@@ -619,7 +619,7 @@ function baseIsTypedArray(value) {
  */
 function baseUnary(func) {
   return function(value) {
-    return func(value);
+	return func(value);
   };
 }
 
@@ -638,7 +638,7 @@ var freeProcess = moduleExports$1 && freeGlobal.process;
 /** Used to access faster Node.js helpers. */
 var nodeUtil = (function() {
   try {
-    return freeProcess && freeProcess.binding('util');
+	return freeProcess && freeProcess.binding('util');
   } catch (e) {}
 }());
 
@@ -680,27 +680,27 @@ var hasOwnProperty$1 = objectProto$2.hasOwnProperty;
  */
 function arrayLikeKeys(value, inherited) {
   var isArr = isArray(value),
-      isArg = !isArr && isArguments(value),
-      isBuff = !isArr && !isArg && isBuffer(value),
-      isType = !isArr && !isArg && !isBuff && isTypedArray(value),
-      skipIndexes = isArr || isArg || isBuff || isType,
-      result = skipIndexes ? baseTimes(value.length, String) : [],
-      length = result.length;
+	  isArg = !isArr && isArguments(value),
+	  isBuff = !isArr && !isArg && isBuffer(value),
+	  isType = !isArr && !isArg && !isBuff && isTypedArray(value),
+	  skipIndexes = isArr || isArg || isBuff || isType,
+	  result = skipIndexes ? baseTimes(value.length, String) : [],
+	  length = result.length;
 
   for (var key in value) {
-    if ((inherited || hasOwnProperty$1.call(value, key)) &&
-        !(skipIndexes && (
-           // Safari 9 has enumerable `arguments.length` in strict mode.
-           key == 'length' ||
-           // Node.js 0.10 has enumerable non-index properties on buffers.
-           (isBuff && (key == 'offset' || key == 'parent')) ||
-           // PhantomJS 2 has enumerable non-index properties on typed arrays.
-           (isType && (key == 'buffer' || key == 'byteLength' || key == 'byteOffset')) ||
-           // Skip index properties.
-           isIndex(key, length)
-        ))) {
-      result.push(key);
-    }
+	if ((inherited || hasOwnProperty$1.call(value, key)) &&
+		!(skipIndexes && (
+		   // Safari 9 has enumerable `arguments.length` in strict mode.
+		   key == 'length' ||
+		   // Node.js 0.10 has enumerable non-index properties on buffers.
+		   (isBuff && (key == 'offset' || key == 'parent')) ||
+		   // PhantomJS 2 has enumerable non-index properties on typed arrays.
+		   (isType && (key == 'buffer' || key == 'byteLength' || key == 'byteOffset')) ||
+		   // Skip index properties.
+		   isIndex(key, length)
+		))) {
+	  result.push(key);
+	}
   }
   return result;
 }
@@ -717,7 +717,7 @@ var objectProto$5 = Object.prototype;
  */
 function isPrototype(value) {
   var Ctor = value && value.constructor,
-      proto = (typeof Ctor == 'function' && Ctor.prototype) || objectProto$5;
+	  proto = (typeof Ctor == 'function' && Ctor.prototype) || objectProto$5;
 
   return value === proto;
 }
@@ -732,7 +732,7 @@ function isPrototype(value) {
  */
 function overArg(func, transform) {
   return function(arg) {
-    return func(transform(arg));
+	return func(transform(arg));
   };
 }
 
@@ -754,13 +754,13 @@ var hasOwnProperty$3 = objectProto$4.hasOwnProperty;
  */
 function baseKeys(object) {
   if (!isPrototype(object)) {
-    return nativeKeys(object);
+	return nativeKeys(object);
   }
   var result = [];
   for (var key in Object(object)) {
-    if (hasOwnProperty$3.call(object, key) && key != 'constructor') {
-      result.push(key);
-    }
+	if (hasOwnProperty$3.call(object, key) && key != 'constructor') {
+	  result.push(key);
+	}
   }
   return result;
 }
@@ -781,8 +781,8 @@ function baseKeys(object) {
  * @example
  *
  * function Foo() {
- *   this.a = 1;
- *   this.b = 2;
+ *	 this.a = 1;
+ *	 this.b = 2;
  * }
  *
  * Foo.prototype.c = 3;
@@ -798,49 +798,49 @@ function keys(object) {
 }
 
 function createArrayIterator(coll) {
-    var i = -1;
-    var len = coll.length;
-    return function next() {
-        return ++i < len ? { value: coll[i], key: i } : null;
-    };
+	var i = -1;
+	var len = coll.length;
+	return function next() {
+		return ++i < len ? { value: coll[i], key: i } : null;
+	};
 }
 
 function createES2015Iterator(iterator) {
-    var i = -1;
-    return function next() {
-        var item = iterator.next();
-        if (item.done) return null;
-        i++;
-        return { value: item.value, key: i };
-    };
+	var i = -1;
+	return function next() {
+		var item = iterator.next();
+		if (item.done) return null;
+		i++;
+		return { value: item.value, key: i };
+	};
 }
 
 function createObjectIterator(obj) {
-    var okeys = keys(obj);
-    var i = -1;
-    var len = okeys.length;
-    return function next() {
-        var key = okeys[++i];
-        return i < len ? { value: obj[key], key: key } : null;
-    };
+	var okeys = keys(obj);
+	var i = -1;
+	var len = okeys.length;
+	return function next() {
+		var key = okeys[++i];
+		return i < len ? { value: obj[key], key: key } : null;
+	};
 }
 
 function iterator(coll) {
-    if (isArrayLike(coll)) {
-        return createArrayIterator(coll);
-    }
+	if (isArrayLike(coll)) {
+		return createArrayIterator(coll);
+	}
 
-    var iterator = getIterator(coll);
-    return iterator ? createES2015Iterator(iterator) : createObjectIterator(coll);
+	var iterator = getIterator(coll);
+	return iterator ? createES2015Iterator(iterator) : createObjectIterator(coll);
 }
 
 function onlyOnce(fn) {
-    return function () {
-        if (fn === null) throw new Error("Callback was already called.");
-        var callFn = fn;
-        fn = null;
-        callFn.apply(this, arguments);
-    };
+	return function () {
+		if (fn === null) throw new Error("Callback was already called.");
+		var callFn = fn;
+		fn = null;
+		callFn.apply(this, arguments);
+	};
 }
 
 // A temporary value used to identify if the loop should be broken.
@@ -848,45 +848,45 @@ function onlyOnce(fn) {
 var breakLoop = {};
 
 function _eachOfLimit(limit) {
-    return function (obj, iteratee, callback) {
-        callback = once(callback || noop);
-        if (limit <= 0 || !obj) {
-            return callback(null);
-        }
-        var nextElem = iterator(obj);
-        var done = false;
-        var running = 0;
+	return function (obj, iteratee, callback) {
+		callback = once(callback || noop);
+		if (limit <= 0 || !obj) {
+			return callback(null);
+		}
+		var nextElem = iterator(obj);
+		var done = false;
+		var running = 0;
 
-        function iterateeCallback(err, value) {
-            running -= 1;
-            if (err) {
-                done = true;
-                callback(err);
-            } else if (value === breakLoop || done && running <= 0) {
-                done = true;
-                return callback(null);
-            } else {
-                replenish();
-            }
-        }
+		function iterateeCallback(err, value) {
+			running -= 1;
+			if (err) {
+				done = true;
+				callback(err);
+			} else if (value === breakLoop || done && running <= 0) {
+				done = true;
+				return callback(null);
+			} else {
+				replenish();
+			}
+		}
 
-        function replenish() {
-            while (running < limit && !done) {
-                var elem = nextElem();
-                if (elem === null) {
-                    done = true;
-                    if (running <= 0) {
-                        callback(null);
-                    }
-                    return;
-                }
-                running += 1;
-                iteratee(elem.value, elem.key, onlyOnce(iterateeCallback));
-            }
-        }
+		function replenish() {
+			while (running < limit && !done) {
+				var elem = nextElem();
+				if (elem === null) {
+					done = true;
+					if (running <= 0) {
+						callback(null);
+					}
+					return;
+				}
+				running += 1;
+				iteratee(elem.value, elem.key, onlyOnce(iterateeCallback));
+			}
+		}
 
-        replenish();
-    };
+		replenish();
+	};
 }
 
 /**
@@ -916,32 +916,32 @@ function eachOfLimit(coll, limit, iteratee, callback) {
 }
 
 function doLimit(fn, limit) {
-    return function (iterable, iteratee, callback) {
-        return fn(iterable, limit, iteratee, callback);
-    };
+	return function (iterable, iteratee, callback) {
+		return fn(iterable, limit, iteratee, callback);
+	};
 }
 
 // eachOf implementation optimized for array-likes
 function eachOfArrayLike(coll, iteratee, callback) {
-    callback = once(callback || noop);
-    var index = 0,
-        completed = 0,
-        length = coll.length;
-    if (length === 0) {
-        callback(null);
-    }
+	callback = once(callback || noop);
+	var index = 0,
+		completed = 0,
+		length = coll.length;
+	if (length === 0) {
+		callback(null);
+	}
 
-    function iteratorCallback(err) {
-        if (err) {
-            callback(err);
-        } else if (++completed === length) {
-            callback(null);
-        }
-    }
+	function iteratorCallback(err) {
+		if (err) {
+			callback(err);
+		} else if (++completed === length) {
+			callback(null);
+		}
+	}
 
-    for (; index < length; index++) {
-        iteratee(coll[index], index, onlyOnce(iteratorCallback));
-    }
+	for (; index < length; index++) {
+		iteratee(coll[index], index, onlyOnce(iteratorCallback));
+	}
 }
 
 // a generic version of eachOf which can handle array, object, and iterator cases.
@@ -973,47 +973,47 @@ var eachOfGeneric = doLimit(eachOfLimit, Infinity);
  * var configs = {};
  *
  * async.forEachOf(obj, function (value, key, callback) {
- *     fs.readFile(__dirname + value, "utf8", function (err, data) {
- *         if (err) return callback(err);
- *         try {
- *             configs[key] = JSON.parse(data);
- *         } catch (e) {
- *             return callback(e);
- *         }
- *         callback();
- *     });
+ *	   fs.readFile(__dirname + value, "utf8", function (err, data) {
+ *		   if (err) return callback(err);
+ *		   try {
+ *			   configs[key] = JSON.parse(data);
+ *		   } catch (e) {
+ *			   return callback(e);
+ *		   }
+ *		   callback();
+ *	   });
  * }, function (err) {
- *     if (err) console.error(err.message);
- *     // configs is now a map of JSON data
- *     doSomethingWith(configs);
+ *	   if (err) console.error(err.message);
+ *	   // configs is now a map of JSON data
+ *	   doSomethingWith(configs);
  * });
  */
 var eachOf = function (coll, iteratee, callback) {
-    var eachOfImplementation = isArrayLike(coll) ? eachOfArrayLike : eachOfGeneric;
-    eachOfImplementation(coll, iteratee, callback);
+	var eachOfImplementation = isArrayLike(coll) ? eachOfArrayLike : eachOfGeneric;
+	eachOfImplementation(coll, iteratee, callback);
 };
 
 function doParallel(fn) {
-    return function (obj, iteratee, callback) {
-        return fn(eachOf, obj, iteratee, callback);
-    };
+	return function (obj, iteratee, callback) {
+		return fn(eachOf, obj, iteratee, callback);
+	};
 }
 
 function _asyncMap(eachfn, arr, iteratee, callback) {
-    callback = callback || noop;
-    arr = arr || [];
-    var results = [];
-    var counter = 0;
+	callback = callback || noop;
+	arr = arr || [];
+	var results = [];
+	var counter = 0;
 
-    eachfn(arr, function (value, _, callback) {
-        var index = counter++;
-        iteratee(value, function (err, v) {
-            results[index] = v;
-            callback(err);
-        });
-    }, function (err) {
-        callback(err, results);
-    });
+	eachfn(arr, function (value, _, callback) {
+		var index = counter++;
+		iteratee(value, function (err, v) {
+			results[index] = v;
+			callback(err);
+		});
+	}, function (err) {
+		callback(err, results);
+	});
 }
 
 /**
@@ -1029,7 +1029,7 @@ function _asyncMap(eachfn, arr, iteratee, callback) {
  * in order. However, the results array will be in the same order as the
  * original `coll`.
  *
- * If `map` is passed an Object, the results will be an Array.  The results
+ * If `map` is passed an Object, the results will be an Array.	The results
  * will roughly be in the order of the original Objects' keys (but this can
  * vary across JavaScript engines)
  *
@@ -1049,7 +1049,7 @@ function _asyncMap(eachfn, arr, iteratee, callback) {
  * @example
  *
  * async.map(['file1','file2','file3'], fs.stat, function(err, results) {
- *     // results is now an array of stats for each file
+ *	   // results is now an array of stats for each file
  * });
  */
 var map = doParallel(_asyncMap);
@@ -1082,17 +1082,17 @@ var map = doParallel(_asyncMap);
  *
  * // partial application example:
  * async.each(
- *     buckets,
- *     async.applyEach([enableSearch, updateSchema]),
- *     callback
+ *	   buckets,
+ *	   async.applyEach([enableSearch, updateSchema]),
+ *	   callback
  * );
  */
 var applyEach = applyEach$1(map);
 
 function doParallelLimit(fn) {
-    return function (obj, limit, iteratee, callback) {
-        return fn(_eachOfLimit(limit), obj, iteratee, callback);
-    };
+	return function (obj, limit, iteratee, callback) {
+		return fn(_eachOfLimit(limit), obj, iteratee, callback);
+	};
 }
 
 /**
@@ -1177,19 +1177,19 @@ var applyEachSeries = applyEach$1(mapSeries);
  *
  * // using apply
  * async.parallel([
- *     async.apply(fs.writeFile, 'testfile1', 'test1'),
- *     async.apply(fs.writeFile, 'testfile2', 'test2')
+ *	   async.apply(fs.writeFile, 'testfile1', 'test1'),
+ *	   async.apply(fs.writeFile, 'testfile2', 'test2')
  * ]);
  *
  *
  * // the same process without using apply
  * async.parallel([
- *     function(callback) {
- *         fs.writeFile('testfile1', 'test1', callback);
- *     },
- *     function(callback) {
- *         fs.writeFile('testfile2', 'test2', callback);
- *     }
+ *	   function(callback) {
+ *		   fs.writeFile('testfile1', 'test1', callback);
+ *	   },
+ *	   function(callback) {
+ *		   fs.writeFile('testfile2', 'test2', callback);
+ *	   }
  * ]);
  *
  * // It's possible to pass any number of additional arguments when calling the
@@ -1202,9 +1202,9 @@ var applyEachSeries = applyEach$1(mapSeries);
  * three
  */
 var apply$2 = rest(function (fn, args) {
-    return rest(function (callArgs) {
-        return fn.apply(null, args.concat(callArgs));
-    });
+	return rest(function (callArgs) {
+		return fn.apply(null, args.concat(callArgs));
+	});
 });
 
 /**
@@ -1234,53 +1234,53 @@ var apply$2 = rest(function (fn, args) {
  *
  * // passing a regular synchronous function
  * async.waterfall([
- *     async.apply(fs.readFile, filename, "utf8"),
- *     async.asyncify(JSON.parse),
- *     function (data, next) {
- *         // data is the result of parsing the text.
- *         // If there was a parsing error, it would have been caught.
- *     }
+ *	   async.apply(fs.readFile, filename, "utf8"),
+ *	   async.asyncify(JSON.parse),
+ *	   function (data, next) {
+ *		   // data is the result of parsing the text.
+ *		   // If there was a parsing error, it would have been caught.
+ *	   }
  * ], callback);
  *
  * // passing a function returning a promise
  * async.waterfall([
- *     async.apply(fs.readFile, filename, "utf8"),
- *     async.asyncify(function (contents) {
- *         return db.model.create(contents);
- *     }),
- *     function (model, next) {
- *         // `model` is the instantiated model object.
- *         // If there was an error, this function would be skipped.
- *     }
+ *	   async.apply(fs.readFile, filename, "utf8"),
+ *	   async.asyncify(function (contents) {
+ *		   return db.model.create(contents);
+ *	   }),
+ *	   function (model, next) {
+ *		   // `model` is the instantiated model object.
+ *		   // If there was an error, this function would be skipped.
+ *	   }
  * ], callback);
  *
  * // es6 example
  * var q = async.queue(async.asyncify(async function(file) {
- *     var intermediateStep = await processFile(file);
- *     return await somePromise(intermediateStep)
+ *	   var intermediateStep = await processFile(file);
+ *	   return await somePromise(intermediateStep)
  * }));
  *
  * q.push(files);
  */
 function asyncify(func) {
-    return initialParams(function (args, callback) {
-        var result;
-        try {
-            result = func.apply(this, args);
-        } catch (e) {
-            return callback(e);
-        }
-        // if result is Promise object
-        if (isObject(result) && typeof result.then === 'function') {
-            result.then(function (value) {
-                callback(null, value);
-            }, function (err) {
-                callback(err.message ? err : new Error(err));
-            });
-        } else {
-            callback(null, result);
-        }
-    });
+	return initialParams(function (args, callback) {
+		var result;
+		try {
+			result = func.apply(this, args);
+		} catch (e) {
+			return callback(e);
+		}
+		// if result is Promise object
+		if (isObject(result) && typeof result.then === 'function') {
+			result.then(function (value) {
+				callback(null, value);
+			}, function (err) {
+				callback(err.message ? err : new Error(err));
+			});
+		} else {
+			callback(null, result);
+		}
+	});
 }
 
 /**
@@ -1294,12 +1294,12 @@ function asyncify(func) {
  */
 function arrayEach(array, iteratee) {
   var index = -1,
-      length = array == null ? 0 : array.length;
+	  length = array == null ? 0 : array.length;
 
   while (++index < length) {
-    if (iteratee(array[index], index, array) === false) {
-      break;
-    }
+	if (iteratee(array[index], index, array) === false) {
+	  break;
+	}
   }
   return array;
 }
@@ -1313,18 +1313,18 @@ function arrayEach(array, iteratee) {
  */
 function createBaseFor(fromRight) {
   return function(object, iteratee, keysFunc) {
-    var index = -1,
-        iterable = Object(object),
-        props = keysFunc(object),
-        length = props.length;
+	var index = -1,
+		iterable = Object(object),
+		props = keysFunc(object),
+		length = props.length;
 
-    while (length--) {
-      var key = props[fromRight ? length : ++index];
-      if (iteratee(iterable[key], key, iterable) === false) {
-        break;
-      }
-    }
-    return object;
+	while (length--) {
+	  var key = props[fromRight ? length : ++index];
+	  if (iteratee(iterable[key], key, iterable) === false) {
+		break;
+	  }
+	}
+	return object;
   };
 }
 
@@ -1366,12 +1366,12 @@ function baseForOwn(object, iteratee) {
  */
 function baseFindIndex(array, predicate, fromIndex, fromRight) {
   var length = array.length,
-      index = fromIndex + (fromRight ? 1 : -1);
+	  index = fromIndex + (fromRight ? 1 : -1);
 
   while ((fromRight ? index-- : ++index < length)) {
-    if (predicate(array[index], index, array)) {
-      return index;
-    }
+	if (predicate(array[index], index, array)) {
+	  return index;
+	}
   }
   return -1;
 }
@@ -1399,12 +1399,12 @@ function baseIsNaN(value) {
  */
 function strictIndexOf(array, value, fromIndex) {
   var index = fromIndex - 1,
-      length = array.length;
+	  length = array.length;
 
   while (++index < length) {
-    if (array[index] === value) {
-      return index;
-    }
+	if (array[index] === value) {
+	  return index;
+	}
   }
   return -1;
 }
@@ -1420,8 +1420,8 @@ function strictIndexOf(array, value, fromIndex) {
  */
 function baseIndexOf(array, value, fromIndex) {
   return value === value
-    ? strictIndexOf(array, value, fromIndex)
-    : baseFindIndex(array, baseIsNaN, fromIndex);
+	? strictIndexOf(array, value, fromIndex)
+	: baseFindIndex(array, baseIsNaN, fromIndex);
 }
 
 /**
@@ -1450,10 +1450,10 @@ function baseIndexOf(array, value, fromIndex) {
  * defined by that property, i.e. can be used when specifying requirements for
  * other tasks. The function receives one or two arguments:
  * * a `results` object, containing the results of the previously executed
- *   functions, only passed if the task has any dependencies,
+ *	 functions, only passed if the task has any dependencies,
  * * a `callback(err, result)` function, which must be called when finished,
- *   passing an `error` (which can be `null`) and the result of the function's
- *   execution.
+ *	 passing an `error` (which can be `null`) and the result of the function's
+ *	 execution.
  * @param {number} [concurrency=Infinity] - An optional `integer` for
  * determining the maximum number of tasks that can be run in parallel. By
  * default, as many as possible.
@@ -1466,201 +1466,201 @@ function baseIndexOf(array, value, fromIndex) {
  * @example
  *
  * async.auto({
- *     // this function will just be passed a callback
- *     readData: async.apply(fs.readFile, 'data.txt', 'utf-8'),
- *     showData: ['readData', function(results, cb) {
- *         // results.readData is the file's contents
- *         // ...
- *     }]
+ *	   // this function will just be passed a callback
+ *	   readData: async.apply(fs.readFile, 'data.txt', 'utf-8'),
+ *	   showData: ['readData', function(results, cb) {
+ *		   // results.readData is the file's contents
+ *		   // ...
+ *	   }]
  * }, callback);
  *
  * async.auto({
- *     get_data: function(callback) {
- *         console.log('in get_data');
- *         // async code to get some data
- *         callback(null, 'data', 'converted to array');
- *     },
- *     make_folder: function(callback) {
- *         console.log('in make_folder');
- *         // async code to create a directory to store a file in
- *         // this is run at the same time as getting the data
- *         callback(null, 'folder');
- *     },
- *     write_file: ['get_data', 'make_folder', function(results, callback) {
- *         console.log('in write_file', JSON.stringify(results));
- *         // once there is some data and the directory exists,
- *         // write the data to a file in the directory
- *         callback(null, 'filename');
- *     }],
- *     email_link: ['write_file', function(results, callback) {
- *         console.log('in email_link', JSON.stringify(results));
- *         // once the file is written let's email a link to it...
- *         // results.write_file contains the filename returned by write_file.
- *         callback(null, {'file':results.write_file, 'email':'user@example.com'});
- *     }]
+ *	   get_data: function(callback) {
+ *		   console.log('in get_data');
+ *		   // async code to get some data
+ *		   callback(null, 'data', 'converted to array');
+ *	   },
+ *	   make_folder: function(callback) {
+ *		   console.log('in make_folder');
+ *		   // async code to create a directory to store a file in
+ *		   // this is run at the same time as getting the data
+ *		   callback(null, 'folder');
+ *	   },
+ *	   write_file: ['get_data', 'make_folder', function(results, callback) {
+ *		   console.log('in write_file', JSON.stringify(results));
+ *		   // once there is some data and the directory exists,
+ *		   // write the data to a file in the directory
+ *		   callback(null, 'filename');
+ *	   }],
+ *	   email_link: ['write_file', function(results, callback) {
+ *		   console.log('in email_link', JSON.stringify(results));
+ *		   // once the file is written let's email a link to it...
+ *		   // results.write_file contains the filename returned by write_file.
+ *		   callback(null, {'file':results.write_file, 'email':'user@example.com'});
+ *	   }]
  * }, function(err, results) {
- *     console.log('err = ', err);
- *     console.log('results = ', results);
+ *	   console.log('err = ', err);
+ *	   console.log('results = ', results);
  * });
  */
 var auto = function (tasks, concurrency, callback) {
-    if (typeof concurrency === 'function') {
-        // concurrency is optional, shift the args.
-        callback = concurrency;
-        concurrency = null;
-    }
-    callback = once(callback || noop);
-    var keys$$1 = keys(tasks);
-    var numTasks = keys$$1.length;
-    if (!numTasks) {
-        return callback(null);
-    }
-    if (!concurrency) {
-        concurrency = numTasks;
-    }
+	if (typeof concurrency === 'function') {
+		// concurrency is optional, shift the args.
+		callback = concurrency;
+		concurrency = null;
+	}
+	callback = once(callback || noop);
+	var keys$$1 = keys(tasks);
+	var numTasks = keys$$1.length;
+	if (!numTasks) {
+		return callback(null);
+	}
+	if (!concurrency) {
+		concurrency = numTasks;
+	}
 
-    var results = {};
-    var runningTasks = 0;
-    var hasError = false;
+	var results = {};
+	var runningTasks = 0;
+	var hasError = false;
 
-    var listeners = {};
+	var listeners = {};
 
-    var readyTasks = [];
+	var readyTasks = [];
 
-    // for cycle detection:
-    var readyToCheck = []; // tasks that have been identified as reachable
-    // without the possibility of returning to an ancestor task
-    var uncheckedDependencies = {};
+	// for cycle detection:
+	var readyToCheck = []; // tasks that have been identified as reachable
+	// without the possibility of returning to an ancestor task
+	var uncheckedDependencies = {};
 
-    baseForOwn(tasks, function (task, key) {
-        if (!isArray(task)) {
-            // no dependencies
-            enqueueTask(key, [task]);
-            readyToCheck.push(key);
-            return;
-        }
+	baseForOwn(tasks, function (task, key) {
+		if (!isArray(task)) {
+			// no dependencies
+			enqueueTask(key, [task]);
+			readyToCheck.push(key);
+			return;
+		}
 
-        var dependencies = task.slice(0, task.length - 1);
-        var remainingDependencies = dependencies.length;
-        if (remainingDependencies === 0) {
-            enqueueTask(key, task);
-            readyToCheck.push(key);
-            return;
-        }
-        uncheckedDependencies[key] = remainingDependencies;
+		var dependencies = task.slice(0, task.length - 1);
+		var remainingDependencies = dependencies.length;
+		if (remainingDependencies === 0) {
+			enqueueTask(key, task);
+			readyToCheck.push(key);
+			return;
+		}
+		uncheckedDependencies[key] = remainingDependencies;
 
-        arrayEach(dependencies, function (dependencyName) {
-            if (!tasks[dependencyName]) {
-                throw new Error('async.auto task `' + key + '` has a non-existent dependency in ' + dependencies.join(', '));
-            }
-            addListener(dependencyName, function () {
-                remainingDependencies--;
-                if (remainingDependencies === 0) {
-                    enqueueTask(key, task);
-                }
-            });
-        });
-    });
+		arrayEach(dependencies, function (dependencyName) {
+			if (!tasks[dependencyName]) {
+				throw new Error('async.auto task `' + key + '` has a non-existent dependency in ' + dependencies.join(', '));
+			}
+			addListener(dependencyName, function () {
+				remainingDependencies--;
+				if (remainingDependencies === 0) {
+					enqueueTask(key, task);
+				}
+			});
+		});
+	});
 
-    checkForDeadlocks();
-    processQueue();
+	checkForDeadlocks();
+	processQueue();
 
-    function enqueueTask(key, task) {
-        readyTasks.push(function () {
-            runTask(key, task);
-        });
-    }
+	function enqueueTask(key, task) {
+		readyTasks.push(function () {
+			runTask(key, task);
+		});
+	}
 
-    function processQueue() {
-        if (readyTasks.length === 0 && runningTasks === 0) {
-            return callback(null, results);
-        }
-        while (readyTasks.length && runningTasks < concurrency) {
-            var run = readyTasks.shift();
-            run();
-        }
-    }
+	function processQueue() {
+		if (readyTasks.length === 0 && runningTasks === 0) {
+			return callback(null, results);
+		}
+		while (readyTasks.length && runningTasks < concurrency) {
+			var run = readyTasks.shift();
+			run();
+		}
+	}
 
-    function addListener(taskName, fn) {
-        var taskListeners = listeners[taskName];
-        if (!taskListeners) {
-            taskListeners = listeners[taskName] = [];
-        }
+	function addListener(taskName, fn) {
+		var taskListeners = listeners[taskName];
+		if (!taskListeners) {
+			taskListeners = listeners[taskName] = [];
+		}
 
-        taskListeners.push(fn);
-    }
+		taskListeners.push(fn);
+	}
 
-    function taskComplete(taskName) {
-        var taskListeners = listeners[taskName] || [];
-        arrayEach(taskListeners, function (fn) {
-            fn();
-        });
-        processQueue();
-    }
+	function taskComplete(taskName) {
+		var taskListeners = listeners[taskName] || [];
+		arrayEach(taskListeners, function (fn) {
+			fn();
+		});
+		processQueue();
+	}
 
-    function runTask(key, task) {
-        if (hasError) return;
+	function runTask(key, task) {
+		if (hasError) return;
 
-        var taskCallback = onlyOnce(rest(function (err, args) {
-            runningTasks--;
-            if (args.length <= 1) {
-                args = args[0];
-            }
-            if (err) {
-                var safeResults = {};
-                baseForOwn(results, function (val, rkey) {
-                    safeResults[rkey] = val;
-                });
-                safeResults[key] = args;
-                hasError = true;
-                listeners = [];
+		var taskCallback = onlyOnce(rest(function (err, args) {
+			runningTasks--;
+			if (args.length <= 1) {
+				args = args[0];
+			}
+			if (err) {
+				var safeResults = {};
+				baseForOwn(results, function (val, rkey) {
+					safeResults[rkey] = val;
+				});
+				safeResults[key] = args;
+				hasError = true;
+				listeners = [];
 
-                callback(err, safeResults);
-            } else {
-                results[key] = args;
-                taskComplete(key);
-            }
-        }));
+				callback(err, safeResults);
+			} else {
+				results[key] = args;
+				taskComplete(key);
+			}
+		}));
 
-        runningTasks++;
-        var taskFn = task[task.length - 1];
-        if (task.length > 1) {
-            taskFn(results, taskCallback);
-        } else {
-            taskFn(taskCallback);
-        }
-    }
+		runningTasks++;
+		var taskFn = task[task.length - 1];
+		if (task.length > 1) {
+			taskFn(results, taskCallback);
+		} else {
+			taskFn(taskCallback);
+		}
+	}
 
-    function checkForDeadlocks() {
-        // Kahn's algorithm
-        // https://en.wikipedia.org/wiki/Topological_sorting#Kahn.27s_algorithm
-        // http://connalle.blogspot.com/2013/10/topological-sortingkahn-algorithm.html
-        var currentTask;
-        var counter = 0;
-        while (readyToCheck.length) {
-            currentTask = readyToCheck.pop();
-            counter++;
-            arrayEach(getDependents(currentTask), function (dependent) {
-                if (--uncheckedDependencies[dependent] === 0) {
-                    readyToCheck.push(dependent);
-                }
-            });
-        }
+	function checkForDeadlocks() {
+		// Kahn's algorithm
+		// https://en.wikipedia.org/wiki/Topological_sorting#Kahn.27s_algorithm
+		// http://connalle.blogspot.com/2013/10/topological-sortingkahn-algorithm.html
+		var currentTask;
+		var counter = 0;
+		while (readyToCheck.length) {
+			currentTask = readyToCheck.pop();
+			counter++;
+			arrayEach(getDependents(currentTask), function (dependent) {
+				if (--uncheckedDependencies[dependent] === 0) {
+					readyToCheck.push(dependent);
+				}
+			});
+		}
 
-        if (counter !== numTasks) {
-            throw new Error('async.auto cannot execute tasks due to a recursive dependency');
-        }
-    }
+		if (counter !== numTasks) {
+			throw new Error('async.auto cannot execute tasks due to a recursive dependency');
+		}
+	}
 
-    function getDependents(taskName) {
-        var result = [];
-        baseForOwn(tasks, function (task, key) {
-            if (isArray(task) && baseIndexOf(task, taskName, 0) >= 0) {
-                result.push(key);
-            }
-        });
-        return result;
-    }
+	function getDependents(taskName) {
+		var result = [];
+		baseForOwn(tasks, function (task, key) {
+			if (isArray(task) && baseIndexOf(task, taskName, 0) >= 0) {
+				result.push(key);
+			}
+		});
+		return result;
+	}
 };
 
 /**
@@ -1674,11 +1674,11 @@ var auto = function (tasks, concurrency, callback) {
  */
 function arrayMap(array, iteratee) {
   var index = -1,
-      length = array == null ? 0 : array.length,
-      result = Array(length);
+	  length = array == null ? 0 : array.length,
+	  result = Array(length);
 
   while (++index < length) {
-    result[index] = iteratee(array[index], index, array);
+	result[index] = iteratee(array[index], index, array);
   }
   return result;
 }
@@ -1705,7 +1705,7 @@ var symbolTag = '[object Symbol]';
  */
 function isSymbol(value) {
   return typeof value == 'symbol' ||
-    (isObjectLike(value) && baseGetTag(value) == symbolTag);
+	(isObjectLike(value) && baseGetTag(value) == symbolTag);
 }
 
 /** Used as references for various `Number` constants. */
@@ -1726,14 +1726,14 @@ var symbolToString = symbolProto ? symbolProto.toString : undefined;
 function baseToString(value) {
   // Exit early for strings to avoid a performance hit in some environments.
   if (typeof value == 'string') {
-    return value;
+	return value;
   }
   if (isArray(value)) {
-    // Recursively convert values (susceptible to call stack limits).
-    return arrayMap(value, baseToString) + '';
+	// Recursively convert values (susceptible to call stack limits).
+	return arrayMap(value, baseToString) + '';
   }
   if (isSymbol(value)) {
-    return symbolToString ? symbolToString.call(value) : '';
+	return symbolToString ? symbolToString.call(value) : '';
   }
   var result = (value + '');
   return (result == '0' && (1 / value) == -INFINITY) ? '-0' : result;
@@ -1750,21 +1750,21 @@ function baseToString(value) {
  */
 function baseSlice(array, start, end) {
   var index = -1,
-      length = array.length;
+	  length = array.length;
 
   if (start < 0) {
-    start = -start > length ? 0 : (length + start);
+	start = -start > length ? 0 : (length + start);
   }
   end = end > length ? length : end;
   if (end < 0) {
-    end += length;
+	end += length;
   }
   length = start > end ? 0 : ((end - start) >>> 0);
   start >>>= 0;
 
   var result = Array(length);
   while (++index < length) {
-    result[index] = array[index + start];
+	result[index] = array[index + start];
   }
   return result;
 }
@@ -1811,7 +1811,7 @@ function charsEndIndex(strSymbols, chrSymbols) {
  */
 function charsStartIndex(strSymbols, chrSymbols) {
   var index = -1,
-      length = strSymbols.length;
+	  length = strSymbols.length;
 
   while (++index < length && baseIndexOf(chrSymbols, strSymbols[index], 0) > -1) {}
   return index;
@@ -1897,8 +1897,8 @@ function unicodeToArray(string) {
  */
 function stringToArray(string) {
   return hasUnicode(string)
-    ? unicodeToArray(string)
-    : asciiToArray(string);
+	? unicodeToArray(string)
+	: asciiToArray(string);
 }
 
 /**
@@ -1948,21 +1948,21 @@ var reTrim = /^\s+|\s+$/g;
  * _.trim('-_-abc-_-', '_-');
  * // => 'abc'
  *
- * _.map(['  foo  ', '  bar  '], _.trim);
+ * _.map(['  foo  ', '	bar  '], _.trim);
  * // => ['foo', 'bar']
  */
 function trim(string, chars, guard) {
   string = toString(string);
   if (string && (guard || chars === undefined)) {
-    return string.replace(reTrim, '');
+	return string.replace(reTrim, '');
   }
   if (!string || !(chars = baseToString(chars))) {
-    return string;
+	return string;
   }
   var strSymbols = stringToArray(string),
-      chrSymbols = stringToArray(chars),
-      start = charsStartIndex(strSymbols, chrSymbols),
-      end = charsEndIndex(strSymbols, chrSymbols) + 1;
+	  chrSymbols = stringToArray(chars),
+	  start = charsStartIndex(strSymbols, chrSymbols),
+	  end = charsEndIndex(strSymbols, chrSymbols) + 1;
 
   return castSlice(strSymbols, start, end).join('');
 }
@@ -1973,13 +1973,13 @@ var FN_ARG = /(=.+)?(\s*)$/;
 var STRIP_COMMENTS = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg;
 
 function parseParams(func) {
-    func = func.toString().replace(STRIP_COMMENTS, '');
-    func = func.match(FN_ARGS)[2].replace(' ', '');
-    func = func ? func.split(FN_ARG_SPLIT) : [];
-    func = func.map(function (arg) {
-        return trim(arg.replace(FN_ARG, ''));
-    });
-    return func;
+	func = func.toString().replace(STRIP_COMMENTS, '');
+	func = func.match(FN_ARGS)[2].replace(' ', '');
+	func = func ? func.split(FN_ARG_SPLIT) : [];
+	func = func.map(function (arg) {
+		return trim(arg.replace(FN_ARG, ''));
+	});
+	return func;
 }
 
 /**
@@ -2006,10 +2006,10 @@ function parseParams(func) {
  * serves as the name of the task defined by that property, i.e. can be used
  * when specifying requirements for other tasks.
  * * The `callback` parameter is a `callback(err, result)` which must be called
- *   when finished, passing an `error` (which can be `null`) and the result of
- *   the function's execution. The remaining parameters name other tasks on
- *   which the task is dependent, and the results from those tasks are the
- *   arguments of those parameters.
+ *	 when finished, passing an `error` (which can be `null`) and the result of
+ *	 the function's execution. The remaining parameters name other tasks on
+ *	 which the task is dependent, and the results from those tasks are the
+ *	 arguments of those parameters.
  * @param {Function} [callback] - An optional callback which is called when all
  * the tasks have been completed. It receives the `err` argument if any `tasks`
  * pass an error to their callback, and a `results` object with any completed
@@ -2018,112 +2018,112 @@ function parseParams(func) {
  *
  * //  The example from `auto` can be rewritten as follows:
  * async.autoInject({
- *     get_data: function(callback) {
- *         // async code to get some data
- *         callback(null, 'data', 'converted to array');
- *     },
- *     make_folder: function(callback) {
- *         // async code to create a directory to store a file in
- *         // this is run at the same time as getting the data
- *         callback(null, 'folder');
- *     },
- *     write_file: function(get_data, make_folder, callback) {
- *         // once there is some data and the directory exists,
- *         // write the data to a file in the directory
- *         callback(null, 'filename');
- *     },
- *     email_link: function(write_file, callback) {
- *         // once the file is written let's email a link to it...
- *         // write_file contains the filename returned by write_file.
- *         callback(null, {'file':write_file, 'email':'user@example.com'});
- *     }
+ *	   get_data: function(callback) {
+ *		   // async code to get some data
+ *		   callback(null, 'data', 'converted to array');
+ *	   },
+ *	   make_folder: function(callback) {
+ *		   // async code to create a directory to store a file in
+ *		   // this is run at the same time as getting the data
+ *		   callback(null, 'folder');
+ *	   },
+ *	   write_file: function(get_data, make_folder, callback) {
+ *		   // once there is some data and the directory exists,
+ *		   // write the data to a file in the directory
+ *		   callback(null, 'filename');
+ *	   },
+ *	   email_link: function(write_file, callback) {
+ *		   // once the file is written let's email a link to it...
+ *		   // write_file contains the filename returned by write_file.
+ *		   callback(null, {'file':write_file, 'email':'user@example.com'});
+ *	   }
  * }, function(err, results) {
- *     console.log('err = ', err);
- *     console.log('email_link = ', results.email_link);
+ *	   console.log('err = ', err);
+ *	   console.log('email_link = ', results.email_link);
  * });
  *
  * // If you are using a JS minifier that mangles parameter names, `autoInject`
  * // will not work with plain functions, since the parameter names will be
- * // collapsed to a single letter identifier.  To work around this, you can
+ * // collapsed to a single letter identifier.	To work around this, you can
  * // explicitly specify the names of the parameters your task function needs
  * // in an array, similar to Angular.js dependency injection.
  *
  * // This still has an advantage over plain `auto`, since the results a task
  * // depends on are still spread into arguments.
  * async.autoInject({
- *     //...
- *     write_file: ['get_data', 'make_folder', function(get_data, make_folder, callback) {
- *         callback(null, 'filename');
- *     }],
- *     email_link: ['write_file', function(write_file, callback) {
- *         callback(null, {'file':write_file, 'email':'user@example.com'});
- *     }]
- *     //...
+ *	   //...
+ *	   write_file: ['get_data', 'make_folder', function(get_data, make_folder, callback) {
+ *		   callback(null, 'filename');
+ *	   }],
+ *	   email_link: ['write_file', function(write_file, callback) {
+ *		   callback(null, {'file':write_file, 'email':'user@example.com'});
+ *	   }]
+ *	   //...
  * }, function(err, results) {
- *     console.log('err = ', err);
- *     console.log('email_link = ', results.email_link);
+ *	   console.log('err = ', err);
+ *	   console.log('email_link = ', results.email_link);
  * });
  */
 function autoInject(tasks, callback) {
-    var newTasks = {};
+	var newTasks = {};
 
-    baseForOwn(tasks, function (taskFn, key) {
-        var params;
+	baseForOwn(tasks, function (taskFn, key) {
+		var params;
 
-        if (isArray(taskFn)) {
-            params = taskFn.slice(0, -1);
-            taskFn = taskFn[taskFn.length - 1];
+		if (isArray(taskFn)) {
+			params = taskFn.slice(0, -1);
+			taskFn = taskFn[taskFn.length - 1];
 
-            newTasks[key] = params.concat(params.length > 0 ? newTask : taskFn);
-        } else if (taskFn.length === 1) {
-            // no dependencies, use the function as-is
-            newTasks[key] = taskFn;
-        } else {
-            params = parseParams(taskFn);
-            if (taskFn.length === 0 && params.length === 0) {
-                throw new Error("autoInject task functions require explicit parameters.");
-            }
+			newTasks[key] = params.concat(params.length > 0 ? newTask : taskFn);
+		} else if (taskFn.length === 1) {
+			// no dependencies, use the function as-is
+			newTasks[key] = taskFn;
+		} else {
+			params = parseParams(taskFn);
+			if (taskFn.length === 0 && params.length === 0) {
+				throw new Error("autoInject task functions require explicit parameters.");
+			}
 
-            params.pop();
+			params.pop();
 
-            newTasks[key] = params.concat(newTask);
-        }
+			newTasks[key] = params.concat(newTask);
+		}
 
-        function newTask(results, taskCb) {
-            var newArgs = arrayMap(params, function (name) {
-                return results[name];
-            });
-            newArgs.push(taskCb);
-            taskFn.apply(null, newArgs);
-        }
-    });
+		function newTask(results, taskCb) {
+			var newArgs = arrayMap(params, function (name) {
+				return results[name];
+			});
+			newArgs.push(taskCb);
+			taskFn.apply(null, newArgs);
+		}
+	});
 
-    auto(newTasks, callback);
+	auto(newTasks, callback);
 }
 
 var hasSetImmediate = typeof setImmediate === 'function' && setImmediate;
 var hasNextTick = typeof process === 'object' && typeof process.nextTick === 'function';
 
 function fallback(fn) {
-    setTimeout(fn, 0);
+	setTimeout(fn, 0);
 }
 
 function wrap(defer) {
-    return rest(function (fn, args) {
-        defer(function () {
-            fn.apply(null, args);
-        });
-    });
+	return rest(function (fn, args) {
+		defer(function () {
+			fn.apply(null, args);
+		});
+	});
 }
 
 var _defer;
 
 if (hasSetImmediate) {
-    _defer = setImmediate;
+	_defer = setImmediate;
 } else if (hasNextTick) {
-    _defer = process.nextTick;
+	_defer = process.nextTick;
 } else {
-    _defer = fallback;
+	_defer = fallback;
 }
 
 var setImmediate$1 = wrap(_defer);
@@ -2133,203 +2133,203 @@ var setImmediate$1 = wrap(_defer);
 // to adjust the next and last properties. We implement only the minimal functionality
 // for queue support.
 function DLL() {
-    this.head = this.tail = null;
-    this.length = 0;
+	this.head = this.tail = null;
+	this.length = 0;
 }
 
 function setInitial(dll, node) {
-    dll.length = 1;
-    dll.head = dll.tail = node;
+	dll.length = 1;
+	dll.head = dll.tail = node;
 }
 
 DLL.prototype.removeLink = function (node) {
-    if (node.prev) node.prev.next = node.next;else this.head = node.next;
-    if (node.next) node.next.prev = node.prev;else this.tail = node.prev;
+	if (node.prev) node.prev.next = node.next;else this.head = node.next;
+	if (node.next) node.next.prev = node.prev;else this.tail = node.prev;
 
-    node.prev = node.next = null;
-    this.length -= 1;
-    return node;
+	node.prev = node.next = null;
+	this.length -= 1;
+	return node;
 };
 
 DLL.prototype.empty = DLL;
 
 DLL.prototype.insertAfter = function (node, newNode) {
-    newNode.prev = node;
-    newNode.next = node.next;
-    if (node.next) node.next.prev = newNode;else this.tail = newNode;
-    node.next = newNode;
-    this.length += 1;
+	newNode.prev = node;
+	newNode.next = node.next;
+	if (node.next) node.next.prev = newNode;else this.tail = newNode;
+	node.next = newNode;
+	this.length += 1;
 };
 
 DLL.prototype.insertBefore = function (node, newNode) {
-    newNode.prev = node.prev;
-    newNode.next = node;
-    if (node.prev) node.prev.next = newNode;else this.head = newNode;
-    node.prev = newNode;
-    this.length += 1;
+	newNode.prev = node.prev;
+	newNode.next = node;
+	if (node.prev) node.prev.next = newNode;else this.head = newNode;
+	node.prev = newNode;
+	this.length += 1;
 };
 
 DLL.prototype.unshift = function (node) {
-    if (this.head) this.insertBefore(this.head, node);else setInitial(this, node);
+	if (this.head) this.insertBefore(this.head, node);else setInitial(this, node);
 };
 
 DLL.prototype.push = function (node) {
-    if (this.tail) this.insertAfter(this.tail, node);else setInitial(this, node);
+	if (this.tail) this.insertAfter(this.tail, node);else setInitial(this, node);
 };
 
 DLL.prototype.shift = function () {
-    return this.head && this.removeLink(this.head);
+	return this.head && this.removeLink(this.head);
 };
 
 DLL.prototype.pop = function () {
-    return this.tail && this.removeLink(this.tail);
+	return this.tail && this.removeLink(this.tail);
 };
 
 function queue(worker, concurrency, payload) {
-    if (concurrency == null) {
-        concurrency = 1;
-    } else if (concurrency === 0) {
-        throw new Error('Concurrency must not be zero');
-    }
+	if (concurrency == null) {
+		concurrency = 1;
+	} else if (concurrency === 0) {
+		throw new Error('Concurrency must not be zero');
+	}
 
-    function _insert(data, insertAtFront, callback) {
-        if (callback != null && typeof callback !== 'function') {
-            throw new Error('task callback must be a function');
-        }
-        q.started = true;
-        if (!isArray(data)) {
-            data = [data];
-        }
-        if (data.length === 0 && q.idle()) {
-            // call drain immediately if there are no tasks
-            return setImmediate$1(function () {
-                q.drain();
-            });
-        }
+	function _insert(data, insertAtFront, callback) {
+		if (callback != null && typeof callback !== 'function') {
+			throw new Error('task callback must be a function');
+		}
+		q.started = true;
+		if (!isArray(data)) {
+			data = [data];
+		}
+		if (data.length === 0 && q.idle()) {
+			// call drain immediately if there are no tasks
+			return setImmediate$1(function () {
+				q.drain();
+			});
+		}
 
-        for (var i = 0, l = data.length; i < l; i++) {
-            var item = {
-                data: data[i],
-                callback: callback || noop
-            };
+		for (var i = 0, l = data.length; i < l; i++) {
+			var item = {
+				data: data[i],
+				callback: callback || noop
+			};
 
-            if (insertAtFront) {
-                q._tasks.unshift(item);
-            } else {
-                q._tasks.push(item);
-            }
-        }
-        setImmediate$1(q.process);
-    }
+			if (insertAtFront) {
+				q._tasks.unshift(item);
+			} else {
+				q._tasks.push(item);
+			}
+		}
+		setImmediate$1(q.process);
+	}
 
-    function _next(tasks) {
-        return rest(function (args) {
-            workers -= 1;
+	function _next(tasks) {
+		return rest(function (args) {
+			workers -= 1;
 
-            for (var i = 0, l = tasks.length; i < l; i++) {
-                var task = tasks[i];
-                var index = baseIndexOf(workersList, task, 0);
-                if (index >= 0) {
-                    workersList.splice(index);
-                }
+			for (var i = 0, l = tasks.length; i < l; i++) {
+				var task = tasks[i];
+				var index = baseIndexOf(workersList, task, 0);
+				if (index >= 0) {
+					workersList.splice(index);
+				}
 
-                task.callback.apply(task, args);
+				task.callback.apply(task, args);
 
-                if (args[0] != null) {
-                    q.error(args[0], task.data);
-                }
-            }
+				if (args[0] != null) {
+					q.error(args[0], task.data);
+				}
+			}
 
-            if (workers <= q.concurrency - q.buffer) {
-                q.unsaturated();
-            }
+			if (workers <= q.concurrency - q.buffer) {
+				q.unsaturated();
+			}
 
-            if (q.idle()) {
-                q.drain();
-            }
-            q.process();
-        });
-    }
+			if (q.idle()) {
+				q.drain();
+			}
+			q.process();
+		});
+	}
 
-    var workers = 0;
-    var workersList = [];
-    var q = {
-        _tasks: new DLL(),
-        concurrency: concurrency,
-        payload: payload,
-        saturated: noop,
-        unsaturated: noop,
-        buffer: concurrency / 4,
-        empty: noop,
-        drain: noop,
-        error: noop,
-        started: false,
-        paused: false,
-        push: function (data, callback) {
-            _insert(data, false, callback);
-        },
-        kill: function () {
-            q.drain = noop;
-            q._tasks.empty();
-        },
-        unshift: function (data, callback) {
-            _insert(data, true, callback);
-        },
-        process: function () {
-            while (!q.paused && workers < q.concurrency && q._tasks.length) {
-                var tasks = [],
-                    data = [];
-                var l = q._tasks.length;
-                if (q.payload) l = Math.min(l, q.payload);
-                for (var i = 0; i < l; i++) {
-                    var node = q._tasks.shift();
-                    tasks.push(node);
-                    data.push(node.data);
-                }
+	var workers = 0;
+	var workersList = [];
+	var q = {
+		_tasks: new DLL(),
+		concurrency: concurrency,
+		payload: payload,
+		saturated: noop,
+		unsaturated: noop,
+		buffer: concurrency / 4,
+		empty: noop,
+		drain: noop,
+		error: noop,
+		started: false,
+		paused: false,
+		push: function (data, callback) {
+			_insert(data, false, callback);
+		},
+		kill: function () {
+			q.drain = noop;
+			q._tasks.empty();
+		},
+		unshift: function (data, callback) {
+			_insert(data, true, callback);
+		},
+		process: function () {
+			while (!q.paused && workers < q.concurrency && q._tasks.length) {
+				var tasks = [],
+					data = [];
+				var l = q._tasks.length;
+				if (q.payload) l = Math.min(l, q.payload);
+				for (var i = 0; i < l; i++) {
+					var node = q._tasks.shift();
+					tasks.push(node);
+					data.push(node.data);
+				}
 
-                if (q._tasks.length === 0) {
-                    q.empty();
-                }
-                workers += 1;
-                workersList.push(tasks[0]);
+				if (q._tasks.length === 0) {
+					q.empty();
+				}
+				workers += 1;
+				workersList.push(tasks[0]);
 
-                if (workers === q.concurrency) {
-                    q.saturated();
-                }
+				if (workers === q.concurrency) {
+					q.saturated();
+				}
 
-                var cb = onlyOnce(_next(tasks));
-                worker(data, cb);
-            }
-        },
-        length: function () {
-            return q._tasks.length;
-        },
-        running: function () {
-            return workers;
-        },
-        workersList: function () {
-            return workersList;
-        },
-        idle: function () {
-            return q._tasks.length + workers === 0;
-        },
-        pause: function () {
-            q.paused = true;
-        },
-        resume: function () {
-            if (q.paused === false) {
-                return;
-            }
-            q.paused = false;
-            var resumeCount = Math.min(q.concurrency, q._tasks.length);
-            // Need to call q.process once per concurrent
-            // worker to preserve full concurrency after pause
-            for (var w = 1; w <= resumeCount; w++) {
-                setImmediate$1(q.process);
-            }
-        }
-    };
-    return q;
+				var cb = onlyOnce(_next(tasks));
+				worker(data, cb);
+			}
+		},
+		length: function () {
+			return q._tasks.length;
+		},
+		running: function () {
+			return workers;
+		},
+		workersList: function () {
+			return workersList;
+		},
+		idle: function () {
+			return q._tasks.length + workers === 0;
+		},
+		pause: function () {
+			q.paused = true;
+		},
+		resume: function () {
+			if (q.paused === false) {
+				return;
+			}
+			q.paused = false;
+			var resumeCount = Math.min(q.concurrency, q._tasks.length);
+			// Need to call q.process once per concurrent
+			// worker to preserve full concurrency after pause
+			for (var w = 1; w <= resumeCount; w++) {
+				setImmediate$1(q.process);
+			}
+		}
+	};
+	return q;
 }
 
 /**
@@ -2393,21 +2393,21 @@ function queue(worker, concurrency, payload) {
  *
  * // create a cargo object with payload 2
  * var cargo = async.cargo(function(tasks, callback) {
- *     for (var i=0; i<tasks.length; i++) {
- *         console.log('hello ' + tasks[i].name);
- *     }
- *     callback();
+ *	   for (var i=0; i<tasks.length; i++) {
+ *		   console.log('hello ' + tasks[i].name);
+ *	   }
+ *	   callback();
  * }, 2);
  *
  * // add some items
  * cargo.push({name: 'foo'}, function(err) {
- *     console.log('finished processing foo');
+ *	   console.log('finished processing foo');
  * });
  * cargo.push({name: 'bar'}, function(err) {
- *     console.log('finished processing bar');
+ *	   console.log('finished processing bar');
  * });
  * cargo.push({name: 'baz'}, function(err) {
- *     console.log('finished processing baz');
+ *	   console.log('finished processing baz');
  * });
  */
 function cargo(worker, payload) {
@@ -2467,24 +2467,24 @@ var eachOfSeries = doLimit(eachOfLimit, 1);
  * @example
  *
  * async.reduce([1,2,3], 0, function(memo, item, callback) {
- *     // pointless async:
- *     process.nextTick(function() {
- *         callback(null, memo + item)
- *     });
+ *	   // pointless async:
+ *	   process.nextTick(function() {
+ *		   callback(null, memo + item)
+ *	   });
  * }, function(err, result) {
- *     // result is now equal to the last value of memo, which is 6
+ *	   // result is now equal to the last value of memo, which is 6
  * });
  */
 function reduce(coll, memo, iteratee, callback) {
-    callback = once(callback || noop);
-    eachOfSeries(coll, function (x, i, callback) {
-        iteratee(memo, x, function (err, v) {
-            memo = v;
-            callback(err);
-        });
-    }, function (err) {
-        callback(err, memo);
-    });
+	callback = once(callback || noop);
+	eachOfSeries(coll, function (x, i, callback) {
+		iteratee(memo, x, function (err, v) {
+			memo = v;
+			callback(err);
+		});
+	}, function (err) {
+		callback(err, memo);
+	});
 }
 
 /**
@@ -2509,41 +2509,41 @@ function reduce(coll, memo, iteratee, callback) {
  * // This example uses `seq` function to avoid overnesting and error
  * // handling clutter.
  * app.get('/cats', function(request, response) {
- *     var User = request.models.User;
- *     async.seq(
- *         _.bind(User.get, User),  // 'User.get' has signature (id, callback(err, data))
- *         function(user, fn) {
- *             user.getCats(fn);      // 'getCats' has signature (callback(err, data))
- *         }
- *     )(req.session.user_id, function (err, cats) {
- *         if (err) {
- *             console.error(err);
- *             response.json({ status: 'error', message: err.message });
- *         } else {
- *             response.json({ status: 'ok', message: 'Cats found', data: cats });
- *         }
- *     });
+ *	   var User = request.models.User;
+ *	   async.seq(
+ *		   _.bind(User.get, User),	// 'User.get' has signature (id, callback(err, data))
+ *		   function(user, fn) {
+ *			   user.getCats(fn);	  // 'getCats' has signature (callback(err, data))
+ *		   }
+ *	   )(req.session.user_id, function (err, cats) {
+ *		   if (err) {
+ *			   console.error(err);
+ *			   response.json({ status: 'error', message: err.message });
+ *		   } else {
+ *			   response.json({ status: 'ok', message: 'Cats found', data: cats });
+ *		   }
+ *	   });
  * });
  */
 var seq$1 = rest(function seq(functions) {
-    return rest(function (args) {
-        var that = this;
+	return rest(function (args) {
+		var that = this;
 
-        var cb = args[args.length - 1];
-        if (typeof cb == 'function') {
-            args.pop();
-        } else {
-            cb = noop;
-        }
+		var cb = args[args.length - 1];
+		if (typeof cb == 'function') {
+			args.pop();
+		} else {
+			cb = noop;
+		}
 
-        reduce(functions, args, function (newargs, fn, cb) {
-            fn.apply(that, newargs.concat([rest(function (err, nextargs) {
-                cb(err, nextargs);
-            })]));
-        }, function (err, results) {
-            cb.apply(that, [err].concat(results));
-        });
-    });
+		reduce(functions, args, function (newargs, fn, cb) {
+			fn.apply(that, newargs.concat([rest(function (err, nextargs) {
+				cb(err, nextargs);
+			})]));
+		}, function (err, results) {
+			cb.apply(that, [err].concat(results));
+		});
+	});
 });
 
 /**
@@ -2565,20 +2565,20 @@ var seq$1 = rest(function seq(functions) {
  * @example
  *
  * function add1(n, callback) {
- *     setTimeout(function () {
- *         callback(null, n + 1);
- *     }, 10);
+ *	   setTimeout(function () {
+ *		   callback(null, n + 1);
+ *	   }, 10);
  * }
  *
  * function mul3(n, callback) {
- *     setTimeout(function () {
- *         callback(null, n * 3);
- *     }, 10);
+ *	   setTimeout(function () {
+ *		   callback(null, n * 3);
+ *	   }, 10);
  * }
  *
  * var add1mul3 = async.compose(mul3, add1);
  * add1mul3(4, function (err, result) {
- *     // result now equals 15
+ *	   // result now equals 15
  * });
  */
 var compose = rest(function (args) {
@@ -2586,15 +2586,15 @@ var compose = rest(function (args) {
 });
 
 function concat$1(eachfn, arr, fn, callback) {
-    var result = [];
-    eachfn(arr, function (x, index, cb) {
-        fn(x, function (err, y) {
-            result = result.concat(y || []);
-            cb(err);
-        });
-    }, function (err) {
-        callback(err, result);
-    });
+	var result = [];
+	eachfn(arr, function (x, index, cb) {
+		fn(x, function (err, y) {
+			result = result.concat(y || []);
+			cb(err);
+		});
+	}, function (err) {
+		callback(err, result);
+	});
 }
 
 /**
@@ -2621,15 +2621,15 @@ function concat$1(eachfn, arr, fn, callback) {
  * @example
  *
  * async.concat(['dir1','dir2','dir3'], fs.readdir, function(err, files) {
- *     // files is now a list of filenames that exist in the 3 directories
+ *	   // files is now a list of filenames that exist in the 3 directories
  * });
  */
 var concat = doParallel(concat$1);
 
 function doSeries(fn) {
-    return function (obj, iteratee, callback) {
-        return fn(eachOfSeries, obj, iteratee, callback);
-    };
+	return function (obj, iteratee, callback) {
+		return fn(eachOfSeries, obj, iteratee, callback);
+	};
 }
 
 /**
@@ -2670,73 +2670,73 @@ var concatSeries = doSeries(concat$1);
  * @example
  *
  * async.waterfall([
- *     async.constant(42),
- *     function (value, next) {
- *         // value === 42
- *     },
- *     //...
+ *	   async.constant(42),
+ *	   function (value, next) {
+ *		   // value === 42
+ *	   },
+ *	   //...
  * ], callback);
  *
  * async.waterfall([
- *     async.constant(filename, "utf8"),
- *     fs.readFile,
- *     function (fileData, next) {
- *         //...
- *     }
- *     //...
+ *	   async.constant(filename, "utf8"),
+ *	   fs.readFile,
+ *	   function (fileData, next) {
+ *		   //...
+ *	   }
+ *	   //...
  * ], callback);
  *
  * async.auto({
- *     hostname: async.constant("https://server.net/"),
- *     port: findFreePort,
- *     launchServer: ["hostname", "port", function (options, cb) {
- *         startServer(options, cb);
- *     }],
- *     //...
+ *	   hostname: async.constant("https://server.net/"),
+ *	   port: findFreePort,
+ *	   launchServer: ["hostname", "port", function (options, cb) {
+ *		   startServer(options, cb);
+ *	   }],
+ *	   //...
  * }, callback);
  */
 var constant = rest(function (values) {
-    var args = [null].concat(values);
-    return initialParams(function (ignoredArgs, callback) {
-        return callback.apply(this, args);
-    });
+	var args = [null].concat(values);
+	return initialParams(function (ignoredArgs, callback) {
+		return callback.apply(this, args);
+	});
 });
 
 function _createTester(eachfn, check, getResult) {
-    return function (arr, limit, iteratee, cb) {
-        function done() {
-            if (cb) {
-                cb(null, getResult(false));
-            }
-        }
-        function wrappedIteratee(x, _, callback) {
-            if (!cb) return callback();
-            iteratee(x, function (err, v) {
-                // Check cb as another iteratee may have resolved with a
-                // value or error since we started this iteratee
-                if (cb && (err || check(v))) {
-                    if (err) cb(err);else cb(err, getResult(true, x));
-                    cb = iteratee = false;
-                    callback(err, breakLoop);
-                } else {
-                    callback();
-                }
-            });
-        }
-        if (arguments.length > 3) {
-            cb = cb || noop;
-            eachfn(arr, limit, wrappedIteratee, done);
-        } else {
-            cb = iteratee;
-            cb = cb || noop;
-            iteratee = limit;
-            eachfn(arr, wrappedIteratee, done);
-        }
-    };
+	return function (arr, limit, iteratee, cb) {
+		function done() {
+			if (cb) {
+				cb(null, getResult(false));
+			}
+		}
+		function wrappedIteratee(x, _, callback) {
+			if (!cb) return callback();
+			iteratee(x, function (err, v) {
+				// Check cb as another iteratee may have resolved with a
+				// value or error since we started this iteratee
+				if (cb && (err || check(v))) {
+					if (err) cb(err);else cb(err, getResult(true, x));
+					cb = iteratee = false;
+					callback(err, breakLoop);
+				} else {
+					callback();
+				}
+			});
+		}
+		if (arguments.length > 3) {
+			cb = cb || noop;
+			eachfn(arr, limit, wrappedIteratee, done);
+		} else {
+			cb = iteratee;
+			cb = cb || noop;
+			iteratee = limit;
+			eachfn(arr, wrappedIteratee, done);
+		}
+	};
 }
 
 function _findGetResult(v, x) {
-    return x;
+	return x;
 }
 
 /**
@@ -2767,11 +2767,11 @@ function _findGetResult(v, x) {
  * @example
  *
  * async.detect(['file1','file2','file3'], function(filePath, callback) {
- *     fs.access(filePath, function(err) {
- *         callback(null, !err)
- *     });
+ *	   fs.access(filePath, function(err) {
+ *		   callback(null, !err)
+ *	   });
  * }, function(err, result) {
- *     // result now equals the first file in the list that exists
+ *	   // result now equals the first file in the list that exists
  * });
  */
 var detect = _createTester(eachOf, identity, _findGetResult);
@@ -2823,21 +2823,21 @@ var detectLimit = _createTester(eachOfLimit, identity, _findGetResult);
 var detectSeries = _createTester(eachOfSeries, identity, _findGetResult);
 
 function consoleFunc(name) {
-    return rest(function (fn, args) {
-        fn.apply(null, args.concat([rest(function (err, args) {
-            if (typeof console === 'object') {
-                if (err) {
-                    if (console.error) {
-                        console.error(err);
-                    }
-                } else if (console[name]) {
-                    arrayEach(args, function (x) {
-                        console[name](x);
-                    });
-                }
-            }
-        })]));
-    });
+	return rest(function (fn, args) {
+		fn.apply(null, args.concat([rest(function (err, args) {
+			if (typeof console === 'object') {
+				if (err) {
+					if (console.error) {
+						console.error(err);
+					}
+				} else if (console[name]) {
+					arrayEach(args, function (x) {
+						console[name](x);
+					});
+				}
+			}
+		})]));
+	});
 }
 
 /**
@@ -2859,9 +2859,9 @@ function consoleFunc(name) {
  *
  * // in a module
  * var hello = function(name, callback) {
- *     setTimeout(function() {
- *         callback(null, {hello: name});
- *     }, 1000);
+ *	   setTimeout(function() {
+ *		   callback(null, {hello: name});
+ *	   }, 1000);
  * };
  *
  * // in the node repl
@@ -2892,21 +2892,21 @@ var dir = consoleFunc('dir');
  * will be passed an error if one occured, otherwise `null`.
  */
 function doDuring(fn, test, callback) {
-    callback = onlyOnce(callback || noop);
+	callback = onlyOnce(callback || noop);
 
-    var next = rest(function (err, args) {
-        if (err) return callback(err);
-        args.push(check);
-        test.apply(this, args);
-    });
+	var next = rest(function (err, args) {
+		if (err) return callback(err);
+		args.push(check);
+		test.apply(this, args);
+	});
 
-    function check(err, truth) {
-        if (err) return callback(err);
-        if (!truth) return callback(null);
-        fn(next);
-    }
+	function check(err, truth) {
+		if (err) return callback(err);
+		if (!truth) return callback(null);
+		fn(next);
+	}
 
-    check(null, true);
+	check(null, true);
 }
 
 /**
@@ -2933,13 +2933,13 @@ function doDuring(fn, test, callback) {
  * `iteratee`'s callback. Invoked with (err, [results]);
  */
 function doWhilst(iteratee, test, callback) {
-    callback = onlyOnce(callback || noop);
-    var next = rest(function (err, args) {
-        if (err) return callback(err);
-        if (test.apply(this, args)) return iteratee(next);
-        callback.apply(null, [null].concat(args));
-    });
-    iteratee(next);
+	callback = onlyOnce(callback || noop);
+	var next = rest(function (err, args) {
+		if (err) return callback(err);
+		if (test.apply(this, args)) return iteratee(next);
+		callback.apply(null, [null].concat(args));
+	});
+	iteratee(next);
 }
 
 /**
@@ -2963,9 +2963,9 @@ function doWhilst(iteratee, test, callback) {
  * callback. Invoked with (err, [results]);
  */
 function doUntil(fn, test, callback) {
-    doWhilst(fn, function () {
-        return !test.apply(this, arguments);
-    }, callback);
+	doWhilst(fn, function () {
+		return !test.apply(this, arguments);
+	}, callback);
 }
 
 /**
@@ -2993,39 +2993,39 @@ function doUntil(fn, test, callback) {
  * var count = 0;
  *
  * async.during(
- *     function (callback) {
- *         return callback(null, count < 5);
- *     },
- *     function (callback) {
- *         count++;
- *         setTimeout(callback, 1000);
- *     },
- *     function (err) {
- *         // 5 seconds have passed
- *     }
+ *	   function (callback) {
+ *		   return callback(null, count < 5);
+ *	   },
+ *	   function (callback) {
+ *		   count++;
+ *		   setTimeout(callback, 1000);
+ *	   },
+ *	   function (err) {
+ *		   // 5 seconds have passed
+ *	   }
  * );
  */
 function during(test, fn, callback) {
-    callback = onlyOnce(callback || noop);
+	callback = onlyOnce(callback || noop);
 
-    function next(err) {
-        if (err) return callback(err);
-        test(check);
-    }
+	function next(err) {
+		if (err) return callback(err);
+		test(check);
+	}
 
-    function check(err, truth) {
-        if (err) return callback(err);
-        if (!truth) return callback(null);
-        fn(next);
-    }
+	function check(err, truth) {
+		if (err) return callback(err);
+		if (!truth) return callback(null);
+		fn(next);
+	}
 
-    test(check);
+	test(check);
 }
 
 function _withoutIndex(iteratee) {
-    return function (value, index, callback) {
-        return iteratee(value, callback);
-    };
+	return function (value, index, callback) {
+		return iteratee(value, callback);
+	};
 }
 
 /**
@@ -3059,32 +3059,32 @@ function _withoutIndex(iteratee) {
  * // to save the modified contents of that file:
  *
  * async.each(openFiles, saveFile, function(err){
- *   // if any of the saves produced an error, err would equal that error
+ *	 // if any of the saves produced an error, err would equal that error
  * });
  *
  * // assuming openFiles is an array of file names
  * async.each(openFiles, function(file, callback) {
  *
- *     // Perform operation on file here.
- *     console.log('Processing file ' + file);
+ *	   // Perform operation on file here.
+ *	   console.log('Processing file ' + file);
  *
- *     if( file.length > 32 ) {
- *       console.log('This file name is too long');
- *       callback('File name too long');
- *     } else {
- *       // Do work to process file here
- *       console.log('File processed');
- *       callback();
- *     }
+ *	   if( file.length > 32 ) {
+ *		 console.log('This file name is too long');
+ *		 callback('File name too long');
+ *	   } else {
+ *		 // Do work to process file here
+ *		 console.log('File processed');
+ *		 callback();
+ *	   }
  * }, function(err) {
- *     // if any of the file processing produced an error, err would equal that error
- *     if( err ) {
- *       // One of the iterations produced an error.
- *       // All processing will now stop.
- *       console.log('A file failed to process');
- *     } else {
- *       console.log('All files have been processed successfully');
- *     }
+ *	   // if any of the file processing produced an error, err would equal that error
+ *	   if( err ) {
+ *		 // One of the iterations produced an error.
+ *		 // All processing will now stop.
+ *		 console.log('A file failed to process');
+ *	   } else {
+ *		 console.log('All files have been processed successfully');
+ *	   }
  * });
  */
 function eachLimit(coll, iteratee, callback) {
@@ -3140,7 +3140,7 @@ var eachSeries = doLimit(eachLimit$1, 1);
 
 /**
  * Wrap an async function and ensure it calls its callback on a later tick of
- * the event loop.  If the function already calls its callback on a next tick,
+ * the event loop.	If the function already calls its callback on a next tick,
  * no extra deferral is added. This is useful for preventing stack overflows
  * (`RangeError: Maximum call stack size exceeded`) and generally keeping
  * [Zalgo](http://blog.izs.me/post/59142742143/designing-apis-for-asynchrony)
@@ -3158,11 +3158,11 @@ var eachSeries = doLimit(eachLimit$1, 1);
  * @example
  *
  * function sometimesAsync(arg, callback) {
- *     if (cache[arg]) {
- *         return callback(null, cache[arg]); // this would be synchronous!!
- *     } else {
- *         doSomeIO(arg, callback); // this IO would be asynchronous
- *     }
+ *	   if (cache[arg]) {
+ *		   return callback(null, cache[arg]); // this would be synchronous!!
+ *	   } else {
+ *		   doSomeIO(arg, callback); // this IO would be asynchronous
+ *	   }
  * }
  *
  * // this has a risk of stack overflows if many results are cached in a row
@@ -3173,25 +3173,25 @@ var eachSeries = doLimit(eachLimit$1, 1);
  * async.mapSeries(args, async.ensureAsync(sometimesAsync), done);
  */
 function ensureAsync(fn) {
-    return initialParams(function (args, callback) {
-        var sync = true;
-        args.push(function () {
-            var innerArgs = arguments;
-            if (sync) {
-                setImmediate$1(function () {
-                    callback.apply(null, innerArgs);
-                });
-            } else {
-                callback.apply(null, innerArgs);
-            }
-        });
-        fn.apply(this, args);
-        sync = false;
-    });
+	return initialParams(function (args, callback) {
+		var sync = true;
+		args.push(function () {
+			var innerArgs = arguments;
+			if (sync) {
+				setImmediate$1(function () {
+					callback.apply(null, innerArgs);
+				});
+			} else {
+				callback.apply(null, innerArgs);
+			}
+		});
+		fn.apply(this, args);
+		sync = false;
+	});
 }
 
 function notId(v) {
-    return !v;
+	return !v;
 }
 
 /**
@@ -3207,7 +3207,7 @@ function notId(v) {
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
  * @param {Function} iteratee - A truth test to apply to each item in the
  * collection in parallel. The iteratee is passed a `callback(err, truthValue)`
- * which must be called with a  boolean argument once it has completed. Invoked
+ * which must be called with a	boolean argument once it has completed. Invoked
  * with (item, callback).
  * @param {Function} [callback] - A callback which is called after all the
  * `iteratee` functions have finished. Result will be either `true` or `false`
@@ -3215,11 +3215,11 @@ function notId(v) {
  * @example
  *
  * async.every(['file1','file2','file3'], function(filePath, callback) {
- *     fs.access(filePath, function(err) {
- *         callback(null, !err)
- *     });
+ *	   fs.access(filePath, function(err) {
+ *		   callback(null, !err)
+ *	   });
  * }, function(err, result) {
- *     // if result is true then every file exists
+ *	   // if result is true then every file exists
  * });
  */
 var every = _createTester(eachOf, notId, notId);
@@ -3238,7 +3238,7 @@ var every = _createTester(eachOf, notId, notId);
  * @param {number} limit - The maximum number of async operations at a time.
  * @param {Function} iteratee - A truth test to apply to each item in the
  * collection in parallel. The iteratee is passed a `callback(err, truthValue)`
- * which must be called with a  boolean argument once it has completed. Invoked
+ * which must be called with a	boolean argument once it has completed. Invoked
  * with (item, callback).
  * @param {Function} [callback] - A callback which is called after all the
  * `iteratee` functions have finished. Result will be either `true` or `false`
@@ -3259,7 +3259,7 @@ var everyLimit = _createTester(eachOfLimit, notId, notId);
  * @param {Array|Iterable|Object} coll - A collection to iterate over.
  * @param {Function} iteratee - A truth test to apply to each item in the
  * collection in parallel. The iteratee is passed a `callback(err, truthValue)`
- * which must be called with a  boolean argument once it has completed. Invoked
+ * which must be called with a	boolean argument once it has completed. Invoked
  * with (item, callback).
  * @param {Function} [callback] - A callback which is called after all the
  * `iteratee` functions have finished. Result will be either `true` or `false`
@@ -3276,54 +3276,54 @@ var everySeries = doLimit(everyLimit, 1);
  */
 function baseProperty(key) {
   return function(object) {
-    return object == null ? undefined : object[key];
+	return object == null ? undefined : object[key];
   };
 }
 
 function filterArray(eachfn, arr, iteratee, callback) {
-    var truthValues = new Array(arr.length);
-    eachfn(arr, function (x, index, callback) {
-        iteratee(x, function (err, v) {
-            truthValues[index] = !!v;
-            callback(err);
-        });
-    }, function (err) {
-        if (err) return callback(err);
-        var results = [];
-        for (var i = 0; i < arr.length; i++) {
-            if (truthValues[i]) results.push(arr[i]);
-        }
-        callback(null, results);
-    });
+	var truthValues = new Array(arr.length);
+	eachfn(arr, function (x, index, callback) {
+		iteratee(x, function (err, v) {
+			truthValues[index] = !!v;
+			callback(err);
+		});
+	}, function (err) {
+		if (err) return callback(err);
+		var results = [];
+		for (var i = 0; i < arr.length; i++) {
+			if (truthValues[i]) results.push(arr[i]);
+		}
+		callback(null, results);
+	});
 }
 
 function filterGeneric(eachfn, coll, iteratee, callback) {
-    var results = [];
-    eachfn(coll, function (x, index, callback) {
-        iteratee(x, function (err, v) {
-            if (err) {
-                callback(err);
-            } else {
-                if (v) {
-                    results.push({ index: index, value: x });
-                }
-                callback();
-            }
-        });
-    }, function (err) {
-        if (err) {
-            callback(err);
-        } else {
-            callback(null, arrayMap(results.sort(function (a, b) {
-                return a.index - b.index;
-            }), baseProperty('value')));
-        }
-    });
+	var results = [];
+	eachfn(coll, function (x, index, callback) {
+		iteratee(x, function (err, v) {
+			if (err) {
+				callback(err);
+			} else {
+				if (v) {
+					results.push({ index: index, value: x });
+				}
+				callback();
+			}
+		});
+	}, function (err) {
+		if (err) {
+			callback(err);
+		} else {
+			callback(null, arrayMap(results.sort(function (a, b) {
+				return a.index - b.index;
+			}), baseProperty('value')));
+		}
+	});
 }
 
 function _filter(eachfn, coll, iteratee, callback) {
-    var filter = isArrayLike(coll) ? filterArray : filterGeneric;
-    filter(eachfn, coll, iteratee, callback || noop);
+	var filter = isArrayLike(coll) ? filterArray : filterGeneric;
+	filter(eachfn, coll, iteratee, callback || noop);
 }
 
 /**
@@ -3346,11 +3346,11 @@ function _filter(eachfn, coll, iteratee, callback) {
  * @example
  *
  * async.filter(['file1','file2','file3'], function(filePath, callback) {
- *     fs.access(filePath, function(err) {
- *         callback(null, !err)
- *     });
+ *	   fs.access(filePath, function(err) {
+ *		   callback(null, !err)
+ *	   });
  * }, function(err, results) {
- *     // results now equals an array of the existing files
+ *	   // results now equals an array of the existing files
  * });
  */
 var filter = doParallel(_filter);
@@ -3414,25 +3414,25 @@ var filterSeries = doLimit(filterLimit, 1);
  * @example
  *
  * async.forever(
- *     function(next) {
- *         // next is suitable for passing to things that need a callback(err [, whatever]);
- *         // it will result in this function being called again.
- *     },
- *     function(err) {
- *         // if next is called with a value in its first parameter, it will appear
- *         // in here as 'err', and execution will stop.
- *     }
+ *	   function(next) {
+ *		   // next is suitable for passing to things that need a callback(err [, whatever]);
+ *		   // it will result in this function being called again.
+ *	   },
+ *	   function(err) {
+ *		   // if next is called with a value in its first parameter, it will appear
+ *		   // in here as 'err', and execution will stop.
+ *	   }
  * );
  */
 function forever(fn, errback) {
-    var done = onlyOnce(errback || noop);
-    var task = ensureAsync(fn);
+	var done = onlyOnce(errback || noop);
+	var task = ensureAsync(fn);
 
-    function next(err) {
-        if (err) return done(err);
-        task(next);
-    }
-    next();
+	function next(err) {
+		if (err) return done(err);
+		task(next);
+	}
+	next();
 }
 
 /**
@@ -3453,9 +3453,9 @@ function forever(fn, errback) {
  *
  * // in a module
  * var hello = function(name, callback) {
- *     setTimeout(function() {
- *         callback(null, 'hello ' + name);
- *     }, 1000);
+ *	   setTimeout(function() {
+ *		   callback(null, 'hello ' + name);
+ *	   }, 1000);
  * };
  *
  * // in the node repl
@@ -3486,17 +3486,17 @@ var log = consoleFunc('log');
  * Invoked with (err, result).
  */
 function mapValuesLimit(obj, limit, iteratee, callback) {
-    callback = once(callback || noop);
-    var newObj = {};
-    eachOfLimit(obj, limit, function (val, key, next) {
-        iteratee(val, key, function (err, result) {
-            if (err) return next(err);
-            newObj[key] = result;
-            next();
-        });
-    }, function (err) {
-        callback(err, newObj);
-    });
+	callback = once(callback || noop);
+	var newObj = {};
+	eachOfLimit(obj, limit, function (val, key, next) {
+		iteratee(val, key, function (err, result) {
+			if (err) return next(err);
+			newObj[key] = result;
+			next();
+		});
+	}, function (err) {
+		callback(err, newObj);
+	});
 }
 
 /**
@@ -3529,18 +3529,18 @@ function mapValuesLimit(obj, limit, iteratee, callback) {
  * @example
  *
  * async.mapValues({
- *     f1: 'file1',
- *     f2: 'file2',
- *     f3: 'file3'
+ *	   f1: 'file1',
+ *	   f2: 'file2',
+ *	   f3: 'file3'
  * }, function (file, key, callback) {
- *   fs.stat(file, callback);
+ *	 fs.stat(file, callback);
  * }, function(err, result) {
- *     // result is now a map of stats for each file, e.g.
- *     // {
- *     //     f1: [stats for file1],
- *     //     f2: [stats for file2],
- *     //     f3: [stats for file3]
- *     // }
+ *	   // result is now a map of stats for each file, e.g.
+ *	   // {
+ *	   //	  f1: [stats for file1],
+ *	   //	  f2: [stats for file2],
+ *	   //	  f3: [stats for file3]
+ *	   // }
  * });
  */
 
@@ -3568,7 +3568,7 @@ var mapValues = doLimit(mapValuesLimit, Infinity);
 var mapValuesSeries = doLimit(mapValuesLimit, 1);
 
 function has(obj, key) {
-    return key in obj;
+	return key in obj;
 }
 
 /**
@@ -3598,43 +3598,43 @@ function has(obj, key) {
  * @example
  *
  * var slow_fn = function(name, callback) {
- *     // do something
- *     callback(null, result);
+ *	   // do something
+ *	   callback(null, result);
  * };
  * var fn = async.memoize(slow_fn);
  *
  * // fn can now be used as if it were slow_fn
  * fn('some name', function() {
- *     // callback
+ *	   // callback
  * });
  */
 function memoize(fn, hasher) {
-    var memo = Object.create(null);
-    var queues = Object.create(null);
-    hasher = hasher || identity;
-    var memoized = initialParams(function memoized(args, callback) {
-        var key = hasher.apply(null, args);
-        if (has(memo, key)) {
-            setImmediate$1(function () {
-                callback.apply(null, memo[key]);
-            });
-        } else if (has(queues, key)) {
-            queues[key].push(callback);
-        } else {
-            queues[key] = [callback];
-            fn.apply(null, args.concat([rest(function (args) {
-                memo[key] = args;
-                var q = queues[key];
-                delete queues[key];
-                for (var i = 0, l = q.length; i < l; i++) {
-                    q[i].apply(null, args);
-                }
-            })]));
-        }
-    });
-    memoized.memo = memo;
-    memoized.unmemoized = fn;
-    return memoized;
+	var memo = Object.create(null);
+	var queues = Object.create(null);
+	hasher = hasher || identity;
+	var memoized = initialParams(function memoized(args, callback) {
+		var key = hasher.apply(null, args);
+		if (has(memo, key)) {
+			setImmediate$1(function () {
+				callback.apply(null, memo[key]);
+			});
+		} else if (has(queues, key)) {
+			queues[key].push(callback);
+		} else {
+			queues[key] = [callback];
+			fn.apply(null, args.concat([rest(function (args) {
+				memo[key] = args;
+				var q = queues[key];
+				delete queues[key];
+				for (var i = 0, l = q.length; i < l; i++) {
+					q[i].apply(null, args);
+				}
+			})]));
+		}
+	});
+	memoized.memo = memo;
+	memoized.unmemoized = fn;
+	return memoized;
 }
 
 /**
@@ -3659,42 +3659,42 @@ function memoize(fn, hasher) {
  *
  * var call_order = [];
  * async.nextTick(function() {
- *     call_order.push('two');
- *     // call_order now equals ['one','two']
+ *	   call_order.push('two');
+ *	   // call_order now equals ['one','two']
  * });
  * call_order.push('one');
  *
  * async.setImmediate(function (a, b, c) {
- *     // a, b, and c equal 1, 2, and 3
+ *	   // a, b, and c equal 1, 2, and 3
  * }, 1, 2, 3);
  */
 var _defer$1;
 
 if (hasNextTick) {
-    _defer$1 = process.nextTick;
+	_defer$1 = process.nextTick;
 } else if (hasSetImmediate) {
-    _defer$1 = setImmediate;
+	_defer$1 = setImmediate;
 } else {
-    _defer$1 = fallback;
+	_defer$1 = fallback;
 }
 
 var nextTick = wrap(_defer$1);
 
 function _parallel(eachfn, tasks, callback) {
-    callback = callback || noop;
-    var results = isArrayLike(tasks) ? [] : {};
+	callback = callback || noop;
+	var results = isArrayLike(tasks) ? [] : {};
 
-    eachfn(tasks, function (task, key, callback) {
-        task(rest(function (err, args) {
-            if (args.length <= 1) {
-                args = args[0];
-            }
-            results[key] = args;
-            callback(err);
-        }));
-    }, function (err) {
-        callback(err, results);
-    });
+	eachfn(tasks, function (task, key, callback) {
+		task(rest(function (err, args) {
+			if (args.length <= 1) {
+				args = args[0];
+			}
+			results[key] = args;
+			callback(err);
+		}));
+	}, function (err) {
+		callback(err, results);
+	});
 }
 
 /**
@@ -3705,9 +3705,9 @@ function _parallel(eachfn, tasks, callback) {
  * `callback` as an array.
  *
  * **Note:** `parallel` is about kicking-off I/O tasks in parallel, not about
- * parallel execution of code.  If your tasks do not use any timers or perform
+ * parallel execution of code.	If your tasks do not use any timers or perform
  * any I/O, they will actually be executed in series.  Any synchronous setup
- * sections for each task will happen one after the other.  JavaScript remains
+ * sections for each task will happen one after the other.	JavaScript remains
  * single-threaded.
  *
  * It is also possible to use an object instead of an array. Each property will
@@ -3730,37 +3730,37 @@ function _parallel(eachfn, tasks, callback) {
  * Invoked with (err, results).
  * @example
  * async.parallel([
- *     function(callback) {
- *         setTimeout(function() {
- *             callback(null, 'one');
- *         }, 200);
- *     },
- *     function(callback) {
- *         setTimeout(function() {
- *             callback(null, 'two');
- *         }, 100);
- *     }
+ *	   function(callback) {
+ *		   setTimeout(function() {
+ *			   callback(null, 'one');
+ *		   }, 200);
+ *	   },
+ *	   function(callback) {
+ *		   setTimeout(function() {
+ *			   callback(null, 'two');
+ *		   }, 100);
+ *	   }
  * ],
  * // optional callback
  * function(err, results) {
- *     // the results array will equal ['one','two'] even though
- *     // the second function had a shorter timeout.
+ *	   // the results array will equal ['one','two'] even though
+ *	   // the second function had a shorter timeout.
  * });
  *
  * // an example using an object instead of an array
  * async.parallel({
- *     one: function(callback) {
- *         setTimeout(function() {
- *             callback(null, 1);
- *         }, 200);
- *     },
- *     two: function(callback) {
- *         setTimeout(function() {
- *             callback(null, 2);
- *         }, 100);
- *     }
+ *	   one: function(callback) {
+ *		   setTimeout(function() {
+ *			   callback(null, 1);
+ *		   }, 200);
+ *	   },
+ *	   two: function(callback) {
+ *		   setTimeout(function() {
+ *			   callback(null, 2);
+ *		   }, 100);
+ *	   }
  * }, function(err, results) {
- *     // results is now equals to: {one: 1, two: 2}
+ *	   // results is now equals to: {one: 1, two: 2}
  * });
  */
 function parallelLimit(tasks, callback) {
@@ -3864,36 +3864,36 @@ function parallelLimit$1(tasks, limit, callback) {
  *
  * // create a queue object with concurrency 2
  * var q = async.queue(function(task, callback) {
- *     console.log('hello ' + task.name);
- *     callback();
+ *	   console.log('hello ' + task.name);
+ *	   callback();
  * }, 2);
  *
  * // assign a callback
  * q.drain = function() {
- *     console.log('all items have been processed');
+ *	   console.log('all items have been processed');
  * };
  *
  * // add some items to the queue
  * q.push({name: 'foo'}, function(err) {
- *     console.log('finished processing foo');
+ *	   console.log('finished processing foo');
  * });
  * q.push({name: 'bar'}, function (err) {
- *     console.log('finished processing bar');
+ *	   console.log('finished processing bar');
  * });
  *
  * // add some items to the queue (batch-wise)
  * q.push([{name: 'baz'},{name: 'bay'},{name: 'bax'}], function(err) {
- *     console.log('finished processing item');
+ *	   console.log('finished processing item');
  * });
  *
  * // add some items to the front of the queue
  * q.unshift({name: 'bar'}, function (err) {
- *     console.log('finished processing bar');
+ *	   console.log('finished processing bar');
  * });
  */
 var queue$1 = function (worker, concurrency) {
   return queue(function (items, cb) {
-    worker(items[0], cb);
+	worker(items[0], cb);
   }, concurrency, 1);
 };
 
@@ -3918,56 +3918,56 @@ var queue$1 = function (worker, concurrency) {
  * @returns {module:ControlFlow.QueueObject} A priorityQueue object to manage the tasks. There are two
  * differences between `queue` and `priorityQueue` objects:
  * * `push(task, priority, [callback])` - `priority` should be a number. If an
- *   array of `tasks` is given, all tasks will be assigned the same priority.
+ *	 array of `tasks` is given, all tasks will be assigned the same priority.
  * * The `unshift` method was removed.
  */
 var priorityQueue = function (worker, concurrency) {
-    // Start with a normal queue
-    var q = queue$1(worker, concurrency);
+	// Start with a normal queue
+	var q = queue$1(worker, concurrency);
 
-    // Override push to accept second parameter representing priority
-    q.push = function (data, priority, callback) {
-        if (callback == null) callback = noop;
-        if (typeof callback !== 'function') {
-            throw new Error('task callback must be a function');
-        }
-        q.started = true;
-        if (!isArray(data)) {
-            data = [data];
-        }
-        if (data.length === 0) {
-            // call drain immediately if there are no tasks
-            return setImmediate$1(function () {
-                q.drain();
-            });
-        }
+	// Override push to accept second parameter representing priority
+	q.push = function (data, priority, callback) {
+		if (callback == null) callback = noop;
+		if (typeof callback !== 'function') {
+			throw new Error('task callback must be a function');
+		}
+		q.started = true;
+		if (!isArray(data)) {
+			data = [data];
+		}
+		if (data.length === 0) {
+			// call drain immediately if there are no tasks
+			return setImmediate$1(function () {
+				q.drain();
+			});
+		}
 
-        priority = priority || 0;
-        var nextNode = q._tasks.head;
-        while (nextNode && priority >= nextNode.priority) {
-            nextNode = nextNode.next;
-        }
+		priority = priority || 0;
+		var nextNode = q._tasks.head;
+		while (nextNode && priority >= nextNode.priority) {
+			nextNode = nextNode.next;
+		}
 
-        for (var i = 0, l = data.length; i < l; i++) {
-            var item = {
-                data: data[i],
-                priority: priority,
-                callback: callback
-            };
+		for (var i = 0, l = data.length; i < l; i++) {
+			var item = {
+				data: data[i],
+				priority: priority,
+				callback: callback
+			};
 
-            if (nextNode) {
-                q._tasks.insertBefore(nextNode, item);
-            } else {
-                q._tasks.push(item);
-            }
-        }
-        setImmediate$1(q.process);
-    };
+			if (nextNode) {
+				q._tasks.insertBefore(nextNode, item);
+			} else {
+				q._tasks.push(item);
+			}
+		}
+		setImmediate$1(q.process);
+	};
 
-    // Remove unshift function
-    delete q.unshift;
+	// Remove unshift function
+	delete q.unshift;
 
-    return q;
+	return q;
 };
 
 /**
@@ -3991,29 +3991,29 @@ var priorityQueue = function (worker, concurrency) {
  * @example
  *
  * async.race([
- *     function(callback) {
- *         setTimeout(function() {
- *             callback(null, 'one');
- *         }, 200);
- *     },
- *     function(callback) {
- *         setTimeout(function() {
- *             callback(null, 'two');
- *         }, 100);
- *     }
+ *	   function(callback) {
+ *		   setTimeout(function() {
+ *			   callback(null, 'one');
+ *		   }, 200);
+ *	   },
+ *	   function(callback) {
+ *		   setTimeout(function() {
+ *			   callback(null, 'two');
+ *		   }, 100);
+ *	   }
  * ],
  * // main callback
  * function(err, result) {
- *     // the result will be equal to 'two' as it finishes earlier
+ *	   // the result will be equal to 'two' as it finishes earlier
  * });
  */
 function race(tasks, callback) {
-    callback = once(callback || noop);
-    if (!isArray(tasks)) return callback(new TypeError('First argument to race must be an array of functions'));
-    if (!tasks.length) return callback();
-    for (var i = 0, l = tasks.length; i < l; i++) {
-        tasks[i](callback);
-    }
+	callback = once(callback || noop);
+	if (!isArray(tasks)) return callback(new TypeError('First argument to race must be an array of functions'));
+	if (!tasks.length) return callback();
+	for (var i = 0, l = tasks.length; i < l; i++) {
+		tasks[i](callback);
+	}
 }
 
 var slice = Array.prototype.slice;
@@ -4063,57 +4063,57 @@ function reduceRight(array, memo, iteratee, callback) {
  * @example
  *
  * async.parallel([
- *     async.reflect(function(callback) {
- *         // do some stuff ...
- *         callback(null, 'one');
- *     }),
- *     async.reflect(function(callback) {
- *         // do some more stuff but error ...
- *         callback('bad stuff happened');
- *     }),
- *     async.reflect(function(callback) {
- *         // do some more stuff ...
- *         callback(null, 'two');
- *     })
+ *	   async.reflect(function(callback) {
+ *		   // do some stuff ...
+ *		   callback(null, 'one');
+ *	   }),
+ *	   async.reflect(function(callback) {
+ *		   // do some more stuff but error ...
+ *		   callback('bad stuff happened');
+ *	   }),
+ *	   async.reflect(function(callback) {
+ *		   // do some more stuff ...
+ *		   callback(null, 'two');
+ *	   })
  * ],
  * // optional callback
  * function(err, results) {
- *     // values
- *     // results[0].value = 'one'
- *     // results[1].error = 'bad stuff happened'
- *     // results[2].value = 'two'
+ *	   // values
+ *	   // results[0].value = 'one'
+ *	   // results[1].error = 'bad stuff happened'
+ *	   // results[2].value = 'two'
  * });
  */
 function reflect(fn) {
-    return initialParams(function reflectOn(args, reflectCallback) {
-        args.push(rest(function callback(err, cbArgs) {
-            if (err) {
-                reflectCallback(null, {
-                    error: err
-                });
-            } else {
-                var value = null;
-                if (cbArgs.length === 1) {
-                    value = cbArgs[0];
-                } else if (cbArgs.length > 1) {
-                    value = cbArgs;
-                }
-                reflectCallback(null, {
-                    value: value
-                });
-            }
-        }));
+	return initialParams(function reflectOn(args, reflectCallback) {
+		args.push(rest(function callback(err, cbArgs) {
+			if (err) {
+				reflectCallback(null, {
+					error: err
+				});
+			} else {
+				var value = null;
+				if (cbArgs.length === 1) {
+					value = cbArgs[0];
+				} else if (cbArgs.length > 1) {
+					value = cbArgs;
+				}
+				reflectCallback(null, {
+					value: value
+				});
+			}
+		}));
 
-        return fn.apply(this, args);
-    });
+		return fn.apply(this, args);
+	});
 }
 
 function reject$1(eachfn, arr, iteratee, callback) {
-    _filter(eachfn, arr, function (value, cb) {
-        iteratee(value, function (err, v) {
-            cb(err, !v);
-        });
-    }, callback);
+	_filter(eachfn, arr, function (value, cb) {
+		iteratee(value, function (err, v) {
+			cb(err, !v);
+		});
+	}, callback);
 }
 
 /**
@@ -4134,12 +4134,12 @@ function reject$1(eachfn, arr, iteratee, callback) {
  * @example
  *
  * async.reject(['file1','file2','file3'], function(filePath, callback) {
- *     fs.access(filePath, function(err) {
- *         callback(null, !err)
- *     });
+ *	   fs.access(filePath, function(err) {
+ *		   callback(null, !err)
+ *	   });
  * }, function(err, results) {
- *     // results now equals an array of missing files
- *     createFiles(results);
+ *	   // results now equals an array of missing files
+ *	   createFiles(results);
  * });
  */
 var reject = doParallel(reject$1);
@@ -4159,68 +4159,68 @@ var reject = doParallel(reject$1);
  * @example
  *
  * let tasks = [
- *     function(callback) {
- *         setTimeout(function() {
- *             callback(null, 'one');
- *         }, 200);
- *     },
- *     function(callback) {
- *         // do some more stuff but error ...
- *         callback(new Error('bad stuff happened'));
- *     },
- *     function(callback) {
- *         setTimeout(function() {
- *             callback(null, 'two');
- *         }, 100);
- *     }
+ *	   function(callback) {
+ *		   setTimeout(function() {
+ *			   callback(null, 'one');
+ *		   }, 200);
+ *	   },
+ *	   function(callback) {
+ *		   // do some more stuff but error ...
+ *		   callback(new Error('bad stuff happened'));
+ *	   },
+ *	   function(callback) {
+ *		   setTimeout(function() {
+ *			   callback(null, 'two');
+ *		   }, 100);
+ *	   }
  * ];
  *
  * async.parallel(async.reflectAll(tasks),
  * // optional callback
  * function(err, results) {
- *     // values
- *     // results[0].value = 'one'
- *     // results[1].error = Error('bad stuff happened')
- *     // results[2].value = 'two'
+ *	   // values
+ *	   // results[0].value = 'one'
+ *	   // results[1].error = Error('bad stuff happened')
+ *	   // results[2].value = 'two'
  * });
  *
  * // an example using an object instead of an array
  * let tasks = {
- *     one: function(callback) {
- *         setTimeout(function() {
- *             callback(null, 'one');
- *         }, 200);
- *     },
- *     two: function(callback) {
- *         callback('two');
- *     },
- *     three: function(callback) {
- *         setTimeout(function() {
- *             callback(null, 'three');
- *         }, 100);
- *     }
+ *	   one: function(callback) {
+ *		   setTimeout(function() {
+ *			   callback(null, 'one');
+ *		   }, 200);
+ *	   },
+ *	   two: function(callback) {
+ *		   callback('two');
+ *	   },
+ *	   three: function(callback) {
+ *		   setTimeout(function() {
+ *			   callback(null, 'three');
+ *		   }, 100);
+ *	   }
  * };
  *
  * async.parallel(async.reflectAll(tasks),
  * // optional callback
  * function(err, results) {
- *     // values
- *     // results.one.value = 'one'
- *     // results.two.error = 'two'
- *     // results.three.value = 'three'
+ *	   // values
+ *	   // results.one.value = 'one'
+ *	   // results.two.error = 'two'
+ *	   // results.three.value = 'three'
  * });
  */
 function reflectAll(tasks) {
-    var results;
-    if (isArray(tasks)) {
-        results = arrayMap(tasks, reflect);
-    } else {
-        results = {};
-        baseForOwn(tasks, function (task, key) {
-            results[key] = reflect.call(this, task);
-        });
-    }
-    return results;
+	var results;
+	if (isArray(tasks)) {
+		results = arrayMap(tasks, reflect);
+	} else {
+		results = {};
+		baseForOwn(tasks, function (task, key) {
+			results[key] = reflect.call(this, task);
+		});
+	}
+	return results;
 }
 
 /**
@@ -4282,7 +4282,7 @@ var rejectSeries = doLimit(rejectLimit, 1);
  */
 function constant$1(value) {
   return function() {
-    return value;
+	return value;
   };
 }
 
@@ -4300,17 +4300,17 @@ function constant$1(value) {
  * @param {Object|number} [opts = {times: 5, interval: 0}| 5] - Can be either an
  * object with `times` and `interval` or a number.
  * * `times` - The number of attempts to make before giving up.  The default
- *   is `5`.
+ *	 is `5`.
  * * `interval` - The time to wait between retries, in milliseconds.  The
- *   default is `0`. The interval may also be specified as a function of the
- *   retry count (see example).
+ *	 default is `0`. The interval may also be specified as a function of the
+ *	 retry count (see example).
  * * `errorFilter` - An optional synchronous function that is invoked on
- *   erroneous result. If it returns `true` the retry attempts will continue;
- *   if the function returns `false` the retry flow is aborted with the current
- *   attempt's error and result being returned to the final callback.
- *   Invoked with (err).
+ *	 erroneous result. If it returns `true` the retry attempts will continue;
+ *	 if the function returns `false` the retry flow is aborted with the current
+ *	 attempt's error and result being returned to the final callback.
+ *	 Invoked with (err).
  * * If `opts` is a number, the number specifies the number of times to retry,
- *   with the default interval of `0`.
+ *	 with the default interval of `0`.
  * @param {Function} task - A function which receives two arguments: (1) a
  * `callback(err, result)` which must be called when finished, passing `err`
  * (which can be `null`) and the `result` of the function's execution, and (2)
@@ -4328,97 +4328,97 @@ function constant$1(value) {
  *
  * // try calling apiMethod 3 times
  * async.retry(3, apiMethod, function(err, result) {
- *     // do something with the result
+ *	   // do something with the result
  * });
  *
  * // try calling apiMethod 3 times, waiting 200 ms between each retry
  * async.retry({times: 3, interval: 200}, apiMethod, function(err, result) {
- *     // do something with the result
+ *	   // do something with the result
  * });
  *
  * // try calling apiMethod 10 times with exponential backoff
  * // (i.e. intervals of 100, 200, 400, 800, 1600, ... milliseconds)
  * async.retry({
- *   times: 10,
- *   interval: function(retryCount) {
- *     return 50 * Math.pow(2, retryCount);
- *   }
+ *	 times: 10,
+ *	 interval: function(retryCount) {
+ *	   return 50 * Math.pow(2, retryCount);
+ *	 }
  * }, apiMethod, function(err, result) {
- *     // do something with the result
+ *	   // do something with the result
  * });
  *
  * // try calling apiMethod the default 5 times no delay between each retry
  * async.retry(apiMethod, function(err, result) {
- *     // do something with the result
+ *	   // do something with the result
  * });
  *
  * // try calling apiMethod only when error condition satisfies, all other
  * // errors will abort the retry control flow and return to final callback
  * async.retry({
- *   errorFilter: function(err) {
- *     return err.message === 'Temporary error'; // only retry on a specific error
- *   }
+ *	 errorFilter: function(err) {
+ *	   return err.message === 'Temporary error'; // only retry on a specific error
+ *	 }
  * }, apiMethod, function(err, result) {
- *     // do something with the result
+ *	   // do something with the result
  * });
  *
  * // It can also be embedded within other control flow functions to retry
  * // individual methods that are not as reliable, like this:
  * async.auto({
- *     users: api.getUsers.bind(api),
- *     payments: async.retry(3, api.getPayments.bind(api))
+ *	   users: api.getUsers.bind(api),
+ *	   payments: async.retry(3, api.getPayments.bind(api))
  * }, function(err, results) {
- *     // do something with the results
+ *	   // do something with the results
  * });
  *
  */
 function retry(opts, task, callback) {
-    var DEFAULT_TIMES = 5;
-    var DEFAULT_INTERVAL = 0;
+	var DEFAULT_TIMES = 5;
+	var DEFAULT_INTERVAL = 0;
 
-    var options = {
-        times: DEFAULT_TIMES,
-        intervalFunc: constant$1(DEFAULT_INTERVAL)
-    };
+	var options = {
+		times: DEFAULT_TIMES,
+		intervalFunc: constant$1(DEFAULT_INTERVAL)
+	};
 
-    function parseTimes(acc, t) {
-        if (typeof t === 'object') {
-            acc.times = +t.times || DEFAULT_TIMES;
+	function parseTimes(acc, t) {
+		if (typeof t === 'object') {
+			acc.times = +t.times || DEFAULT_TIMES;
 
-            acc.intervalFunc = typeof t.interval === 'function' ? t.interval : constant$1(+t.interval || DEFAULT_INTERVAL);
+			acc.intervalFunc = typeof t.interval === 'function' ? t.interval : constant$1(+t.interval || DEFAULT_INTERVAL);
 
-            acc.errorFilter = t.errorFilter;
-        } else if (typeof t === 'number' || typeof t === 'string') {
-            acc.times = +t || DEFAULT_TIMES;
-        } else {
-            throw new Error("Invalid arguments for async.retry");
-        }
-    }
+			acc.errorFilter = t.errorFilter;
+		} else if (typeof t === 'number' || typeof t === 'string') {
+			acc.times = +t || DEFAULT_TIMES;
+		} else {
+			throw new Error("Invalid arguments for async.retry");
+		}
+	}
 
-    if (arguments.length < 3 && typeof opts === 'function') {
-        callback = task || noop;
-        task = opts;
-    } else {
-        parseTimes(options, opts);
-        callback = callback || noop;
-    }
+	if (arguments.length < 3 && typeof opts === 'function') {
+		callback = task || noop;
+		task = opts;
+	} else {
+		parseTimes(options, opts);
+		callback = callback || noop;
+	}
 
-    if (typeof task !== 'function') {
-        throw new Error("Invalid arguments for async.retry");
-    }
+	if (typeof task !== 'function') {
+		throw new Error("Invalid arguments for async.retry");
+	}
 
-    var attempt = 1;
-    function retryAttempt() {
-        task(function (err) {
-            if (err && attempt++ < options.times && (typeof options.errorFilter != 'function' || options.errorFilter(err))) {
-                setTimeout(retryAttempt, options.intervalFunc(attempt));
-            } else {
-                callback.apply(null, arguments);
-            }
-        });
-    }
+	var attempt = 1;
+	function retryAttempt() {
+		task(function (err) {
+			if (err && attempt++ < options.times && (typeof options.errorFilter != 'function' || options.errorFilter(err))) {
+				setTimeout(retryAttempt, options.intervalFunc(attempt));
+			} else {
+				callback.apply(null, arguments);
+			}
+		});
+	}
 
-    retryAttempt();
+	retryAttempt();
 }
 
 /**
@@ -4439,24 +4439,24 @@ function retry(opts, task, callback) {
  * @example
  *
  * async.auto({
- *     dep1: async.retryable(3, getFromFlakyService),
- *     process: ["dep1", async.retryable(3, function (results, cb) {
- *         maybeProcessData(results.dep1, cb);
- *     })]
+ *	   dep1: async.retryable(3, getFromFlakyService),
+ *	   process: ["dep1", async.retryable(3, function (results, cb) {
+ *		   maybeProcessData(results.dep1, cb);
+ *	   })]
  * }, callback);
  */
 var retryable = function (opts, task) {
-    if (!task) {
-        task = opts;
-        opts = null;
-    }
-    return initialParams(function (args, callback) {
-        function taskFn(cb) {
-            task.apply(null, args.concat([cb]));
-        }
+	if (!task) {
+		task = opts;
+		opts = null;
+	}
+	return initialParams(function (args, callback) {
+		function taskFn(cb) {
+			task.apply(null, args.concat([cb]));
+		}
 
-        if (opts) retry(opts, taskFn, callback);else retry(taskFn, callback);
-    });
+		if (opts) retry(opts, taskFn, callback);else retry(taskFn, callback);
+	});
 };
 
 /**
@@ -4469,7 +4469,7 @@ var retryable = function (opts, task) {
  * It is also possible to use an object instead of an array. Each property will
  * be run as a function, and the results will be passed to the final `callback`
  * as an object instead of an array. This can be a more readable way of handling
- *  results from {@link async.series}.
+ *	results from {@link async.series}.
  *
  * **Note** that while many implementations preserve the order of object
  * properties, the [ECMAScript Language Specification](http://www.ecma-international.org/ecma-262/5.1/#sec-8.6)
@@ -4494,33 +4494,33 @@ var retryable = function (opts, task) {
  * with (err, result).
  * @example
  * async.series([
- *     function(callback) {
- *         // do some stuff ...
- *         callback(null, 'one');
- *     },
- *     function(callback) {
- *         // do some more stuff ...
- *         callback(null, 'two');
- *     }
+ *	   function(callback) {
+ *		   // do some stuff ...
+ *		   callback(null, 'one');
+ *	   },
+ *	   function(callback) {
+ *		   // do some more stuff ...
+ *		   callback(null, 'two');
+ *	   }
  * ],
  * // optional callback
  * function(err, results) {
- *     // results is now equal to ['one', 'two']
+ *	   // results is now equal to ['one', 'two']
  * });
  *
  * async.series({
- *     one: function(callback) {
- *         setTimeout(function() {
- *             callback(null, 1);
- *         }, 200);
- *     },
- *     two: function(callback){
- *         setTimeout(function() {
- *             callback(null, 2);
- *         }, 100);
- *     }
+ *	   one: function(callback) {
+ *		   setTimeout(function() {
+ *			   callback(null, 1);
+ *		   }, 200);
+ *	   },
+ *	   two: function(callback){
+ *		   setTimeout(function() {
+ *			   callback(null, 2);
+ *		   }, 100);
+ *	   }
  * }, function(err, results) {
- *     // results is now equal to: {one: 1, two: 2}
+ *	   // results is now equal to: {one: 1, two: 2}
  * });
  */
 function series(tasks, callback) {
@@ -4550,11 +4550,11 @@ function series(tasks, callback) {
  * @example
  *
  * async.some(['file1','file2','file3'], function(filePath, callback) {
- *     fs.access(filePath, function(err) {
- *         callback(null, !err)
- *     });
+ *	   fs.access(filePath, function(err) {
+ *		   callback(null, !err)
+ *	   });
  * }, function(err, result) {
- *     // if result is true then at least one of the files exists
+ *	   // if result is true then at least one of the files exists
  * });
  */
 var some = _createTester(eachOf, Boolean, identity);
@@ -4625,12 +4625,12 @@ var someSeries = doLimit(someLimit, 1);
  * @example
  *
  * async.sortBy(['file1','file2','file3'], function(file, callback) {
- *     fs.stat(file, function(err, stats) {
- *         callback(err, stats.mtime);
- *     });
+ *	   fs.stat(file, function(err, stats) {
+ *		   callback(err, stats.mtime);
+ *	   });
  * }, function(err, results) {
- *     // results is now the original array of files sorted by
- *     // modified date
+ *	   // results is now the original array of files sorted by
+ *	   // modified date
  * });
  *
  * // By modifying the callback parameter the
@@ -4638,34 +4638,34 @@ var someSeries = doLimit(someLimit, 1);
  *
  * // ascending order
  * async.sortBy([1,9,3,5], function(x, callback) {
- *     callback(null, x);
+ *	   callback(null, x);
  * }, function(err,result) {
- *     // result callback
+ *	   // result callback
  * });
  *
  * // descending order
  * async.sortBy([1,9,3,5], function(x, callback) {
- *     callback(null, x*-1);    //<- x*-1 instead of x, turns the order around
+ *	   callback(null, x*-1);	//<- x*-1 instead of x, turns the order around
  * }, function(err,result) {
- *     // result callback
+ *	   // result callback
  * });
  */
 function sortBy(coll, iteratee, callback) {
-    map(coll, function (x, callback) {
-        iteratee(x, function (err, criteria) {
-            if (err) return callback(err);
-            callback(null, { value: x, criteria: criteria });
-        });
-    }, function (err, results) {
-        if (err) return callback(err);
-        callback(null, arrayMap(results.sort(comparator), baseProperty('value')));
-    });
+	map(coll, function (x, callback) {
+		iteratee(x, function (err, criteria) {
+			if (err) return callback(err);
+			callback(null, { value: x, criteria: criteria });
+		});
+	}, function (err, results) {
+		if (err) return callback(err);
+		callback(null, arrayMap(results.sort(comparator), baseProperty('value')));
+	});
 
-    function comparator(left, right) {
-        var a = left.criteria,
-            b = right.criteria;
-        return a < b ? -1 : a > b ? 1 : 0;
-    }
+	function comparator(left, right) {
+		var a = left.criteria,
+			b = right.criteria;
+		return a < b ? -1 : a > b ? 1 : 0;
+	}
 }
 
 /**
@@ -4689,55 +4689,55 @@ function sortBy(coll, iteratee, callback) {
  * @example
  *
  * function myFunction(foo, callback) {
- *     doAsyncTask(foo, function(err, data) {
- *         // handle errors
- *         if (err) return callback(err);
+ *	   doAsyncTask(foo, function(err, data) {
+ *		   // handle errors
+ *		   if (err) return callback(err);
  *
- *         // do some stuff ...
+ *		   // do some stuff ...
  *
- *         // return processed data
- *         return callback(null, data);
- *     });
+ *		   // return processed data
+ *		   return callback(null, data);
+ *	   });
  * }
  *
  * var wrapped = async.timeout(myFunction, 1000);
  *
  * // call `wrapped` as you would `myFunction`
  * wrapped({ bar: 'bar' }, function(err, data) {
- *     // if `myFunction` takes < 1000 ms to execute, `err`
- *     // and `data` will have their expected values
+ *	   // if `myFunction` takes < 1000 ms to execute, `err`
+ *	   // and `data` will have their expected values
  *
- *     // else `err` will be an Error with the code 'ETIMEDOUT'
+ *	   // else `err` will be an Error with the code 'ETIMEDOUT'
  * });
  */
 function timeout(asyncFn, milliseconds, info) {
-    var originalCallback, timer;
-    var timedOut = false;
+	var originalCallback, timer;
+	var timedOut = false;
 
-    function injectedCallback() {
-        if (!timedOut) {
-            originalCallback.apply(null, arguments);
-            clearTimeout(timer);
-        }
-    }
+	function injectedCallback() {
+		if (!timedOut) {
+			originalCallback.apply(null, arguments);
+			clearTimeout(timer);
+		}
+	}
 
-    function timeoutCallback() {
-        var name = asyncFn.name || 'anonymous';
-        var error = new Error('Callback function "' + name + '" timed out.');
-        error.code = 'ETIMEDOUT';
-        if (info) {
-            error.info = info;
-        }
-        timedOut = true;
-        originalCallback(error);
-    }
+	function timeoutCallback() {
+		var name = asyncFn.name || 'anonymous';
+		var error = new Error('Callback function "' + name + '" timed out.');
+		error.code = 'ETIMEDOUT';
+		if (info) {
+			error.info = info;
+		}
+		timedOut = true;
+		originalCallback(error);
+	}
 
-    return initialParams(function (args, origCallback) {
-        originalCallback = origCallback;
-        // setup timer and call original function
-        timer = setTimeout(timeoutCallback, milliseconds);
-        asyncFn.apply(null, args.concat(injectedCallback));
-    });
+	return initialParams(function (args, origCallback) {
+		originalCallback = origCallback;
+		// setup timer and call original function
+		timer = setTimeout(timeoutCallback, milliseconds);
+		asyncFn.apply(null, args.concat(injectedCallback));
+	});
 }
 
 /* Built-in method references for those with the same name as other `lodash` methods. */
@@ -4757,12 +4757,12 @@ var nativeMax$1 = Math.max;
  */
 function baseRange(start, end, step, fromRight) {
   var index = -1,
-      length = nativeMax$1(nativeCeil((end - start) / (step || 1)), 0),
-      result = Array(length);
+	  length = nativeMax$1(nativeCeil((end - start) / (step || 1)), 0),
+	  result = Array(length);
 
   while (length--) {
-    result[fromRight ? length : ++index] = start;
-    start += step;
+	result[fromRight ? length : ++index] = start;
+	start += step;
   }
   return result;
 }
@@ -4805,18 +4805,18 @@ function timeLimit(count, limit, iteratee, callback) {
  *
  * // Pretend this is some complicated async factory
  * var createUser = function(id, callback) {
- *     callback(null, {
- *         id: 'user' + id
- *     });
+ *	   callback(null, {
+ *		   id: 'user' + id
+ *	   });
  * };
  *
  * // generate 5 users
  * async.times(5, function(n, next) {
- *     createUser(n, function(err, user) {
- *         next(err, user);
- *     });
+ *	   createUser(n, function(err, user) {
+ *		   next(err, user);
+ *	   });
  * }, function(err, users) {
- *     // we should now have 5 users
+ *	   // we should now have 5 users
  * });
  */
 var times = doLimit(timeLimit, Infinity);
@@ -4838,7 +4838,7 @@ var times = doLimit(timeLimit, Infinity);
 var timesSeries = doLimit(timeLimit, 1);
 
 /**
- * A relative of `reduce`.  Takes an Object or Array, and iterates over each
+ * A relative of `reduce`.	Takes an Object or Array, and iterates over each
  * element in series, each step potentially mutating an `accumulator` value.
  * The type of the accumulator defaults to the type of collection passed in.
  *
@@ -4862,39 +4862,39 @@ var timesSeries = doLimit(timeLimit, 1);
  * @example
  *
  * async.transform([1,2,3], function(acc, item, index, callback) {
- *     // pointless async:
- *     process.nextTick(function() {
- *         acc.push(item * 2)
- *         callback(null)
- *     });
+ *	   // pointless async:
+ *	   process.nextTick(function() {
+ *		   acc.push(item * 2)
+ *		   callback(null)
+ *	   });
  * }, function(err, result) {
- *     // result is now equal to [2, 4, 6]
+ *	   // result is now equal to [2, 4, 6]
  * });
  *
  * @example
  *
  * async.transform({a: 1, b: 2, c: 3}, function (obj, val, key, callback) {
- *     setImmediate(function () {
- *         obj[key] = val * 2;
- *         callback();
- *     })
+ *	   setImmediate(function () {
+ *		   obj[key] = val * 2;
+ *		   callback();
+ *	   })
  * }, function (err, result) {
- *     // result is equal to {a: 2, b: 4, c: 6}
+ *	   // result is equal to {a: 2, b: 4, c: 6}
  * })
  */
 function transform(coll, accumulator, iteratee, callback) {
-    if (arguments.length === 3) {
-        callback = iteratee;
-        iteratee = accumulator;
-        accumulator = isArray(coll) ? [] : {};
-    }
-    callback = once(callback || noop);
+	if (arguments.length === 3) {
+		callback = iteratee;
+		iteratee = accumulator;
+		accumulator = isArray(coll) ? [] : {};
+	}
+	callback = once(callback || noop);
 
-    eachOf(coll, function (v, k, cb) {
-        iteratee(accumulator, v, k, cb);
-    }, function (err) {
-        callback(err, accumulator);
-    });
+	eachOf(coll, function (v, k, cb) {
+		iteratee(accumulator, v, k, cb);
+	}, function (err) {
+		callback(err, accumulator);
+	});
 }
 
 /**
@@ -4911,9 +4911,9 @@ function transform(coll, accumulator, iteratee, callback) {
  * @returns {Function} a function that calls the original unmemoized function
  */
 function unmemoize(fn) {
-    return function () {
-        return (fn.unmemoized || fn).apply(null, arguments);
-    };
+	return function () {
+		return (fn.unmemoized || fn).apply(null, arguments);
+	};
 }
 
 /**
@@ -4939,27 +4939,27 @@ function unmemoize(fn) {
  *
  * var count = 0;
  * async.whilst(
- *     function() { return count < 5; },
- *     function(callback) {
- *         count++;
- *         setTimeout(function() {
- *             callback(null, count);
- *         }, 1000);
- *     },
- *     function (err, n) {
- *         // 5 seconds have passed, n = 5
- *     }
+ *	   function() { return count < 5; },
+ *	   function(callback) {
+ *		   count++;
+ *		   setTimeout(function() {
+ *			   callback(null, count);
+ *		   }, 1000);
+ *	   },
+ *	   function (err, n) {
+ *		   // 5 seconds have passed, n = 5
+ *	   }
  * );
  */
 function whilst(test, iteratee, callback) {
-    callback = onlyOnce(callback || noop);
-    if (!test()) return callback(null);
-    var next = rest(function (err, args) {
-        if (err) return callback(err);
-        if (test()) return iteratee(next);
-        callback.apply(null, [null].concat(args));
-    });
-    iteratee(next);
+	callback = onlyOnce(callback || noop);
+	if (!test()) return callback(null);
+	var next = rest(function (err, args) {
+		if (err) return callback(err);
+		if (test()) return iteratee(next);
+		callback.apply(null, [null].concat(args));
+	});
+	iteratee(next);
 }
 
 /**
@@ -4986,9 +4986,9 @@ function whilst(test, iteratee, callback) {
  * callback. Invoked with (err, [results]);
  */
 function until(test, fn, callback) {
-    whilst(function () {
-        return !test.apply(this, arguments);
-    }, fn, callback);
+	whilst(function () {
+		return !test.apply(this, arguments);
+	}, fn, callback);
 }
 
 /**
@@ -5013,66 +5013,66 @@ function until(test, fn, callback) {
  * @example
  *
  * async.waterfall([
- *     function(callback) {
- *         callback(null, 'one', 'two');
- *     },
- *     function(arg1, arg2, callback) {
- *         // arg1 now equals 'one' and arg2 now equals 'two'
- *         callback(null, 'three');
- *     },
- *     function(arg1, callback) {
- *         // arg1 now equals 'three'
- *         callback(null, 'done');
- *     }
+ *	   function(callback) {
+ *		   callback(null, 'one', 'two');
+ *	   },
+ *	   function(arg1, arg2, callback) {
+ *		   // arg1 now equals 'one' and arg2 now equals 'two'
+ *		   callback(null, 'three');
+ *	   },
+ *	   function(arg1, callback) {
+ *		   // arg1 now equals 'three'
+ *		   callback(null, 'done');
+ *	   }
  * ], function (err, result) {
- *     // result now equals 'done'
+ *	   // result now equals 'done'
  * });
  *
  * // Or, with named functions:
  * async.waterfall([
- *     myFirstFunction,
- *     mySecondFunction,
- *     myLastFunction,
+ *	   myFirstFunction,
+ *	   mySecondFunction,
+ *	   myLastFunction,
  * ], function (err, result) {
- *     // result now equals 'done'
+ *	   // result now equals 'done'
  * });
  * function myFirstFunction(callback) {
- *     callback(null, 'one', 'two');
+ *	   callback(null, 'one', 'two');
  * }
  * function mySecondFunction(arg1, arg2, callback) {
- *     // arg1 now equals 'one' and arg2 now equals 'two'
- *     callback(null, 'three');
+ *	   // arg1 now equals 'one' and arg2 now equals 'two'
+ *	   callback(null, 'three');
  * }
  * function myLastFunction(arg1, callback) {
- *     // arg1 now equals 'three'
- *     callback(null, 'done');
+ *	   // arg1 now equals 'three'
+ *	   callback(null, 'done');
  * }
  */
 var waterfall = function (tasks, callback) {
-    callback = once(callback || noop);
-    if (!isArray(tasks)) return callback(new Error('First argument to waterfall must be an array of functions'));
-    if (!tasks.length) return callback();
-    var taskIndex = 0;
+	callback = once(callback || noop);
+	if (!isArray(tasks)) return callback(new Error('First argument to waterfall must be an array of functions'));
+	if (!tasks.length) return callback();
+	var taskIndex = 0;
 
-    function nextTask(args) {
-        if (taskIndex === tasks.length) {
-            return callback.apply(null, [null].concat(args));
-        }
+	function nextTask(args) {
+		if (taskIndex === tasks.length) {
+			return callback.apply(null, [null].concat(args));
+		}
 
-        var taskCallback = onlyOnce(rest(function (err, args) {
-            if (err) {
-                return callback.apply(null, [err].concat(args));
-            }
-            nextTask(args);
-        }));
+		var taskCallback = onlyOnce(rest(function (err, args) {
+			if (err) {
+				return callback.apply(null, [err].concat(args));
+			}
+			nextTask(args);
+		}));
 
-        args.push(taskCallback);
+		args.push(taskCallback);
 
-        var task = tasks[taskIndex++];
-        task.apply(null, args);
-    }
+		var task = tasks[taskIndex++];
+		task.apply(null, args);
+	}
 
-    nextTask([]);
+	nextTask([]);
 };
 
 /**
@@ -5314,7 +5314,7 @@ revLookup['_'.charCodeAt(0)] = 63
 function placeHoldersCount (b64) {
   var len = b64.length
   if (len % 4 > 0) {
-    throw new Error('Invalid string. Length must be a multiple of 4')
+	throw new Error('Invalid string. Length must be a multiple of 4')
   }
 
   // the number of equal signs (place holders)
@@ -5343,19 +5343,19 @@ function toByteArray (b64) {
   var L = 0
 
   for (i = 0, j = 0; i < l; i += 4, j += 3) {
-    tmp = (revLookup[b64.charCodeAt(i)] << 18) | (revLookup[b64.charCodeAt(i + 1)] << 12) | (revLookup[b64.charCodeAt(i + 2)] << 6) | revLookup[b64.charCodeAt(i + 3)]
-    arr[L++] = (tmp >> 16) & 0xFF
-    arr[L++] = (tmp >> 8) & 0xFF
-    arr[L++] = tmp & 0xFF
+	tmp = (revLookup[b64.charCodeAt(i)] << 18) | (revLookup[b64.charCodeAt(i + 1)] << 12) | (revLookup[b64.charCodeAt(i + 2)] << 6) | revLookup[b64.charCodeAt(i + 3)]
+	arr[L++] = (tmp >> 16) & 0xFF
+	arr[L++] = (tmp >> 8) & 0xFF
+	arr[L++] = tmp & 0xFF
   }
 
   if (placeHolders === 2) {
-    tmp = (revLookup[b64.charCodeAt(i)] << 2) | (revLookup[b64.charCodeAt(i + 1)] >> 4)
-    arr[L++] = tmp & 0xFF
+	tmp = (revLookup[b64.charCodeAt(i)] << 2) | (revLookup[b64.charCodeAt(i + 1)] >> 4)
+	arr[L++] = tmp & 0xFF
   } else if (placeHolders === 1) {
-    tmp = (revLookup[b64.charCodeAt(i)] << 10) | (revLookup[b64.charCodeAt(i + 1)] << 4) | (revLookup[b64.charCodeAt(i + 2)] >> 2)
-    arr[L++] = (tmp >> 8) & 0xFF
-    arr[L++] = tmp & 0xFF
+	tmp = (revLookup[b64.charCodeAt(i)] << 10) | (revLookup[b64.charCodeAt(i + 1)] << 4) | (revLookup[b64.charCodeAt(i + 2)] >> 2)
+	arr[L++] = (tmp >> 8) & 0xFF
+	arr[L++] = tmp & 0xFF
   }
 
   return arr
@@ -5369,8 +5369,8 @@ function encodeChunk (uint8, start, end) {
   var tmp
   var output = []
   for (var i = start; i < end; i += 3) {
-    tmp = (uint8[i] << 16) + (uint8[i + 1] << 8) + (uint8[i + 2])
-    output.push(tripletToBase64(tmp))
+	tmp = (uint8[i] << 16) + (uint8[i + 1] << 8) + (uint8[i + 2])
+	output.push(tripletToBase64(tmp))
   }
   return output.join('')
 }
@@ -5385,21 +5385,21 @@ function fromByteArray (uint8) {
 
   // go through the array every three bytes, we'll deal with trailing stuff later
   for (var i = 0, len2 = len - extraBytes; i < len2; i += maxChunkLength) {
-    parts.push(encodeChunk(uint8, i, (i + maxChunkLength) > len2 ? len2 : (i + maxChunkLength)))
+	parts.push(encodeChunk(uint8, i, (i + maxChunkLength) > len2 ? len2 : (i + maxChunkLength)))
   }
 
   // pad the end with zeros, but make sure to not forget the extra bytes
   if (extraBytes === 1) {
-    tmp = uint8[len - 1]
-    output += lookup[tmp >> 2]
-    output += lookup[(tmp << 4) & 0x3F]
-    output += '=='
+	tmp = uint8[len - 1]
+	output += lookup[tmp >> 2]
+	output += lookup[(tmp << 4) & 0x3F]
+	output += '=='
   } else if (extraBytes === 2) {
-    tmp = (uint8[len - 2] << 8) + (uint8[len - 1])
-    output += lookup[tmp >> 10]
-    output += lookup[(tmp >> 4) & 0x3F]
-    output += lookup[(tmp << 2) & 0x3F]
-    output += '='
+	tmp = (uint8[len - 2] << 8) + (uint8[len - 1])
+	output += lookup[tmp >> 10]
+	output += lookup[(tmp >> 4) & 0x3F]
+	output += lookup[(tmp << 2) & 0x3F]
+	output += '='
   }
 
   parts.push(output)
@@ -5412,7 +5412,7 @@ function fromByteArray (uint8) {
 /*!
  * The buffer module from node.js, for the browser.
  *
- * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
+ * @author	 Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
  * @license  MIT
  */
 /* eslint-disable no-proto */
@@ -5429,8 +5429,8 @@ exports.INSPECT_MAX_BYTES = 50
 
 /**
  * If `Buffer.TYPED_ARRAY_SUPPORT`:
- *   === true    Use Uint8Array implementation (fastest)
- *   === false   Use Object implementation (most compatible, even IE6)
+ *	 === true	 Use Uint8Array implementation (fastest)
+ *	 === false	 Use Object implementation (most compatible, even IE6)
  *
  * Browsers that support typed arrays are IE 10+, Firefox 4+, Chrome 7+, Safari 5.1+,
  * Opera 11.6+, iOS 4.2+.
@@ -5440,13 +5440,13 @@ exports.INSPECT_MAX_BYTES = 50
  *
  * Note:
  *
- *   - Firefox 4-29 lacks support for adding new properties to `Uint8Array` instances,
- *     See: https://bugzilla.mozilla.org/show_bug.cgi?id=695438.
+ *	 - Firefox 4-29 lacks support for adding new properties to `Uint8Array` instances,
+ *	   See: https://bugzilla.mozilla.org/show_bug.cgi?id=695438.
  *
- *   - Chrome 9-10 is missing the `TypedArray.prototype.subarray` function.
+ *	 - Chrome 9-10 is missing the `TypedArray.prototype.subarray` function.
  *
- *   - IE10 has a broken `TypedArray.prototype.subarray` function which returns arrays of
- *     incorrect length in some situations.
+ *	 - IE10 has a broken `TypedArray.prototype.subarray` function which returns arrays of
+ *	   incorrect length in some situations.
 
  * We detect these buggy browsers and set `Buffer.TYPED_ARRAY_SUPPORT` to `false` so they
  * get the Object implementation, which is slower but behaves correctly.
@@ -5462,36 +5462,36 @@ exports.kMaxLength = kMaxLength()
 
 function typedArraySupport () {
   try {
-    var arr = new Uint8Array(1)
-    arr.__proto__ = {__proto__: Uint8Array.prototype, foo: function () { return 42 }}
-    return arr.foo() === 42 && // typed array instances can be augmented
-        typeof arr.subarray === 'function' && // chrome 9-10 lack `subarray`
-        arr.subarray(1, 1).byteLength === 0 // ie10 has broken `subarray`
+	var arr = new Uint8Array(1)
+	arr.__proto__ = {__proto__: Uint8Array.prototype, foo: function () { return 42 }}
+	return arr.foo() === 42 && // typed array instances can be augmented
+		typeof arr.subarray === 'function' && // chrome 9-10 lack `subarray`
+		arr.subarray(1, 1).byteLength === 0 // ie10 has broken `subarray`
   } catch (e) {
-    return false
+	return false
   }
 }
 
 function kMaxLength () {
   return Buffer.TYPED_ARRAY_SUPPORT
-    ? 0x7fffffff
-    : 0x3fffffff
+	? 0x7fffffff
+	: 0x3fffffff
 }
 
 function createBuffer (that, length) {
   if (kMaxLength() < length) {
-    throw new RangeError('Invalid typed array length')
+	throw new RangeError('Invalid typed array length')
   }
   if (Buffer.TYPED_ARRAY_SUPPORT) {
-    // Return an augmented `Uint8Array` instance, for best performance
-    that = new Uint8Array(length)
-    that.__proto__ = Buffer.prototype
+	// Return an augmented `Uint8Array` instance, for best performance
+	that = new Uint8Array(length)
+	that.__proto__ = Buffer.prototype
   } else {
-    // Fallback: Return an object instance of the Buffer class
-    if (that === null) {
-      that = new Buffer(length)
-    }
-    that.length = length
+	// Fallback: Return an object instance of the Buffer class
+	if (that === null) {
+	  that = new Buffer(length)
+	}
+	that.length = length
   }
 
   return that
@@ -5509,17 +5509,17 @@ function createBuffer (that, length) {
 
 function Buffer (arg, encodingOrOffset, length) {
   if (!Buffer.TYPED_ARRAY_SUPPORT && !(this instanceof Buffer)) {
-    return new Buffer(arg, encodingOrOffset, length)
+	return new Buffer(arg, encodingOrOffset, length)
   }
 
   // Common case.
   if (typeof arg === 'number') {
-    if (typeof encodingOrOffset === 'string') {
-      throw new Error(
-        'If encoding is specified then the first argument must be a string'
-      )
-    }
-    return allocUnsafe(this, arg)
+	if (typeof encodingOrOffset === 'string') {
+	  throw new Error(
+		'If encoding is specified then the first argument must be a string'
+	  )
+	}
+	return allocUnsafe(this, arg)
   }
   return from(this, arg, encodingOrOffset, length)
 }
@@ -5534,15 +5534,15 @@ Buffer._augment = function (arr) {
 
 function from (that, value, encodingOrOffset, length) {
   if (typeof value === 'number') {
-    throw new TypeError('"value" argument must not be a number')
+	throw new TypeError('"value" argument must not be a number')
   }
 
   if (typeof ArrayBuffer !== 'undefined' && value instanceof ArrayBuffer) {
-    return fromArrayBuffer(that, value, encodingOrOffset, length)
+	return fromArrayBuffer(that, value, encodingOrOffset, length)
   }
 
   if (typeof value === 'string') {
-    return fromString(that, value, encodingOrOffset)
+	return fromString(that, value, encodingOrOffset)
   }
 
   return fromObject(that, value)
@@ -5564,35 +5564,35 @@ if (Buffer.TYPED_ARRAY_SUPPORT) {
   Buffer.prototype.__proto__ = Uint8Array.prototype
   Buffer.__proto__ = Uint8Array
   if (typeof Symbol !== 'undefined' && Symbol.species &&
-      Buffer[Symbol.species] === Buffer) {
-    // Fix subarray() in ES2016. See: https://github.com/feross/buffer/pull/97
-    Object.defineProperty(Buffer, Symbol.species, {
-      value: null,
-      configurable: true
-    })
+	  Buffer[Symbol.species] === Buffer) {
+	// Fix subarray() in ES2016. See: https://github.com/feross/buffer/pull/97
+	Object.defineProperty(Buffer, Symbol.species, {
+	  value: null,
+	  configurable: true
+	})
   }
 }
 
 function assertSize (size) {
   if (typeof size !== 'number') {
-    throw new TypeError('"size" argument must be a number')
+	throw new TypeError('"size" argument must be a number')
   } else if (size < 0) {
-    throw new RangeError('"size" argument must not be negative')
+	throw new RangeError('"size" argument must not be negative')
   }
 }
 
 function alloc (that, size, fill, encoding) {
   assertSize(size)
   if (size <= 0) {
-    return createBuffer(that, size)
+	return createBuffer(that, size)
   }
   if (fill !== undefined) {
-    // Only pay attention to encoding if it's a string. This
-    // prevents accidentally sending in a number that would
-    // be interpretted as a start offset.
-    return typeof encoding === 'string'
-      ? createBuffer(that, size).fill(fill, encoding)
-      : createBuffer(that, size).fill(fill)
+	// Only pay attention to encoding if it's a string. This
+	// prevents accidentally sending in a number that would
+	// be interpretted as a start offset.
+	return typeof encoding === 'string'
+	  ? createBuffer(that, size).fill(fill, encoding)
+	  : createBuffer(that, size).fill(fill)
   }
   return createBuffer(that, size)
 }
@@ -5609,9 +5609,9 @@ function allocUnsafe (that, size) {
   assertSize(size)
   that = createBuffer(that, size < 0 ? 0 : checked(size) | 0)
   if (!Buffer.TYPED_ARRAY_SUPPORT) {
-    for (var i = 0; i < size; ++i) {
-      that[i] = 0
-    }
+	for (var i = 0; i < size; ++i) {
+	  that[i] = 0
+	}
   }
   return that
 }
@@ -5631,11 +5631,11 @@ Buffer.allocUnsafeSlow = function (size) {
 
 function fromString (that, string, encoding) {
   if (typeof encoding !== 'string' || encoding === '') {
-    encoding = 'utf8'
+	encoding = 'utf8'
   }
 
   if (!Buffer.isEncoding(encoding)) {
-    throw new TypeError('"encoding" must be a valid string encoding')
+	throw new TypeError('"encoding" must be a valid string encoding')
   }
 
   var length = byteLength(string, encoding) | 0
@@ -5644,10 +5644,10 @@ function fromString (that, string, encoding) {
   var actual = that.write(string, encoding)
 
   if (actual !== length) {
-    // Writing a hex string, for example, that contains invalid characters will
-    // cause everything after the first invalid character to be ignored. (e.g.
-    // 'abxxcd' will be treated as 'ab')
-    that = that.slice(0, actual)
+	// Writing a hex string, for example, that contains invalid characters will
+	// cause everything after the first invalid character to be ignored. (e.g.
+	// 'abxxcd' will be treated as 'ab')
+	that = that.slice(0, actual)
   }
 
   return that
@@ -5657,7 +5657,7 @@ function fromArrayLike (that, array) {
   var length = array.length < 0 ? 0 : checked(array.length) | 0
   that = createBuffer(that, length)
   for (var i = 0; i < length; i += 1) {
-    that[i] = array[i] & 255
+	that[i] = array[i] & 255
   }
   return that
 }
@@ -5666,57 +5666,57 @@ function fromArrayBuffer (that, array, byteOffset, length) {
   array.byteLength // this throws if `array` is not a valid ArrayBuffer
 
   if (byteOffset < 0 || array.byteLength < byteOffset) {
-    throw new RangeError('\'offset\' is out of bounds')
+	throw new RangeError('\'offset\' is out of bounds')
   }
 
   if (array.byteLength < byteOffset + (length || 0)) {
-    throw new RangeError('\'length\' is out of bounds')
+	throw new RangeError('\'length\' is out of bounds')
   }
 
   if (byteOffset === undefined && length === undefined) {
-    array = new Uint8Array(array)
+	array = new Uint8Array(array)
   } else if (length === undefined) {
-    array = new Uint8Array(array, byteOffset)
+	array = new Uint8Array(array, byteOffset)
   } else {
-    array = new Uint8Array(array, byteOffset, length)
+	array = new Uint8Array(array, byteOffset, length)
   }
 
   if (Buffer.TYPED_ARRAY_SUPPORT) {
-    // Return an augmented `Uint8Array` instance, for best performance
-    that = array
-    that.__proto__ = Buffer.prototype
+	// Return an augmented `Uint8Array` instance, for best performance
+	that = array
+	that.__proto__ = Buffer.prototype
   } else {
-    // Fallback: Return an object instance of the Buffer class
-    that = fromArrayLike(that, array)
+	// Fallback: Return an object instance of the Buffer class
+	that = fromArrayLike(that, array)
   }
   return that
 }
 
 function fromObject (that, obj) {
   if (Buffer.isBuffer(obj)) {
-    var len = checked(obj.length) | 0
-    that = createBuffer(that, len)
+	var len = checked(obj.length) | 0
+	that = createBuffer(that, len)
 
-    if (that.length === 0) {
-      return that
-    }
+	if (that.length === 0) {
+	  return that
+	}
 
-    obj.copy(that, 0, 0, len)
-    return that
+	obj.copy(that, 0, 0, len)
+	return that
   }
 
   if (obj) {
-    if ((typeof ArrayBuffer !== 'undefined' &&
-        obj.buffer instanceof ArrayBuffer) || 'length' in obj) {
-      if (typeof obj.length !== 'number' || isnan(obj.length)) {
-        return createBuffer(that, 0)
-      }
-      return fromArrayLike(that, obj)
-    }
+	if ((typeof ArrayBuffer !== 'undefined' &&
+		obj.buffer instanceof ArrayBuffer) || 'length' in obj) {
+	  if (typeof obj.length !== 'number' || isnan(obj.length)) {
+		return createBuffer(that, 0)
+	  }
+	  return fromArrayLike(that, obj)
+	}
 
-    if (obj.type === 'Buffer' && isArray(obj.data)) {
-      return fromArrayLike(that, obj.data)
-    }
+	if (obj.type === 'Buffer' && isArray(obj.data)) {
+	  return fromArrayLike(that, obj.data)
+	}
   }
 
   throw new TypeError('First argument must be a string, Buffer, ArrayBuffer, Array, or array-like object.')
@@ -5726,15 +5726,15 @@ function checked (length) {
   // Note: cannot use `length < kMaxLength()` here because that fails when
   // length is NaN (which is otherwise coerced to zero.)
   if (length >= kMaxLength()) {
-    throw new RangeError('Attempt to allocate Buffer larger than maximum ' +
-                         'size: 0x' + kMaxLength().toString(16) + ' bytes')
+	throw new RangeError('Attempt to allocate Buffer larger than maximum ' +
+						 'size: 0x' + kMaxLength().toString(16) + ' bytes')
   }
   return length | 0
 }
 
 function SlowBuffer (length) {
   if (+length != length) { // eslint-disable-line eqeqeq
-    length = 0
+	length = 0
   }
   return Buffer.alloc(+length)
 }
@@ -5745,7 +5745,7 @@ Buffer.isBuffer = function isBuffer (b) {
 
 Buffer.compare = function compare (a, b) {
   if (!Buffer.isBuffer(a) || !Buffer.isBuffer(b)) {
-    throw new TypeError('Arguments must be Buffers')
+	throw new TypeError('Arguments must be Buffers')
   }
 
   if (a === b) return 0
@@ -5754,11 +5754,11 @@ Buffer.compare = function compare (a, b) {
   var y = b.length
 
   for (var i = 0, len = Math.min(x, y); i < len; ++i) {
-    if (a[i] !== b[i]) {
-      x = a[i]
-      y = b[i]
-      break
-    }
+	if (a[i] !== b[i]) {
+	  x = a[i]
+	  y = b[i]
+	  break
+	}
   }
 
   if (x < y) return -1
@@ -5768,63 +5768,63 @@ Buffer.compare = function compare (a, b) {
 
 Buffer.isEncoding = function isEncoding (encoding) {
   switch (String(encoding).toLowerCase()) {
-    case 'hex':
-    case 'utf8':
-    case 'utf-8':
-    case 'ascii':
-    case 'latin1':
-    case 'binary':
-    case 'base64':
-    case 'ucs2':
-    case 'ucs-2':
-    case 'utf16le':
-    case 'utf-16le':
-      return true
-    default:
-      return false
+	case 'hex':
+	case 'utf8':
+	case 'utf-8':
+	case 'ascii':
+	case 'latin1':
+	case 'binary':
+	case 'base64':
+	case 'ucs2':
+	case 'ucs-2':
+	case 'utf16le':
+	case 'utf-16le':
+	  return true
+	default:
+	  return false
   }
 }
 
 Buffer.concat = function concat (list, length) {
   if (!isArray(list)) {
-    throw new TypeError('"list" argument must be an Array of Buffers')
+	throw new TypeError('"list" argument must be an Array of Buffers')
   }
 
   if (list.length === 0) {
-    return Buffer.alloc(0)
+	return Buffer.alloc(0)
   }
 
   var i
   if (length === undefined) {
-    length = 0
-    for (i = 0; i < list.length; ++i) {
-      length += list[i].length
-    }
+	length = 0
+	for (i = 0; i < list.length; ++i) {
+	  length += list[i].length
+	}
   }
 
   var buffer = Buffer.allocUnsafe(length)
   var pos = 0
   for (i = 0; i < list.length; ++i) {
-    var buf = list[i]
-    if (!Buffer.isBuffer(buf)) {
-      throw new TypeError('"list" argument must be an Array of Buffers')
-    }
-    buf.copy(buffer, pos)
-    pos += buf.length
+	var buf = list[i]
+	if (!Buffer.isBuffer(buf)) {
+	  throw new TypeError('"list" argument must be an Array of Buffers')
+	}
+	buf.copy(buffer, pos)
+	pos += buf.length
   }
   return buffer
 }
 
 function byteLength (string, encoding) {
   if (Buffer.isBuffer(string)) {
-    return string.length
+	return string.length
   }
   if (typeof ArrayBuffer !== 'undefined' && typeof ArrayBuffer.isView === 'function' &&
-      (ArrayBuffer.isView(string) || string instanceof ArrayBuffer)) {
-    return string.byteLength
+	  (ArrayBuffer.isView(string) || string instanceof ArrayBuffer)) {
+	return string.byteLength
   }
   if (typeof string !== 'string') {
-    string = '' + string
+	string = '' + string
   }
 
   var len = string.length
@@ -5833,29 +5833,29 @@ function byteLength (string, encoding) {
   // Use a for loop to avoid recursion
   var loweredCase = false
   for (;;) {
-    switch (encoding) {
-      case 'ascii':
-      case 'latin1':
-      case 'binary':
-        return len
-      case 'utf8':
-      case 'utf-8':
-      case undefined:
-        return utf8ToBytes(string).length
-      case 'ucs2':
-      case 'ucs-2':
-      case 'utf16le':
-      case 'utf-16le':
-        return len * 2
-      case 'hex':
-        return len >>> 1
-      case 'base64':
-        return base64ToBytes(string).length
-      default:
-        if (loweredCase) return utf8ToBytes(string).length // assume utf8
-        encoding = ('' + encoding).toLowerCase()
-        loweredCase = true
-    }
+	switch (encoding) {
+	  case 'ascii':
+	  case 'latin1':
+	  case 'binary':
+		return len
+	  case 'utf8':
+	  case 'utf-8':
+	  case undefined:
+		return utf8ToBytes(string).length
+	  case 'ucs2':
+	  case 'ucs-2':
+	  case 'utf16le':
+	  case 'utf-16le':
+		return len * 2
+	  case 'hex':
+		return len >>> 1
+	  case 'base64':
+		return base64ToBytes(string).length
+	  default:
+		if (loweredCase) return utf8ToBytes(string).length // assume utf8
+		encoding = ('' + encoding).toLowerCase()
+		loweredCase = true
+	}
   }
 }
 Buffer.byteLength = byteLength
@@ -5871,20 +5871,20 @@ function slowToString (encoding, start, end) {
   // undefined is handled specially as per ECMA-262 6th Edition,
   // Section 13.3.3.7 Runtime Semantics: KeyedBindingInitialization.
   if (start === undefined || start < 0) {
-    start = 0
+	start = 0
   }
   // Return early if start > this.length. Done here to prevent potential uint32
   // coercion fail below.
   if (start > this.length) {
-    return ''
+	return ''
   }
 
   if (end === undefined || end > this.length) {
-    end = this.length
+	end = this.length
   }
 
   if (end <= 0) {
-    return ''
+	return ''
   }
 
   // Force coersion to uint32. This will also coerce falsey/NaN values to 0.
@@ -5892,41 +5892,41 @@ function slowToString (encoding, start, end) {
   start >>>= 0
 
   if (end <= start) {
-    return ''
+	return ''
   }
 
   if (!encoding) encoding = 'utf8'
 
   while (true) {
-    switch (encoding) {
-      case 'hex':
-        return hexSlice(this, start, end)
+	switch (encoding) {
+	  case 'hex':
+		return hexSlice(this, start, end)
 
-      case 'utf8':
-      case 'utf-8':
-        return utf8Slice(this, start, end)
+	  case 'utf8':
+	  case 'utf-8':
+		return utf8Slice(this, start, end)
 
-      case 'ascii':
-        return asciiSlice(this, start, end)
+	  case 'ascii':
+		return asciiSlice(this, start, end)
 
-      case 'latin1':
-      case 'binary':
-        return latin1Slice(this, start, end)
+	  case 'latin1':
+	  case 'binary':
+		return latin1Slice(this, start, end)
 
-      case 'base64':
-        return base64Slice(this, start, end)
+	  case 'base64':
+		return base64Slice(this, start, end)
 
-      case 'ucs2':
-      case 'ucs-2':
-      case 'utf16le':
-      case 'utf-16le':
-        return utf16leSlice(this, start, end)
+	  case 'ucs2':
+	  case 'ucs-2':
+	  case 'utf16le':
+	  case 'utf-16le':
+		return utf16leSlice(this, start, end)
 
-      default:
-        if (loweredCase) throw new TypeError('Unknown encoding: ' + encoding)
-        encoding = (encoding + '').toLowerCase()
-        loweredCase = true
-    }
+	  default:
+		if (loweredCase) throw new TypeError('Unknown encoding: ' + encoding)
+		encoding = (encoding + '').toLowerCase()
+		loweredCase = true
+	}
   }
 }
 
@@ -5943,10 +5943,10 @@ function swap (b, n, m) {
 Buffer.prototype.swap16 = function swap16 () {
   var len = this.length
   if (len % 2 !== 0) {
-    throw new RangeError('Buffer size must be a multiple of 16-bits')
+	throw new RangeError('Buffer size must be a multiple of 16-bits')
   }
   for (var i = 0; i < len; i += 2) {
-    swap(this, i, i + 1)
+	swap(this, i, i + 1)
   }
   return this
 }
@@ -5954,11 +5954,11 @@ Buffer.prototype.swap16 = function swap16 () {
 Buffer.prototype.swap32 = function swap32 () {
   var len = this.length
   if (len % 4 !== 0) {
-    throw new RangeError('Buffer size must be a multiple of 32-bits')
+	throw new RangeError('Buffer size must be a multiple of 32-bits')
   }
   for (var i = 0; i < len; i += 4) {
-    swap(this, i, i + 3)
-    swap(this, i + 1, i + 2)
+	swap(this, i, i + 3)
+	swap(this, i + 1, i + 2)
   }
   return this
 }
@@ -5966,13 +5966,13 @@ Buffer.prototype.swap32 = function swap32 () {
 Buffer.prototype.swap64 = function swap64 () {
   var len = this.length
   if (len % 8 !== 0) {
-    throw new RangeError('Buffer size must be a multiple of 64-bits')
+	throw new RangeError('Buffer size must be a multiple of 64-bits')
   }
   for (var i = 0; i < len; i += 8) {
-    swap(this, i, i + 7)
-    swap(this, i + 1, i + 6)
-    swap(this, i + 2, i + 5)
-    swap(this, i + 3, i + 4)
+	swap(this, i, i + 7)
+	swap(this, i + 1, i + 6)
+	swap(this, i + 2, i + 5)
+	swap(this, i + 3, i + 4)
   }
   return this
 }
@@ -5994,42 +5994,42 @@ Buffer.prototype.inspect = function inspect () {
   var str = ''
   var max = exports.INSPECT_MAX_BYTES
   if (this.length > 0) {
-    str = this.toString('hex', 0, max).match(/.{2}/g).join(' ')
-    if (this.length > max) str += ' ... '
+	str = this.toString('hex', 0, max).match(/.{2}/g).join(' ')
+	if (this.length > max) str += ' ... '
   }
   return '<Buffer ' + str + '>'
 }
 
 Buffer.prototype.compare = function compare (target, start, end, thisStart, thisEnd) {
   if (!Buffer.isBuffer(target)) {
-    throw new TypeError('Argument must be a Buffer')
+	throw new TypeError('Argument must be a Buffer')
   }
 
   if (start === undefined) {
-    start = 0
+	start = 0
   }
   if (end === undefined) {
-    end = target ? target.length : 0
+	end = target ? target.length : 0
   }
   if (thisStart === undefined) {
-    thisStart = 0
+	thisStart = 0
   }
   if (thisEnd === undefined) {
-    thisEnd = this.length
+	thisEnd = this.length
   }
 
   if (start < 0 || end > target.length || thisStart < 0 || thisEnd > this.length) {
-    throw new RangeError('out of range index')
+	throw new RangeError('out of range index')
   }
 
   if (thisStart >= thisEnd && start >= end) {
-    return 0
+	return 0
   }
   if (thisStart >= thisEnd) {
-    return -1
+	return -1
   }
   if (start >= end) {
-    return 1
+	return 1
   }
 
   start >>>= 0
@@ -6047,11 +6047,11 @@ Buffer.prototype.compare = function compare (target, start, end, thisStart, this
   var targetCopy = target.slice(start, end)
 
   for (var i = 0; i < len; ++i) {
-    if (thisCopy[i] !== targetCopy[i]) {
-      x = thisCopy[i]
-      y = targetCopy[i]
-      break
-    }
+	if (thisCopy[i] !== targetCopy[i]) {
+	  x = thisCopy[i]
+	  y = targetCopy[i]
+	  break
+	}
   }
 
   if (x < y) return -1
@@ -6074,52 +6074,52 @@ function bidirectionalIndexOf (buffer, val, byteOffset, encoding, dir) {
 
   // Normalize byteOffset
   if (typeof byteOffset === 'string') {
-    encoding = byteOffset
-    byteOffset = 0
+	encoding = byteOffset
+	byteOffset = 0
   } else if (byteOffset > 0x7fffffff) {
-    byteOffset = 0x7fffffff
+	byteOffset = 0x7fffffff
   } else if (byteOffset < -0x80000000) {
-    byteOffset = -0x80000000
+	byteOffset = -0x80000000
   }
-  byteOffset = +byteOffset  // Coerce to Number.
+  byteOffset = +byteOffset	// Coerce to Number.
   if (isNaN(byteOffset)) {
-    // byteOffset: it it's undefined, null, NaN, "foo", etc, search whole buffer
-    byteOffset = dir ? 0 : (buffer.length - 1)
+	// byteOffset: it it's undefined, null, NaN, "foo", etc, search whole buffer
+	byteOffset = dir ? 0 : (buffer.length - 1)
   }
 
   // Normalize byteOffset: negative offsets start from the end of the buffer
   if (byteOffset < 0) byteOffset = buffer.length + byteOffset
   if (byteOffset >= buffer.length) {
-    if (dir) return -1
-    else byteOffset = buffer.length - 1
+	if (dir) return -1
+	else byteOffset = buffer.length - 1
   } else if (byteOffset < 0) {
-    if (dir) byteOffset = 0
-    else return -1
+	if (dir) byteOffset = 0
+	else return -1
   }
 
   // Normalize val
   if (typeof val === 'string') {
-    val = Buffer.from(val, encoding)
+	val = Buffer.from(val, encoding)
   }
 
   // Finally, search either indexOf (if dir is true) or lastIndexOf
   if (Buffer.isBuffer(val)) {
-    // Special case: looking for empty string/buffer always fails
-    if (val.length === 0) {
-      return -1
-    }
-    return arrayIndexOf(buffer, val, byteOffset, encoding, dir)
+	// Special case: looking for empty string/buffer always fails
+	if (val.length === 0) {
+	  return -1
+	}
+	return arrayIndexOf(buffer, val, byteOffset, encoding, dir)
   } else if (typeof val === 'number') {
-    val = val & 0xFF // Search for a byte value [0-255]
-    if (Buffer.TYPED_ARRAY_SUPPORT &&
-        typeof Uint8Array.prototype.indexOf === 'function') {
-      if (dir) {
-        return Uint8Array.prototype.indexOf.call(buffer, val, byteOffset)
-      } else {
-        return Uint8Array.prototype.lastIndexOf.call(buffer, val, byteOffset)
-      }
-    }
-    return arrayIndexOf(buffer, [ val ], byteOffset, encoding, dir)
+	val = val & 0xFF // Search for a byte value [0-255]
+	if (Buffer.TYPED_ARRAY_SUPPORT &&
+		typeof Uint8Array.prototype.indexOf === 'function') {
+	  if (dir) {
+		return Uint8Array.prototype.indexOf.call(buffer, val, byteOffset)
+	  } else {
+		return Uint8Array.prototype.lastIndexOf.call(buffer, val, byteOffset)
+	  }
+	}
+	return arrayIndexOf(buffer, [ val ], byteOffset, encoding, dir)
   }
 
   throw new TypeError('val must be string, number or Buffer')
@@ -6131,51 +6131,51 @@ function arrayIndexOf (arr, val, byteOffset, encoding, dir) {
   var valLength = val.length
 
   if (encoding !== undefined) {
-    encoding = String(encoding).toLowerCase()
-    if (encoding === 'ucs2' || encoding === 'ucs-2' ||
-        encoding === 'utf16le' || encoding === 'utf-16le') {
-      if (arr.length < 2 || val.length < 2) {
-        return -1
-      }
-      indexSize = 2
-      arrLength /= 2
-      valLength /= 2
-      byteOffset /= 2
-    }
+	encoding = String(encoding).toLowerCase()
+	if (encoding === 'ucs2' || encoding === 'ucs-2' ||
+		encoding === 'utf16le' || encoding === 'utf-16le') {
+	  if (arr.length < 2 || val.length < 2) {
+		return -1
+	  }
+	  indexSize = 2
+	  arrLength /= 2
+	  valLength /= 2
+	  byteOffset /= 2
+	}
   }
 
   function read (buf, i) {
-    if (indexSize === 1) {
-      return buf[i]
-    } else {
-      return buf.readUInt16BE(i * indexSize)
-    }
+	if (indexSize === 1) {
+	  return buf[i]
+	} else {
+	  return buf.readUInt16BE(i * indexSize)
+	}
   }
 
   var i
   if (dir) {
-    var foundIndex = -1
-    for (i = byteOffset; i < arrLength; i++) {
-      if (read(arr, i) === read(val, foundIndex === -1 ? 0 : i - foundIndex)) {
-        if (foundIndex === -1) foundIndex = i
-        if (i - foundIndex + 1 === valLength) return foundIndex * indexSize
-      } else {
-        if (foundIndex !== -1) i -= i - foundIndex
-        foundIndex = -1
-      }
-    }
+	var foundIndex = -1
+	for (i = byteOffset; i < arrLength; i++) {
+	  if (read(arr, i) === read(val, foundIndex === -1 ? 0 : i - foundIndex)) {
+		if (foundIndex === -1) foundIndex = i
+		if (i - foundIndex + 1 === valLength) return foundIndex * indexSize
+	  } else {
+		if (foundIndex !== -1) i -= i - foundIndex
+		foundIndex = -1
+	  }
+	}
   } else {
-    if (byteOffset + valLength > arrLength) byteOffset = arrLength - valLength
-    for (i = byteOffset; i >= 0; i--) {
-      var found = true
-      for (var j = 0; j < valLength; j++) {
-        if (read(arr, i + j) !== read(val, j)) {
-          found = false
-          break
-        }
-      }
-      if (found) return i
-    }
+	if (byteOffset + valLength > arrLength) byteOffset = arrLength - valLength
+	for (i = byteOffset; i >= 0; i--) {
+	  var found = true
+	  for (var j = 0; j < valLength; j++) {
+		if (read(arr, i + j) !== read(val, j)) {
+		  found = false
+		  break
+		}
+	  }
+	  if (found) return i
+	}
   }
 
   return -1
@@ -6197,12 +6197,12 @@ function hexWrite (buf, string, offset, length) {
   offset = Number(offset) || 0
   var remaining = buf.length - offset
   if (!length) {
-    length = remaining
+	length = remaining
   } else {
-    length = Number(length)
-    if (length > remaining) {
-      length = remaining
-    }
+	length = Number(length)
+	if (length > remaining) {
+	  length = remaining
+	}
   }
 
   // must be an even number of digits
@@ -6210,12 +6210,12 @@ function hexWrite (buf, string, offset, length) {
   if (strLen % 2 !== 0) throw new TypeError('Invalid hex string')
 
   if (length > strLen / 2) {
-    length = strLen / 2
+	length = strLen / 2
   }
   for (var i = 0; i < length; ++i) {
-    var parsed = parseInt(string.substr(i * 2, 2), 16)
-    if (isNaN(parsed)) return i
-    buf[offset + i] = parsed
+	var parsed = parseInt(string.substr(i * 2, 2), 16)
+	if (isNaN(parsed)) return i
+	buf[offset + i] = parsed
   }
   return i
 }
@@ -6243,87 +6243,87 @@ function ucs2Write (buf, string, offset, length) {
 Buffer.prototype.write = function write (string, offset, length, encoding) {
   // Buffer#write(string)
   if (offset === undefined) {
-    encoding = 'utf8'
-    length = this.length
-    offset = 0
+	encoding = 'utf8'
+	length = this.length
+	offset = 0
   // Buffer#write(string, encoding)
   } else if (length === undefined && typeof offset === 'string') {
-    encoding = offset
-    length = this.length
-    offset = 0
+	encoding = offset
+	length = this.length
+	offset = 0
   // Buffer#write(string, offset[, length][, encoding])
   } else if (isFinite(offset)) {
-    offset = offset | 0
-    if (isFinite(length)) {
-      length = length | 0
-      if (encoding === undefined) encoding = 'utf8'
-    } else {
-      encoding = length
-      length = undefined
-    }
+	offset = offset | 0
+	if (isFinite(length)) {
+	  length = length | 0
+	  if (encoding === undefined) encoding = 'utf8'
+	} else {
+	  encoding = length
+	  length = undefined
+	}
   // legacy write(string, encoding, offset, length) - remove in v0.13
   } else {
-    throw new Error(
-      'Buffer.write(string, encoding, offset[, length]) is no longer supported'
-    )
+	throw new Error(
+	  'Buffer.write(string, encoding, offset[, length]) is no longer supported'
+	)
   }
 
   var remaining = this.length - offset
   if (length === undefined || length > remaining) length = remaining
 
   if ((string.length > 0 && (length < 0 || offset < 0)) || offset > this.length) {
-    throw new RangeError('Attempt to write outside buffer bounds')
+	throw new RangeError('Attempt to write outside buffer bounds')
   }
 
   if (!encoding) encoding = 'utf8'
 
   var loweredCase = false
   for (;;) {
-    switch (encoding) {
-      case 'hex':
-        return hexWrite(this, string, offset, length)
+	switch (encoding) {
+	  case 'hex':
+		return hexWrite(this, string, offset, length)
 
-      case 'utf8':
-      case 'utf-8':
-        return utf8Write(this, string, offset, length)
+	  case 'utf8':
+	  case 'utf-8':
+		return utf8Write(this, string, offset, length)
 
-      case 'ascii':
-        return asciiWrite(this, string, offset, length)
+	  case 'ascii':
+		return asciiWrite(this, string, offset, length)
 
-      case 'latin1':
-      case 'binary':
-        return latin1Write(this, string, offset, length)
+	  case 'latin1':
+	  case 'binary':
+		return latin1Write(this, string, offset, length)
 
-      case 'base64':
-        // Warning: maxLength not taken into account in base64Write
-        return base64Write(this, string, offset, length)
+	  case 'base64':
+		// Warning: maxLength not taken into account in base64Write
+		return base64Write(this, string, offset, length)
 
-      case 'ucs2':
-      case 'ucs-2':
-      case 'utf16le':
-      case 'utf-16le':
-        return ucs2Write(this, string, offset, length)
+	  case 'ucs2':
+	  case 'ucs-2':
+	  case 'utf16le':
+	  case 'utf-16le':
+		return ucs2Write(this, string, offset, length)
 
-      default:
-        if (loweredCase) throw new TypeError('Unknown encoding: ' + encoding)
-        encoding = ('' + encoding).toLowerCase()
-        loweredCase = true
-    }
+	  default:
+		if (loweredCase) throw new TypeError('Unknown encoding: ' + encoding)
+		encoding = ('' + encoding).toLowerCase()
+		loweredCase = true
+	}
   }
 }
 
 Buffer.prototype.toJSON = function toJSON () {
   return {
-    type: 'Buffer',
-    data: Array.prototype.slice.call(this._arr || this, 0)
+	type: 'Buffer',
+	data: Array.prototype.slice.call(this._arr || this, 0)
   }
 }
 
 function base64Slice (buf, start, end) {
   if (start === 0 && end === buf.length) {
-    return base64.fromByteArray(buf)
+	return base64.fromByteArray(buf)
   } else {
-    return base64.fromByteArray(buf.slice(start, end))
+	return base64.fromByteArray(buf.slice(start, end))
   }
 }
 
@@ -6333,68 +6333,68 @@ function utf8Slice (buf, start, end) {
 
   var i = start
   while (i < end) {
-    var firstByte = buf[i]
-    var codePoint = null
-    var bytesPerSequence = (firstByte > 0xEF) ? 4
-      : (firstByte > 0xDF) ? 3
-      : (firstByte > 0xBF) ? 2
-      : 1
+	var firstByte = buf[i]
+	var codePoint = null
+	var bytesPerSequence = (firstByte > 0xEF) ? 4
+	  : (firstByte > 0xDF) ? 3
+	  : (firstByte > 0xBF) ? 2
+	  : 1
 
-    if (i + bytesPerSequence <= end) {
-      var secondByte, thirdByte, fourthByte, tempCodePoint
+	if (i + bytesPerSequence <= end) {
+	  var secondByte, thirdByte, fourthByte, tempCodePoint
 
-      switch (bytesPerSequence) {
-        case 1:
-          if (firstByte < 0x80) {
-            codePoint = firstByte
-          }
-          break
-        case 2:
-          secondByte = buf[i + 1]
-          if ((secondByte & 0xC0) === 0x80) {
-            tempCodePoint = (firstByte & 0x1F) << 0x6 | (secondByte & 0x3F)
-            if (tempCodePoint > 0x7F) {
-              codePoint = tempCodePoint
-            }
-          }
-          break
-        case 3:
-          secondByte = buf[i + 1]
-          thirdByte = buf[i + 2]
-          if ((secondByte & 0xC0) === 0x80 && (thirdByte & 0xC0) === 0x80) {
-            tempCodePoint = (firstByte & 0xF) << 0xC | (secondByte & 0x3F) << 0x6 | (thirdByte & 0x3F)
-            if (tempCodePoint > 0x7FF && (tempCodePoint < 0xD800 || tempCodePoint > 0xDFFF)) {
-              codePoint = tempCodePoint
-            }
-          }
-          break
-        case 4:
-          secondByte = buf[i + 1]
-          thirdByte = buf[i + 2]
-          fourthByte = buf[i + 3]
-          if ((secondByte & 0xC0) === 0x80 && (thirdByte & 0xC0) === 0x80 && (fourthByte & 0xC0) === 0x80) {
-            tempCodePoint = (firstByte & 0xF) << 0x12 | (secondByte & 0x3F) << 0xC | (thirdByte & 0x3F) << 0x6 | (fourthByte & 0x3F)
-            if (tempCodePoint > 0xFFFF && tempCodePoint < 0x110000) {
-              codePoint = tempCodePoint
-            }
-          }
-      }
-    }
+	  switch (bytesPerSequence) {
+		case 1:
+		  if (firstByte < 0x80) {
+			codePoint = firstByte
+		  }
+		  break
+		case 2:
+		  secondByte = buf[i + 1]
+		  if ((secondByte & 0xC0) === 0x80) {
+			tempCodePoint = (firstByte & 0x1F) << 0x6 | (secondByte & 0x3F)
+			if (tempCodePoint > 0x7F) {
+			  codePoint = tempCodePoint
+			}
+		  }
+		  break
+		case 3:
+		  secondByte = buf[i + 1]
+		  thirdByte = buf[i + 2]
+		  if ((secondByte & 0xC0) === 0x80 && (thirdByte & 0xC0) === 0x80) {
+			tempCodePoint = (firstByte & 0xF) << 0xC | (secondByte & 0x3F) << 0x6 | (thirdByte & 0x3F)
+			if (tempCodePoint > 0x7FF && (tempCodePoint < 0xD800 || tempCodePoint > 0xDFFF)) {
+			  codePoint = tempCodePoint
+			}
+		  }
+		  break
+		case 4:
+		  secondByte = buf[i + 1]
+		  thirdByte = buf[i + 2]
+		  fourthByte = buf[i + 3]
+		  if ((secondByte & 0xC0) === 0x80 && (thirdByte & 0xC0) === 0x80 && (fourthByte & 0xC0) === 0x80) {
+			tempCodePoint = (firstByte & 0xF) << 0x12 | (secondByte & 0x3F) << 0xC | (thirdByte & 0x3F) << 0x6 | (fourthByte & 0x3F)
+			if (tempCodePoint > 0xFFFF && tempCodePoint < 0x110000) {
+			  codePoint = tempCodePoint
+			}
+		  }
+	  }
+	}
 
-    if (codePoint === null) {
-      // we did not generate a valid codePoint so insert a
-      // replacement char (U+FFFD) and advance only 1 byte
-      codePoint = 0xFFFD
-      bytesPerSequence = 1
-    } else if (codePoint > 0xFFFF) {
-      // encode to utf16 (surrogate pair dance)
-      codePoint -= 0x10000
-      res.push(codePoint >>> 10 & 0x3FF | 0xD800)
-      codePoint = 0xDC00 | codePoint & 0x3FF
-    }
+	if (codePoint === null) {
+	  // we did not generate a valid codePoint so insert a
+	  // replacement char (U+FFFD) and advance only 1 byte
+	  codePoint = 0xFFFD
+	  bytesPerSequence = 1
+	} else if (codePoint > 0xFFFF) {
+	  // encode to utf16 (surrogate pair dance)
+	  codePoint -= 0x10000
+	  res.push(codePoint >>> 10 & 0x3FF | 0xD800)
+	  codePoint = 0xDC00 | codePoint & 0x3FF
+	}
 
-    res.push(codePoint)
-    i += bytesPerSequence
+	res.push(codePoint)
+	i += bytesPerSequence
   }
 
   return decodeCodePointsArray(res)
@@ -6408,17 +6408,17 @@ var MAX_ARGUMENTS_LENGTH = 0x1000
 function decodeCodePointsArray (codePoints) {
   var len = codePoints.length
   if (len <= MAX_ARGUMENTS_LENGTH) {
-    return String.fromCharCode.apply(String, codePoints) // avoid extra slice()
+	return String.fromCharCode.apply(String, codePoints) // avoid extra slice()
   }
 
   // Decode in chunks to avoid "call stack size exceeded".
   var res = ''
   var i = 0
   while (i < len) {
-    res += String.fromCharCode.apply(
-      String,
-      codePoints.slice(i, i += MAX_ARGUMENTS_LENGTH)
-    )
+	res += String.fromCharCode.apply(
+	  String,
+	  codePoints.slice(i, i += MAX_ARGUMENTS_LENGTH)
+	)
   }
   return res
 }
@@ -6428,7 +6428,7 @@ function asciiSlice (buf, start, end) {
   end = Math.min(buf.length, end)
 
   for (var i = start; i < end; ++i) {
-    ret += String.fromCharCode(buf[i] & 0x7F)
+	ret += String.fromCharCode(buf[i] & 0x7F)
   }
   return ret
 }
@@ -6438,7 +6438,7 @@ function latin1Slice (buf, start, end) {
   end = Math.min(buf.length, end)
 
   for (var i = start; i < end; ++i) {
-    ret += String.fromCharCode(buf[i])
+	ret += String.fromCharCode(buf[i])
   }
   return ret
 }
@@ -6451,7 +6451,7 @@ function hexSlice (buf, start, end) {
 
   var out = ''
   for (var i = start; i < end; ++i) {
-    out += toHex(buf[i])
+	out += toHex(buf[i])
   }
   return out
 }
@@ -6460,7 +6460,7 @@ function utf16leSlice (buf, start, end) {
   var bytes = buf.slice(start, end)
   var res = ''
   for (var i = 0; i < bytes.length; i += 2) {
-    res += String.fromCharCode(bytes[i] + bytes[i + 1] * 256)
+	res += String.fromCharCode(bytes[i] + bytes[i + 1] * 256)
   }
   return res
 }
@@ -6471,31 +6471,31 @@ Buffer.prototype.slice = function slice (start, end) {
   end = end === undefined ? len : ~~end
 
   if (start < 0) {
-    start += len
-    if (start < 0) start = 0
+	start += len
+	if (start < 0) start = 0
   } else if (start > len) {
-    start = len
+	start = len
   }
 
   if (end < 0) {
-    end += len
-    if (end < 0) end = 0
+	end += len
+	if (end < 0) end = 0
   } else if (end > len) {
-    end = len
+	end = len
   }
 
   if (end < start) end = start
 
   var newBuf
   if (Buffer.TYPED_ARRAY_SUPPORT) {
-    newBuf = this.subarray(start, end)
-    newBuf.__proto__ = Buffer.prototype
+	newBuf = this.subarray(start, end)
+	newBuf.__proto__ = Buffer.prototype
   } else {
-    var sliceLen = end - start
-    newBuf = new Buffer(sliceLen, undefined)
-    for (var i = 0; i < sliceLen; ++i) {
-      newBuf[i] = this[i + start]
-    }
+	var sliceLen = end - start
+	newBuf = new Buffer(sliceLen, undefined)
+	for (var i = 0; i < sliceLen; ++i) {
+	  newBuf[i] = this[i + start]
+	}
   }
 
   return newBuf
@@ -6518,7 +6518,7 @@ Buffer.prototype.readUIntLE = function readUIntLE (offset, byteLength, noAssert)
   var mul = 1
   var i = 0
   while (++i < byteLength && (mul *= 0x100)) {
-    val += this[offset + i] * mul
+	val += this[offset + i] * mul
   }
 
   return val
@@ -6528,13 +6528,13 @@ Buffer.prototype.readUIntBE = function readUIntBE (offset, byteLength, noAssert)
   offset = offset | 0
   byteLength = byteLength | 0
   if (!noAssert) {
-    checkOffset(offset, byteLength, this.length)
+	checkOffset(offset, byteLength, this.length)
   }
 
   var val = this[offset + --byteLength]
   var mul = 1
   while (byteLength > 0 && (mul *= 0x100)) {
-    val += this[offset + --byteLength] * mul
+	val += this[offset + --byteLength] * mul
   }
 
   return val
@@ -6559,18 +6559,18 @@ Buffer.prototype.readUInt32LE = function readUInt32LE (offset, noAssert) {
   if (!noAssert) checkOffset(offset, 4, this.length)
 
   return ((this[offset]) |
-      (this[offset + 1] << 8) |
-      (this[offset + 2] << 16)) +
-      (this[offset + 3] * 0x1000000)
+	  (this[offset + 1] << 8) |
+	  (this[offset + 2] << 16)) +
+	  (this[offset + 3] * 0x1000000)
 }
 
 Buffer.prototype.readUInt32BE = function readUInt32BE (offset, noAssert) {
   if (!noAssert) checkOffset(offset, 4, this.length)
 
   return (this[offset] * 0x1000000) +
-    ((this[offset + 1] << 16) |
-    (this[offset + 2] << 8) |
-    this[offset + 3])
+	((this[offset + 1] << 16) |
+	(this[offset + 2] << 8) |
+	this[offset + 3])
 }
 
 Buffer.prototype.readIntLE = function readIntLE (offset, byteLength, noAssert) {
@@ -6582,7 +6582,7 @@ Buffer.prototype.readIntLE = function readIntLE (offset, byteLength, noAssert) {
   var mul = 1
   var i = 0
   while (++i < byteLength && (mul *= 0x100)) {
-    val += this[offset + i] * mul
+	val += this[offset + i] * mul
   }
   mul *= 0x80
 
@@ -6600,7 +6600,7 @@ Buffer.prototype.readIntBE = function readIntBE (offset, byteLength, noAssert) {
   var mul = 1
   var val = this[offset + --i]
   while (i > 0 && (mul *= 0x100)) {
-    val += this[offset + --i] * mul
+	val += this[offset + --i] * mul
   }
   mul *= 0x80
 
@@ -6631,18 +6631,18 @@ Buffer.prototype.readInt32LE = function readInt32LE (offset, noAssert) {
   if (!noAssert) checkOffset(offset, 4, this.length)
 
   return (this[offset]) |
-    (this[offset + 1] << 8) |
-    (this[offset + 2] << 16) |
-    (this[offset + 3] << 24)
+	(this[offset + 1] << 8) |
+	(this[offset + 2] << 16) |
+	(this[offset + 3] << 24)
 }
 
 Buffer.prototype.readInt32BE = function readInt32BE (offset, noAssert) {
   if (!noAssert) checkOffset(offset, 4, this.length)
 
   return (this[offset] << 24) |
-    (this[offset + 1] << 16) |
-    (this[offset + 2] << 8) |
-    (this[offset + 3])
+	(this[offset + 1] << 16) |
+	(this[offset + 2] << 8) |
+	(this[offset + 3])
 }
 
 Buffer.prototype.readFloatLE = function readFloatLE (offset, noAssert) {
@@ -6676,15 +6676,15 @@ Buffer.prototype.writeUIntLE = function writeUIntLE (value, offset, byteLength, 
   offset = offset | 0
   byteLength = byteLength | 0
   if (!noAssert) {
-    var maxBytes = Math.pow(2, 8 * byteLength) - 1
-    checkInt(this, value, offset, byteLength, maxBytes, 0)
+	var maxBytes = Math.pow(2, 8 * byteLength) - 1
+	checkInt(this, value, offset, byteLength, maxBytes, 0)
   }
 
   var mul = 1
   var i = 0
   this[offset] = value & 0xFF
   while (++i < byteLength && (mul *= 0x100)) {
-    this[offset + i] = (value / mul) & 0xFF
+	this[offset + i] = (value / mul) & 0xFF
   }
 
   return offset + byteLength
@@ -6695,15 +6695,15 @@ Buffer.prototype.writeUIntBE = function writeUIntBE (value, offset, byteLength, 
   offset = offset | 0
   byteLength = byteLength | 0
   if (!noAssert) {
-    var maxBytes = Math.pow(2, 8 * byteLength) - 1
-    checkInt(this, value, offset, byteLength, maxBytes, 0)
+	var maxBytes = Math.pow(2, 8 * byteLength) - 1
+	checkInt(this, value, offset, byteLength, maxBytes, 0)
   }
 
   var i = byteLength - 1
   var mul = 1
   this[offset + i] = value & 0xFF
   while (--i >= 0 && (mul *= 0x100)) {
-    this[offset + i] = (value / mul) & 0xFF
+	this[offset + i] = (value / mul) & 0xFF
   }
 
   return offset + byteLength
@@ -6721,8 +6721,8 @@ Buffer.prototype.writeUInt8 = function writeUInt8 (value, offset, noAssert) {
 function objectWriteUInt16 (buf, value, offset, littleEndian) {
   if (value < 0) value = 0xffff + value + 1
   for (var i = 0, j = Math.min(buf.length - offset, 2); i < j; ++i) {
-    buf[offset + i] = (value & (0xff << (8 * (littleEndian ? i : 1 - i)))) >>>
-      (littleEndian ? i : 1 - i) * 8
+	buf[offset + i] = (value & (0xff << (8 * (littleEndian ? i : 1 - i)))) >>>
+	  (littleEndian ? i : 1 - i) * 8
   }
 }
 
@@ -6731,10 +6731,10 @@ Buffer.prototype.writeUInt16LE = function writeUInt16LE (value, offset, noAssert
   offset = offset | 0
   if (!noAssert) checkInt(this, value, offset, 2, 0xffff, 0)
   if (Buffer.TYPED_ARRAY_SUPPORT) {
-    this[offset] = (value & 0xff)
-    this[offset + 1] = (value >>> 8)
+	this[offset] = (value & 0xff)
+	this[offset + 1] = (value >>> 8)
   } else {
-    objectWriteUInt16(this, value, offset, true)
+	objectWriteUInt16(this, value, offset, true)
   }
   return offset + 2
 }
@@ -6744,10 +6744,10 @@ Buffer.prototype.writeUInt16BE = function writeUInt16BE (value, offset, noAssert
   offset = offset | 0
   if (!noAssert) checkInt(this, value, offset, 2, 0xffff, 0)
   if (Buffer.TYPED_ARRAY_SUPPORT) {
-    this[offset] = (value >>> 8)
-    this[offset + 1] = (value & 0xff)
+	this[offset] = (value >>> 8)
+	this[offset + 1] = (value & 0xff)
   } else {
-    objectWriteUInt16(this, value, offset, false)
+	objectWriteUInt16(this, value, offset, false)
   }
   return offset + 2
 }
@@ -6755,7 +6755,7 @@ Buffer.prototype.writeUInt16BE = function writeUInt16BE (value, offset, noAssert
 function objectWriteUInt32 (buf, value, offset, littleEndian) {
   if (value < 0) value = 0xffffffff + value + 1
   for (var i = 0, j = Math.min(buf.length - offset, 4); i < j; ++i) {
-    buf[offset + i] = (value >>> (littleEndian ? i : 3 - i) * 8) & 0xff
+	buf[offset + i] = (value >>> (littleEndian ? i : 3 - i) * 8) & 0xff
   }
 }
 
@@ -6764,12 +6764,12 @@ Buffer.prototype.writeUInt32LE = function writeUInt32LE (value, offset, noAssert
   offset = offset | 0
   if (!noAssert) checkInt(this, value, offset, 4, 0xffffffff, 0)
   if (Buffer.TYPED_ARRAY_SUPPORT) {
-    this[offset + 3] = (value >>> 24)
-    this[offset + 2] = (value >>> 16)
-    this[offset + 1] = (value >>> 8)
-    this[offset] = (value & 0xff)
+	this[offset + 3] = (value >>> 24)
+	this[offset + 2] = (value >>> 16)
+	this[offset + 1] = (value >>> 8)
+	this[offset] = (value & 0xff)
   } else {
-    objectWriteUInt32(this, value, offset, true)
+	objectWriteUInt32(this, value, offset, true)
   }
   return offset + 4
 }
@@ -6779,12 +6779,12 @@ Buffer.prototype.writeUInt32BE = function writeUInt32BE (value, offset, noAssert
   offset = offset | 0
   if (!noAssert) checkInt(this, value, offset, 4, 0xffffffff, 0)
   if (Buffer.TYPED_ARRAY_SUPPORT) {
-    this[offset] = (value >>> 24)
-    this[offset + 1] = (value >>> 16)
-    this[offset + 2] = (value >>> 8)
-    this[offset + 3] = (value & 0xff)
+	this[offset] = (value >>> 24)
+	this[offset + 1] = (value >>> 16)
+	this[offset + 2] = (value >>> 8)
+	this[offset + 3] = (value & 0xff)
   } else {
-    objectWriteUInt32(this, value, offset, false)
+	objectWriteUInt32(this, value, offset, false)
   }
   return offset + 4
 }
@@ -6793,9 +6793,9 @@ Buffer.prototype.writeIntLE = function writeIntLE (value, offset, byteLength, no
   value = +value
   offset = offset | 0
   if (!noAssert) {
-    var limit = Math.pow(2, 8 * byteLength - 1)
+	var limit = Math.pow(2, 8 * byteLength - 1)
 
-    checkInt(this, value, offset, byteLength, limit - 1, -limit)
+	checkInt(this, value, offset, byteLength, limit - 1, -limit)
   }
 
   var i = 0
@@ -6803,10 +6803,10 @@ Buffer.prototype.writeIntLE = function writeIntLE (value, offset, byteLength, no
   var sub = 0
   this[offset] = value & 0xFF
   while (++i < byteLength && (mul *= 0x100)) {
-    if (value < 0 && sub === 0 && this[offset + i - 1] !== 0) {
-      sub = 1
-    }
-    this[offset + i] = ((value / mul) >> 0) - sub & 0xFF
+	if (value < 0 && sub === 0 && this[offset + i - 1] !== 0) {
+	  sub = 1
+	}
+	this[offset + i] = ((value / mul) >> 0) - sub & 0xFF
   }
 
   return offset + byteLength
@@ -6816,9 +6816,9 @@ Buffer.prototype.writeIntBE = function writeIntBE (value, offset, byteLength, no
   value = +value
   offset = offset | 0
   if (!noAssert) {
-    var limit = Math.pow(2, 8 * byteLength - 1)
+	var limit = Math.pow(2, 8 * byteLength - 1)
 
-    checkInt(this, value, offset, byteLength, limit - 1, -limit)
+	checkInt(this, value, offset, byteLength, limit - 1, -limit)
   }
 
   var i = byteLength - 1
@@ -6826,10 +6826,10 @@ Buffer.prototype.writeIntBE = function writeIntBE (value, offset, byteLength, no
   var sub = 0
   this[offset + i] = value & 0xFF
   while (--i >= 0 && (mul *= 0x100)) {
-    if (value < 0 && sub === 0 && this[offset + i + 1] !== 0) {
-      sub = 1
-    }
-    this[offset + i] = ((value / mul) >> 0) - sub & 0xFF
+	if (value < 0 && sub === 0 && this[offset + i + 1] !== 0) {
+	  sub = 1
+	}
+	this[offset + i] = ((value / mul) >> 0) - sub & 0xFF
   }
 
   return offset + byteLength
@@ -6850,10 +6850,10 @@ Buffer.prototype.writeInt16LE = function writeInt16LE (value, offset, noAssert) 
   offset = offset | 0
   if (!noAssert) checkInt(this, value, offset, 2, 0x7fff, -0x8000)
   if (Buffer.TYPED_ARRAY_SUPPORT) {
-    this[offset] = (value & 0xff)
-    this[offset + 1] = (value >>> 8)
+	this[offset] = (value & 0xff)
+	this[offset + 1] = (value >>> 8)
   } else {
-    objectWriteUInt16(this, value, offset, true)
+	objectWriteUInt16(this, value, offset, true)
   }
   return offset + 2
 }
@@ -6863,10 +6863,10 @@ Buffer.prototype.writeInt16BE = function writeInt16BE (value, offset, noAssert) 
   offset = offset | 0
   if (!noAssert) checkInt(this, value, offset, 2, 0x7fff, -0x8000)
   if (Buffer.TYPED_ARRAY_SUPPORT) {
-    this[offset] = (value >>> 8)
-    this[offset + 1] = (value & 0xff)
+	this[offset] = (value >>> 8)
+	this[offset + 1] = (value & 0xff)
   } else {
-    objectWriteUInt16(this, value, offset, false)
+	objectWriteUInt16(this, value, offset, false)
   }
   return offset + 2
 }
@@ -6876,12 +6876,12 @@ Buffer.prototype.writeInt32LE = function writeInt32LE (value, offset, noAssert) 
   offset = offset | 0
   if (!noAssert) checkInt(this, value, offset, 4, 0x7fffffff, -0x80000000)
   if (Buffer.TYPED_ARRAY_SUPPORT) {
-    this[offset] = (value & 0xff)
-    this[offset + 1] = (value >>> 8)
-    this[offset + 2] = (value >>> 16)
-    this[offset + 3] = (value >>> 24)
+	this[offset] = (value & 0xff)
+	this[offset + 1] = (value >>> 8)
+	this[offset + 2] = (value >>> 16)
+	this[offset + 3] = (value >>> 24)
   } else {
-    objectWriteUInt32(this, value, offset, true)
+	objectWriteUInt32(this, value, offset, true)
   }
   return offset + 4
 }
@@ -6892,12 +6892,12 @@ Buffer.prototype.writeInt32BE = function writeInt32BE (value, offset, noAssert) 
   if (!noAssert) checkInt(this, value, offset, 4, 0x7fffffff, -0x80000000)
   if (value < 0) value = 0xffffffff + value + 1
   if (Buffer.TYPED_ARRAY_SUPPORT) {
-    this[offset] = (value >>> 24)
-    this[offset + 1] = (value >>> 16)
-    this[offset + 2] = (value >>> 8)
-    this[offset + 3] = (value & 0xff)
+	this[offset] = (value >>> 24)
+	this[offset + 1] = (value >>> 16)
+	this[offset + 2] = (value >>> 8)
+	this[offset + 3] = (value & 0xff)
   } else {
-    objectWriteUInt32(this, value, offset, false)
+	objectWriteUInt32(this, value, offset, false)
   }
   return offset + 4
 }
@@ -6909,7 +6909,7 @@ function checkIEEE754 (buf, value, offset, ext, max, min) {
 
 function writeFloat (buf, value, offset, littleEndian, noAssert) {
   if (!noAssert) {
-    checkIEEE754(buf, value, offset, 4, 3.4028234663852886e+38, -3.4028234663852886e+38)
+	checkIEEE754(buf, value, offset, 4, 3.4028234663852886e+38, -3.4028234663852886e+38)
   }
   ieee754.write(buf, value, offset, littleEndian, 23, 4)
   return offset + 4
@@ -6925,7 +6925,7 @@ Buffer.prototype.writeFloatBE = function writeFloatBE (value, offset, noAssert) 
 
 function writeDouble (buf, value, offset, littleEndian, noAssert) {
   if (!noAssert) {
-    checkIEEE754(buf, value, offset, 8, 1.7976931348623157E+308, -1.7976931348623157E+308)
+	checkIEEE754(buf, value, offset, 8, 1.7976931348623157E+308, -1.7976931348623157E+308)
   }
   ieee754.write(buf, value, offset, littleEndian, 52, 8)
   return offset + 8
@@ -6953,7 +6953,7 @@ Buffer.prototype.copy = function copy (target, targetStart, start, end) {
 
   // Fatal error conditions
   if (targetStart < 0) {
-    throw new RangeError('targetStart out of bounds')
+	throw new RangeError('targetStart out of bounds')
   }
   if (start < 0 || start >= this.length) throw new RangeError('sourceStart out of bounds')
   if (end < 0) throw new RangeError('sourceEnd out of bounds')
@@ -6961,71 +6961,71 @@ Buffer.prototype.copy = function copy (target, targetStart, start, end) {
   // Are we oob?
   if (end > this.length) end = this.length
   if (target.length - targetStart < end - start) {
-    end = target.length - targetStart + start
+	end = target.length - targetStart + start
   }
 
   var len = end - start
   var i
 
   if (this === target && start < targetStart && targetStart < end) {
-    // descending copy from end
-    for (i = len - 1; i >= 0; --i) {
-      target[i + targetStart] = this[i + start]
-    }
+	// descending copy from end
+	for (i = len - 1; i >= 0; --i) {
+	  target[i + targetStart] = this[i + start]
+	}
   } else if (len < 1000 || !Buffer.TYPED_ARRAY_SUPPORT) {
-    // ascending copy from start
-    for (i = 0; i < len; ++i) {
-      target[i + targetStart] = this[i + start]
-    }
+	// ascending copy from start
+	for (i = 0; i < len; ++i) {
+	  target[i + targetStart] = this[i + start]
+	}
   } else {
-    Uint8Array.prototype.set.call(
-      target,
-      this.subarray(start, start + len),
-      targetStart
-    )
+	Uint8Array.prototype.set.call(
+	  target,
+	  this.subarray(start, start + len),
+	  targetStart
+	)
   }
 
   return len
 }
 
 // Usage:
-//    buffer.fill(number[, offset[, end]])
-//    buffer.fill(buffer[, offset[, end]])
-//    buffer.fill(string[, offset[, end]][, encoding])
+//	  buffer.fill(number[, offset[, end]])
+//	  buffer.fill(buffer[, offset[, end]])
+//	  buffer.fill(string[, offset[, end]][, encoding])
 Buffer.prototype.fill = function fill (val, start, end, encoding) {
   // Handle string cases:
   if (typeof val === 'string') {
-    if (typeof start === 'string') {
-      encoding = start
-      start = 0
-      end = this.length
-    } else if (typeof end === 'string') {
-      encoding = end
-      end = this.length
-    }
-    if (val.length === 1) {
-      var code = val.charCodeAt(0)
-      if (code < 256) {
-        val = code
-      }
-    }
-    if (encoding !== undefined && typeof encoding !== 'string') {
-      throw new TypeError('encoding must be a string')
-    }
-    if (typeof encoding === 'string' && !Buffer.isEncoding(encoding)) {
-      throw new TypeError('Unknown encoding: ' + encoding)
-    }
+	if (typeof start === 'string') {
+	  encoding = start
+	  start = 0
+	  end = this.length
+	} else if (typeof end === 'string') {
+	  encoding = end
+	  end = this.length
+	}
+	if (val.length === 1) {
+	  var code = val.charCodeAt(0)
+	  if (code < 256) {
+		val = code
+	  }
+	}
+	if (encoding !== undefined && typeof encoding !== 'string') {
+	  throw new TypeError('encoding must be a string')
+	}
+	if (typeof encoding === 'string' && !Buffer.isEncoding(encoding)) {
+	  throw new TypeError('Unknown encoding: ' + encoding)
+	}
   } else if (typeof val === 'number') {
-    val = val & 255
+	val = val & 255
   }
 
   // Invalid ranges are not set to a default, so can range check early.
   if (start < 0 || this.length < start || this.length < end) {
-    throw new RangeError('Out of range index')
+	throw new RangeError('Out of range index')
   }
 
   if (end <= start) {
-    return this
+	return this
   }
 
   start = start >>> 0
@@ -7035,17 +7035,17 @@ Buffer.prototype.fill = function fill (val, start, end, encoding) {
 
   var i
   if (typeof val === 'number') {
-    for (i = start; i < end; ++i) {
-      this[i] = val
-    }
+	for (i = start; i < end; ++i) {
+	  this[i] = val
+	}
   } else {
-    var bytes = Buffer.isBuffer(val)
-      ? val
-      : utf8ToBytes(new Buffer(val, encoding).toString())
-    var len = bytes.length
-    for (i = 0; i < end - start; ++i) {
-      this[i + start] = bytes[i % len]
-    }
+	var bytes = Buffer.isBuffer(val)
+	  ? val
+	  : utf8ToBytes(new Buffer(val, encoding).toString())
+	var len = bytes.length
+	for (i = 0; i < end - start; ++i) {
+	  this[i + start] = bytes[i % len]
+	}
   }
 
   return this
@@ -7063,7 +7063,7 @@ function base64clean (str) {
   if (str.length < 2) return ''
   // Node allows for non-padded base64 strings (missing trailing ===), base64-js does not
   while (str.length % 4 !== 0) {
-    str = str + '='
+	str = str + '='
   }
   return str
 }
@@ -7086,73 +7086,73 @@ function utf8ToBytes (string, units) {
   var bytes = []
 
   for (var i = 0; i < length; ++i) {
-    codePoint = string.charCodeAt(i)
+	codePoint = string.charCodeAt(i)
 
-    // is surrogate component
-    if (codePoint > 0xD7FF && codePoint < 0xE000) {
-      // last char was a lead
-      if (!leadSurrogate) {
-        // no lead yet
-        if (codePoint > 0xDBFF) {
-          // unexpected trail
-          if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD)
-          continue
-        } else if (i + 1 === length) {
-          // unpaired lead
-          if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD)
-          continue
-        }
+	// is surrogate component
+	if (codePoint > 0xD7FF && codePoint < 0xE000) {
+	  // last char was a lead
+	  if (!leadSurrogate) {
+		// no lead yet
+		if (codePoint > 0xDBFF) {
+		  // unexpected trail
+		  if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD)
+		  continue
+		} else if (i + 1 === length) {
+		  // unpaired lead
+		  if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD)
+		  continue
+		}
 
-        // valid lead
-        leadSurrogate = codePoint
+		// valid lead
+		leadSurrogate = codePoint
 
-        continue
-      }
+		continue
+	  }
 
-      // 2 leads in a row
-      if (codePoint < 0xDC00) {
-        if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD)
-        leadSurrogate = codePoint
-        continue
-      }
+	  // 2 leads in a row
+	  if (codePoint < 0xDC00) {
+		if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD)
+		leadSurrogate = codePoint
+		continue
+	  }
 
-      // valid surrogate pair
-      codePoint = (leadSurrogate - 0xD800 << 10 | codePoint - 0xDC00) + 0x10000
-    } else if (leadSurrogate) {
-      // valid bmp char, but last char was a lead
-      if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD)
-    }
+	  // valid surrogate pair
+	  codePoint = (leadSurrogate - 0xD800 << 10 | codePoint - 0xDC00) + 0x10000
+	} else if (leadSurrogate) {
+	  // valid bmp char, but last char was a lead
+	  if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD)
+	}
 
-    leadSurrogate = null
+	leadSurrogate = null
 
-    // encode utf8
-    if (codePoint < 0x80) {
-      if ((units -= 1) < 0) break
-      bytes.push(codePoint)
-    } else if (codePoint < 0x800) {
-      if ((units -= 2) < 0) break
-      bytes.push(
-        codePoint >> 0x6 | 0xC0,
-        codePoint & 0x3F | 0x80
-      )
-    } else if (codePoint < 0x10000) {
-      if ((units -= 3) < 0) break
-      bytes.push(
-        codePoint >> 0xC | 0xE0,
-        codePoint >> 0x6 & 0x3F | 0x80,
-        codePoint & 0x3F | 0x80
-      )
-    } else if (codePoint < 0x110000) {
-      if ((units -= 4) < 0) break
-      bytes.push(
-        codePoint >> 0x12 | 0xF0,
-        codePoint >> 0xC & 0x3F | 0x80,
-        codePoint >> 0x6 & 0x3F | 0x80,
-        codePoint & 0x3F | 0x80
-      )
-    } else {
-      throw new Error('Invalid code point')
-    }
+	// encode utf8
+	if (codePoint < 0x80) {
+	  if ((units -= 1) < 0) break
+	  bytes.push(codePoint)
+	} else if (codePoint < 0x800) {
+	  if ((units -= 2) < 0) break
+	  bytes.push(
+		codePoint >> 0x6 | 0xC0,
+		codePoint & 0x3F | 0x80
+	  )
+	} else if (codePoint < 0x10000) {
+	  if ((units -= 3) < 0) break
+	  bytes.push(
+		codePoint >> 0xC | 0xE0,
+		codePoint >> 0x6 & 0x3F | 0x80,
+		codePoint & 0x3F | 0x80
+	  )
+	} else if (codePoint < 0x110000) {
+	  if ((units -= 4) < 0) break
+	  bytes.push(
+		codePoint >> 0x12 | 0xF0,
+		codePoint >> 0xC & 0x3F | 0x80,
+		codePoint >> 0x6 & 0x3F | 0x80,
+		codePoint & 0x3F | 0x80
+	  )
+	} else {
+	  throw new Error('Invalid code point')
+	}
   }
 
   return bytes
@@ -7161,8 +7161,8 @@ function utf8ToBytes (string, units) {
 function asciiToBytes (str) {
   var byteArray = []
   for (var i = 0; i < str.length; ++i) {
-    // Node's code seems to be doing this and not & 0x7F..
-    byteArray.push(str.charCodeAt(i) & 0xFF)
+	// Node's code seems to be doing this and not & 0x7F..
+	byteArray.push(str.charCodeAt(i) & 0xFF)
   }
   return byteArray
 }
@@ -7171,13 +7171,13 @@ function utf16leToBytes (str, units) {
   var c, hi, lo
   var byteArray = []
   for (var i = 0; i < str.length; ++i) {
-    if ((units -= 2) < 0) break
+	if ((units -= 2) < 0) break
 
-    c = str.charCodeAt(i)
-    hi = c >> 8
-    lo = c % 256
-    byteArray.push(lo)
-    byteArray.push(hi)
+	c = str.charCodeAt(i)
+	hi = c >> 8
+	lo = c % 256
+	byteArray.push(lo)
+	byteArray.push(hi)
   }
 
   return byteArray
@@ -7189,8 +7189,8 @@ function base64ToBytes (str) {
 
 function blitBuffer (src, dst, offset, length) {
   for (var i = 0; i < length; ++i) {
-    if ((i + offset >= dst.length) || (i >= src.length)) break
-    dst[i + offset] = src[i]
+	if ((i + offset >= dst.length) || (i >= src.length)) break
+	dst[i + offset] = src[i]
   }
   return i
 }
@@ -7224,12 +7224,12 @@ exports.read = function (buffer, offset, isLE, mLen, nBytes) {
   for (; nBits > 0; m = m * 256 + buffer[offset + i], i += d, nBits -= 8) {}
 
   if (e === 0) {
-    e = 1 - eBias
+	e = 1 - eBias
   } else if (e === eMax) {
-    return m ? NaN : ((s ? -1 : 1) * Infinity)
+	return m ? NaN : ((s ? -1 : 1) * Infinity)
   } else {
-    m = m + Math.pow(2, mLen)
-    e = e - eBias
+	m = m + Math.pow(2, mLen)
+	e = e - eBias
   }
   return (s ? -1 : 1) * m * Math.pow(2, e - mLen)
 }
@@ -7247,34 +7247,34 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
   value = Math.abs(value)
 
   if (isNaN(value) || value === Infinity) {
-    m = isNaN(value) ? 1 : 0
-    e = eMax
+	m = isNaN(value) ? 1 : 0
+	e = eMax
   } else {
-    e = Math.floor(Math.log(value) / Math.LN2)
-    if (value * (c = Math.pow(2, -e)) < 1) {
-      e--
-      c *= 2
-    }
-    if (e + eBias >= 1) {
-      value += rt / c
-    } else {
-      value += rt * Math.pow(2, 1 - eBias)
-    }
-    if (value * c >= 2) {
-      e++
-      c /= 2
-    }
+	e = Math.floor(Math.log(value) / Math.LN2)
+	if (value * (c = Math.pow(2, -e)) < 1) {
+	  e--
+	  c *= 2
+	}
+	if (e + eBias >= 1) {
+	  value += rt / c
+	} else {
+	  value += rt * Math.pow(2, 1 - eBias)
+	}
+	if (value * c >= 2) {
+	  e++
+	  c /= 2
+	}
 
-    if (e + eBias >= eMax) {
-      m = 0
-      e = eMax
-    } else if (e + eBias >= 1) {
-      m = (value * c - 1) * Math.pow(2, mLen)
-      e = e + eBias
-    } else {
-      m = value * Math.pow(2, eBias - 1) * Math.pow(2, mLen)
-      e = 0
-    }
+	if (e + eBias >= eMax) {
+	  m = 0
+	  e = eMax
+	} else if (e + eBias >= 1) {
+	  m = (value * c - 1) * Math.pow(2, mLen)
+	  e = e + eBias
+	} else {
+	  m = value * Math.pow(2, eBias - 1) * Math.pow(2, mLen)
+	  e = 0
+	}
   }
 
   for (; mLen >= 8; buffer[offset + i] = m & 0xff, i += d, m /= 256, mLen -= 8) {}
@@ -7298,7 +7298,7 @@ module.exports = Array.isArray || function (arr) {
 var process = module.exports = {};
 
 // cached from whatever global is present so that test runners that stub it
-// don't break things.  But we need to wrap it in a try catch in case it is
+// don't break things.	But we need to wrap it in a try catch in case it is
 // wrapped in strict mode code which doesn't define any globals.  It's inside a
 // function because try/catches deoptimize in certain engines.
 
@@ -7306,79 +7306,79 @@ var cachedSetTimeout;
 var cachedClearTimeout;
 
 function defaultSetTimout() {
-    throw new Error('setTimeout has not been defined');
+	throw new Error('setTimeout has not been defined');
 }
 function defaultClearTimeout () {
-    throw new Error('clearTimeout has not been defined');
+	throw new Error('clearTimeout has not been defined');
 }
 (function () {
-    try {
-        if (typeof setTimeout === 'function') {
-            cachedSetTimeout = setTimeout;
-        } else {
-            cachedSetTimeout = defaultSetTimout;
-        }
-    } catch (e) {
-        cachedSetTimeout = defaultSetTimout;
-    }
-    try {
-        if (typeof clearTimeout === 'function') {
-            cachedClearTimeout = clearTimeout;
-        } else {
-            cachedClearTimeout = defaultClearTimeout;
-        }
-    } catch (e) {
-        cachedClearTimeout = defaultClearTimeout;
-    }
+	try {
+		if (typeof setTimeout === 'function') {
+			cachedSetTimeout = setTimeout;
+		} else {
+			cachedSetTimeout = defaultSetTimout;
+		}
+	} catch (e) {
+		cachedSetTimeout = defaultSetTimout;
+	}
+	try {
+		if (typeof clearTimeout === 'function') {
+			cachedClearTimeout = clearTimeout;
+		} else {
+			cachedClearTimeout = defaultClearTimeout;
+		}
+	} catch (e) {
+		cachedClearTimeout = defaultClearTimeout;
+	}
 } ())
 function runTimeout(fun) {
-    if (cachedSetTimeout === setTimeout) {
-        //normal enviroments in sane situations
-        return setTimeout(fun, 0);
-    }
-    // if setTimeout wasn't available but was latter defined
-    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
-        cachedSetTimeout = setTimeout;
-        return setTimeout(fun, 0);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedSetTimeout(fun, 0);
-    } catch(e){
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
-            return cachedSetTimeout.call(null, fun, 0);
-        } catch(e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
-            return cachedSetTimeout.call(this, fun, 0);
-        }
-    }
+	if (cachedSetTimeout === setTimeout) {
+		//normal enviroments in sane situations
+		return setTimeout(fun, 0);
+	}
+	// if setTimeout wasn't available but was latter defined
+	if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+		cachedSetTimeout = setTimeout;
+		return setTimeout(fun, 0);
+	}
+	try {
+		// when when somebody has screwed with setTimeout but no I.E. maddness
+		return cachedSetTimeout(fun, 0);
+	} catch(e){
+		try {
+			// When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+			return cachedSetTimeout.call(null, fun, 0);
+		} catch(e){
+			// same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+			return cachedSetTimeout.call(this, fun, 0);
+		}
+	}
 
 
 }
 function runClearTimeout(marker) {
-    if (cachedClearTimeout === clearTimeout) {
-        //normal enviroments in sane situations
-        return clearTimeout(marker);
-    }
-    // if clearTimeout wasn't available but was latter defined
-    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
-        cachedClearTimeout = clearTimeout;
-        return clearTimeout(marker);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedClearTimeout(marker);
-    } catch (e){
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
-            return cachedClearTimeout.call(null, marker);
-        } catch (e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
-            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
-            return cachedClearTimeout.call(this, marker);
-        }
-    }
+	if (cachedClearTimeout === clearTimeout) {
+		//normal enviroments in sane situations
+		return clearTimeout(marker);
+	}
+	// if clearTimeout wasn't available but was latter defined
+	if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+		cachedClearTimeout = clearTimeout;
+		return clearTimeout(marker);
+	}
+	try {
+		// when when somebody has screwed with setTimeout but no I.E. maddness
+		return cachedClearTimeout(marker);
+	} catch (e){
+		try {
+			// When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+			return cachedClearTimeout.call(null, marker);
+		} catch (e){
+			// same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+			// Some versions of I.E. have different rules for clearTimeout vs setTimeout
+			return cachedClearTimeout.call(this, marker);
+		}
+	}
 
 
 
@@ -7389,64 +7389,64 @@ var currentQueue;
 var queueIndex = -1;
 
 function cleanUpNextTick() {
-    if (!draining || !currentQueue) {
-        return;
-    }
-    draining = false;
-    if (currentQueue.length) {
-        queue = currentQueue.concat(queue);
-    } else {
-        queueIndex = -1;
-    }
-    if (queue.length) {
-        drainQueue();
-    }
+	if (!draining || !currentQueue) {
+		return;
+	}
+	draining = false;
+	if (currentQueue.length) {
+		queue = currentQueue.concat(queue);
+	} else {
+		queueIndex = -1;
+	}
+	if (queue.length) {
+		drainQueue();
+	}
 }
 
 function drainQueue() {
-    if (draining) {
-        return;
-    }
-    var timeout = runTimeout(cleanUpNextTick);
-    draining = true;
+	if (draining) {
+		return;
+	}
+	var timeout = runTimeout(cleanUpNextTick);
+	draining = true;
 
-    var len = queue.length;
-    while(len) {
-        currentQueue = queue;
-        queue = [];
-        while (++queueIndex < len) {
-            if (currentQueue) {
-                currentQueue[queueIndex].run();
-            }
-        }
-        queueIndex = -1;
-        len = queue.length;
-    }
-    currentQueue = null;
-    draining = false;
-    runClearTimeout(timeout);
+	var len = queue.length;
+	while(len) {
+		currentQueue = queue;
+		queue = [];
+		while (++queueIndex < len) {
+			if (currentQueue) {
+				currentQueue[queueIndex].run();
+			}
+		}
+		queueIndex = -1;
+		len = queue.length;
+	}
+	currentQueue = null;
+	draining = false;
+	runClearTimeout(timeout);
 }
 
 process.nextTick = function (fun) {
-    var args = new Array(arguments.length - 1);
-    if (arguments.length > 1) {
-        for (var i = 1; i < arguments.length; i++) {
-            args[i - 1] = arguments[i];
-        }
-    }
-    queue.push(new Item(fun, args));
-    if (queue.length === 1 && !draining) {
-        runTimeout(drainQueue);
-    }
+	var args = new Array(arguments.length - 1);
+	if (arguments.length > 1) {
+		for (var i = 1; i < arguments.length; i++) {
+			args[i - 1] = arguments[i];
+		}
+	}
+	queue.push(new Item(fun, args));
+	if (queue.length === 1 && !draining) {
+		runTimeout(drainQueue);
+	}
 };
 
 // v8 likes predictible objects
 function Item(fun, array) {
-    this.fun = fun;
-    this.array = array;
+	this.fun = fun;
+	this.array = array;
 }
 Item.prototype.run = function () {
-    this.fun.apply(null, this.array);
+	this.fun.apply(null, this.array);
 };
 process.title = 'browser';
 process.browser = true;
@@ -7466,12 +7466,12 @@ process.removeAllListeners = noop;
 process.emit = noop;
 
 process.binding = function (name) {
-    throw new Error('process.binding is not supported');
+	throw new Error('process.binding is not supported');
 };
 
 process.cwd = function () { return '/' };
 process.chdir = function (dir) {
-    throw new Error('process.chdir is not supported');
+	throw new Error('process.chdir is not supported');
 };
 process.umask = function() { return 0; };
 
@@ -7506,63 +7506,63 @@ process.umask = function() { return 0; };
  */
 
 (function (definition) {
-    "use strict";
+	"use strict";
 
-    // This file will function properly as a <script> tag, or a module
-    // using CommonJS and NodeJS or RequireJS module formats.  In
-    // Common/Node/RequireJS, the module exports the Q API and when
-    // executed as a simple <script>, it creates a Q global instead.
+	// This file will function properly as a <script> tag, or a module
+	// using CommonJS and NodeJS or RequireJS module formats.  In
+	// Common/Node/RequireJS, the module exports the Q API and when
+	// executed as a simple <script>, it creates a Q global instead.
 
-    // Montage Require
-    if (typeof bootstrap === "function") {
-        bootstrap("promise", definition);
+	// Montage Require
+	if (typeof bootstrap === "function") {
+		bootstrap("promise", definition);
 
-    // CommonJS
-    } else if (typeof exports === "object" && typeof module === "object") {
-        module.exports = definition();
+	// CommonJS
+	} else if (typeof exports === "object" && typeof module === "object") {
+		module.exports = definition();
 
-    // RequireJS
-    } else if (typeof define === "function" && define.amd) {
-        define(definition);
+	// RequireJS
+	} else if (typeof define === "function" && define.amd) {
+		define(definition);
 
-    // SES (Secure EcmaScript)
-    } else if (typeof ses !== "undefined") {
-        if (!ses.ok()) {
-            return;
-        } else {
-            ses.makeQ = definition;
-        }
+	// SES (Secure EcmaScript)
+	} else if (typeof ses !== "undefined") {
+		if (!ses.ok()) {
+			return;
+		} else {
+			ses.makeQ = definition;
+		}
 
-    // <script>
-    } else if (typeof window !== "undefined" || typeof self !== "undefined") {
-        // Prefer window over self for add-on scripts. Use self for
-        // non-windowed contexts.
-        var global = typeof window !== "undefined" ? window : self;
+	// <script>
+	} else if (typeof window !== "undefined" || typeof self !== "undefined") {
+		// Prefer window over self for add-on scripts. Use self for
+		// non-windowed contexts.
+		var global = typeof window !== "undefined" ? window : self;
 
-        // Get the `window` object, save the previous Q global
-        // and initialize Q as a global.
-        var previousQ = global.Q;
-        global.Q = definition();
+		// Get the `window` object, save the previous Q global
+		// and initialize Q as a global.
+		var previousQ = global.Q;
+		global.Q = definition();
 
-        // Add a noConflict function so Q can be removed from the
-        // global namespace.
-        global.Q.noConflict = function () {
-            global.Q = previousQ;
-            return this;
-        };
+		// Add a noConflict function so Q can be removed from the
+		// global namespace.
+		global.Q.noConflict = function () {
+			global.Q = previousQ;
+			return this;
+		};
 
-    } else {
-        throw new Error("This environment was not anticipated by Q. Please file a bug.");
-    }
+	} else {
+		throw new Error("This environment was not anticipated by Q. Please file a bug.");
+	}
 
 })(function () {
 "use strict";
 
 var hasStacks = false;
 try {
-    throw new Error();
+	throw new Error();
 } catch (e) {
-    hasStacks = !!e.stack;
+	hasStacks = !!e.stack;
 }
 
 // All code after this point will be filtered from stack traces reported
@@ -7578,152 +7578,152 @@ var noop = function () {};
 // Use the fastest possible means to execute a task in a future turn
 // of the event loop.
 var nextTick =(function () {
-    // linked list of tasks (single, with head node)
-    var head = {task: void 0, next: null};
-    var tail = head;
-    var flushing = false;
-    var requestTick = void 0;
-    var isNodeJS = false;
-    // queue for late tasks, used by unhandled rejection tracking
-    var laterQueue = [];
+	// linked list of tasks (single, with head node)
+	var head = {task: void 0, next: null};
+	var tail = head;
+	var flushing = false;
+	var requestTick = void 0;
+	var isNodeJS = false;
+	// queue for late tasks, used by unhandled rejection tracking
+	var laterQueue = [];
 
-    function flush() {
-        /* jshint loopfunc: true */
-        var task, domain;
+	function flush() {
+		/* jshint loopfunc: true */
+		var task, domain;
 
-        while (head.next) {
-            head = head.next;
-            task = head.task;
-            head.task = void 0;
-            domain = head.domain;
+		while (head.next) {
+			head = head.next;
+			task = head.task;
+			head.task = void 0;
+			domain = head.domain;
 
-            if (domain) {
-                head.domain = void 0;
-                domain.enter();
-            }
-            runSingle(task, domain);
+			if (domain) {
+				head.domain = void 0;
+				domain.enter();
+			}
+			runSingle(task, domain);
 
-        }
-        while (laterQueue.length) {
-            task = laterQueue.pop();
-            runSingle(task);
-        }
-        flushing = false;
-    }
-    // runs a single function in the async queue
-    function runSingle(task, domain) {
-        try {
-            task();
+		}
+		while (laterQueue.length) {
+			task = laterQueue.pop();
+			runSingle(task);
+		}
+		flushing = false;
+	}
+	// runs a single function in the async queue
+	function runSingle(task, domain) {
+		try {
+			task();
 
-        } catch (e) {
-            if (isNodeJS) {
-                // In node, uncaught exceptions are considered fatal errors.
-                // Re-throw them synchronously to interrupt flushing!
+		} catch (e) {
+			if (isNodeJS) {
+				// In node, uncaught exceptions are considered fatal errors.
+				// Re-throw them synchronously to interrupt flushing!
 
-                // Ensure continuation if the uncaught exception is suppressed
-                // listening "uncaughtException" events (as domains does).
-                // Continue in next event to avoid tick recursion.
-                if (domain) {
-                    domain.exit();
-                }
-                setTimeout(flush, 0);
-                if (domain) {
-                    domain.enter();
-                }
+				// Ensure continuation if the uncaught exception is suppressed
+				// listening "uncaughtException" events (as domains does).
+				// Continue in next event to avoid tick recursion.
+				if (domain) {
+					domain.exit();
+				}
+				setTimeout(flush, 0);
+				if (domain) {
+					domain.enter();
+				}
 
-                throw e;
+				throw e;
 
-            } else {
-                // In browsers, uncaught exceptions are not fatal.
-                // Re-throw them asynchronously to avoid slow-downs.
-                setTimeout(function () {
-                    throw e;
-                }, 0);
-            }
-        }
+			} else {
+				// In browsers, uncaught exceptions are not fatal.
+				// Re-throw them asynchronously to avoid slow-downs.
+				setTimeout(function () {
+					throw e;
+				}, 0);
+			}
+		}
 
-        if (domain) {
-            domain.exit();
-        }
-    }
+		if (domain) {
+			domain.exit();
+		}
+	}
 
-    nextTick = function (task) {
-        tail = tail.next = {
-            task: task,
-            domain: isNodeJS && process.domain,
-            next: null
-        };
+	nextTick = function (task) {
+		tail = tail.next = {
+			task: task,
+			domain: isNodeJS && process.domain,
+			next: null
+		};
 
-        if (!flushing) {
-            flushing = true;
-            requestTick();
-        }
-    };
+		if (!flushing) {
+			flushing = true;
+			requestTick();
+		}
+	};
 
-    if (typeof process === "object" &&
-        process.toString() === "[object process]" && process.nextTick) {
-        // Ensure Q is in a real Node environment, with a `process.nextTick`.
-        // To see through fake Node environments:
-        // * Mocha test runner - exposes a `process` global without a `nextTick`
-        // * Browserify - exposes a `process.nexTick` function that uses
-        //   `setTimeout`. In this case `setImmediate` is preferred because
-        //    it is faster. Browserify's `process.toString()` yields
-        //   "[object Object]", while in a real Node environment
-        //   `process.nextTick()` yields "[object process]".
-        isNodeJS = true;
+	if (typeof process === "object" &&
+		process.toString() === "[object process]" && process.nextTick) {
+		// Ensure Q is in a real Node environment, with a `process.nextTick`.
+		// To see through fake Node environments:
+		// * Mocha test runner - exposes a `process` global without a `nextTick`
+		// * Browserify - exposes a `process.nexTick` function that uses
+		//	 `setTimeout`. In this case `setImmediate` is preferred because
+		//	  it is faster. Browserify's `process.toString()` yields
+		//	 "[object Object]", while in a real Node environment
+		//	 `process.nextTick()` yields "[object process]".
+		isNodeJS = true;
 
-        requestTick = function () {
-            process.nextTick(flush);
-        };
+		requestTick = function () {
+			process.nextTick(flush);
+		};
 
-    } else if (typeof setImmediate === "function") {
-        // In IE10, Node.js 0.9+, or https://github.com/NobleJS/setImmediate
-        if (typeof window !== "undefined") {
-            requestTick = setImmediate.bind(window, flush);
-        } else {
-            requestTick = function () {
-                setImmediate(flush);
-            };
-        }
+	} else if (typeof setImmediate === "function") {
+		// In IE10, Node.js 0.9+, or https://github.com/NobleJS/setImmediate
+		if (typeof window !== "undefined") {
+			requestTick = setImmediate.bind(window, flush);
+		} else {
+			requestTick = function () {
+				setImmediate(flush);
+			};
+		}
 
-    } else if (typeof MessageChannel !== "undefined") {
-        // modern browsers
-        // http://www.nonblocking.io/2011/06/windownexttick.html
-        var channel = new MessageChannel();
-        // At least Safari Version 6.0.5 (8536.30.1) intermittently cannot create
-        // working message ports the first time a page loads.
-        channel.port1.onmessage = function () {
-            requestTick = requestPortTick;
-            channel.port1.onmessage = flush;
-            flush();
-        };
-        var requestPortTick = function () {
-            // Opera requires us to provide a message payload, regardless of
-            // whether we use it.
-            channel.port2.postMessage(0);
-        };
-        requestTick = function () {
-            setTimeout(flush, 0);
-            requestPortTick();
-        };
+	} else if (typeof MessageChannel !== "undefined") {
+		// modern browsers
+		// http://www.nonblocking.io/2011/06/windownexttick.html
+		var channel = new MessageChannel();
+		// At least Safari Version 6.0.5 (8536.30.1) intermittently cannot create
+		// working message ports the first time a page loads.
+		channel.port1.onmessage = function () {
+			requestTick = requestPortTick;
+			channel.port1.onmessage = flush;
+			flush();
+		};
+		var requestPortTick = function () {
+			// Opera requires us to provide a message payload, regardless of
+			// whether we use it.
+			channel.port2.postMessage(0);
+		};
+		requestTick = function () {
+			setTimeout(flush, 0);
+			requestPortTick();
+		};
 
-    } else {
-        // old browsers
-        requestTick = function () {
-            setTimeout(flush, 0);
-        };
-    }
-    // runs a task after all other tasks have been run
-    // this is useful for unhandled rejection tracking that needs to happen
-    // after all `then`d tasks have been run.
-    nextTick.runAfter = function (task) {
-        laterQueue.push(task);
-        if (!flushing) {
-            flushing = true;
-            requestTick();
-        }
-    };
-    return nextTick;
+	} else {
+		// old browsers
+		requestTick = function () {
+			setTimeout(flush, 0);
+		};
+	}
+	// runs a task after all other tasks have been run
+	// this is useful for unhandled rejection tracking that needs to happen
+	// after all `then`d tasks have been run.
+	nextTick.runAfter = function (task) {
+		laterQueue.push(task);
+		if (!flushing) {
+			flushing = true;
+			requestTick();
+		}
+	};
+	return nextTick;
 })();
 
 // Attempt to make generics safe in the face of downstream
@@ -7738,9 +7738,9 @@ var nextTick =(function () {
 // http://wiki.ecmascript.org/doku.php?id=conventions:safe_meta_programming
 var call = Function.call;
 function uncurryThis(f) {
-    return function () {
-        return call.apply(f, arguments);
-    };
+	return function () {
+		return call.apply(f, arguments);
+	};
 }
 // This is equivalent, but slower:
 // uncurryThis = Function_bind.bind(Function_bind.call);
@@ -7749,100 +7749,100 @@ function uncurryThis(f) {
 var array_slice = uncurryThis(Array.prototype.slice);
 
 var array_reduce = uncurryThis(
-    Array.prototype.reduce || function (callback, basis) {
-        var index = 0,
-            length = this.length;
-        // concerning the initial value, if one is not provided
-        if (arguments.length === 1) {
-            // seek to the first value in the array, accounting
-            // for the possibility that is is a sparse array
-            do {
-                if (index in this) {
-                    basis = this[index++];
-                    break;
-                }
-                if (++index >= length) {
-                    throw new TypeError();
-                }
-            } while (1);
-        }
-        // reduce
-        for (; index < length; index++) {
-            // account for the possibility that the array is sparse
-            if (index in this) {
-                basis = callback(basis, this[index], index);
-            }
-        }
-        return basis;
-    }
+	Array.prototype.reduce || function (callback, basis) {
+		var index = 0,
+			length = this.length;
+		// concerning the initial value, if one is not provided
+		if (arguments.length === 1) {
+			// seek to the first value in the array, accounting
+			// for the possibility that is is a sparse array
+			do {
+				if (index in this) {
+					basis = this[index++];
+					break;
+				}
+				if (++index >= length) {
+					throw new TypeError();
+				}
+			} while (1);
+		}
+		// reduce
+		for (; index < length; index++) {
+			// account for the possibility that the array is sparse
+			if (index in this) {
+				basis = callback(basis, this[index], index);
+			}
+		}
+		return basis;
+	}
 );
 
 var array_indexOf = uncurryThis(
-    Array.prototype.indexOf || function (value) {
-        // not a very good shim, but good enough for our one use of it
-        for (var i = 0; i < this.length; i++) {
-            if (this[i] === value) {
-                return i;
-            }
-        }
-        return -1;
-    }
+	Array.prototype.indexOf || function (value) {
+		// not a very good shim, but good enough for our one use of it
+		for (var i = 0; i < this.length; i++) {
+			if (this[i] === value) {
+				return i;
+			}
+		}
+		return -1;
+	}
 );
 
 var array_map = uncurryThis(
-    Array.prototype.map || function (callback, thisp) {
-        var self = this;
-        var collect = [];
-        array_reduce(self, function (undefined, value, index) {
-            collect.push(callback.call(thisp, value, index, self));
-        }, void 0);
-        return collect;
-    }
+	Array.prototype.map || function (callback, thisp) {
+		var self = this;
+		var collect = [];
+		array_reduce(self, function (undefined, value, index) {
+			collect.push(callback.call(thisp, value, index, self));
+		}, void 0);
+		return collect;
+	}
 );
 
 var object_create = Object.create || function (prototype) {
-    function Type() { }
-    Type.prototype = prototype;
-    return new Type();
+	function Type() { }
+	Type.prototype = prototype;
+	return new Type();
 };
 
 var object_hasOwnProperty = uncurryThis(Object.prototype.hasOwnProperty);
 
 var object_keys = Object.keys || function (object) {
-    var keys = [];
-    for (var key in object) {
-        if (object_hasOwnProperty(object, key)) {
-            keys.push(key);
-        }
-    }
-    return keys;
+	var keys = [];
+	for (var key in object) {
+		if (object_hasOwnProperty(object, key)) {
+			keys.push(key);
+		}
+	}
+	return keys;
 };
 
 var object_toString = uncurryThis(Object.prototype.toString);
 
 function isObject(value) {
-    return value === Object(value);
+	return value === Object(value);
 }
 
 // generator related shims
 
 // FIXME: Remove this function once ES6 generators are in SpiderMonkey.
 function isStopIteration(exception) {
-    return (
-        object_toString(exception) === "[object StopIteration]" ||
-        exception instanceof QReturnValue
-    );
+	return (
+		object_toString(exception) === "[object StopIteration]" ||
+		exception instanceof QReturnValue
+	);
 }
 
 // FIXME: Remove this helper and Q.return once ES6 generators are in
 // SpiderMonkey.
 var QReturnValue;
 if (typeof ReturnValue !== "undefined") {
-    QReturnValue = ReturnValue;
+	QReturnValue = ReturnValue;
 } else {
-    QReturnValue = function (value) {
-        this.value = value;
-    };
+	QReturnValue = function (value) {
+		this.value = value;
+	};
 }
 
 // long stack traces
@@ -7850,113 +7850,113 @@ if (typeof ReturnValue !== "undefined") {
 var STACK_JUMP_SEPARATOR = "From previous event:";
 
 function makeStackTraceLong(error, promise) {
-    // If possible, transform the error stack trace by removing Node and Q
-    // cruft, then concatenating with the stack trace of `promise`. See #57.
-    if (hasStacks &&
-        promise.stack &&
-        typeof error === "object" &&
-        error !== null &&
-        error.stack &&
-        error.stack.indexOf(STACK_JUMP_SEPARATOR) === -1
-    ) {
-        var stacks = [];
-        for (var p = promise; !!p; p = p.source) {
-            if (p.stack) {
-                stacks.unshift(p.stack);
-            }
-        }
-        stacks.unshift(error.stack);
+	// If possible, transform the error stack trace by removing Node and Q
+	// cruft, then concatenating with the stack trace of `promise`. See #57.
+	if (hasStacks &&
+		promise.stack &&
+		typeof error === "object" &&
+		error !== null &&
+		error.stack &&
+		error.stack.indexOf(STACK_JUMP_SEPARATOR) === -1
+	) {
+		var stacks = [];
+		for (var p = promise; !!p; p = p.source) {
+			if (p.stack) {
+				stacks.unshift(p.stack);
+			}
+		}
+		stacks.unshift(error.stack);
 
-        var concatedStacks = stacks.join("\n" + STACK_JUMP_SEPARATOR + "\n");
-        error.stack = filterStackString(concatedStacks);
-    }
+		var concatedStacks = stacks.join("\n" + STACK_JUMP_SEPARATOR + "\n");
+		error.stack = filterStackString(concatedStacks);
+	}
 }
 
 function filterStackString(stackString) {
-    var lines = stackString.split("\n");
-    var desiredLines = [];
-    for (var i = 0; i < lines.length; ++i) {
-        var line = lines[i];
+	var lines = stackString.split("\n");
+	var desiredLines = [];
+	for (var i = 0; i < lines.length; ++i) {
+		var line = lines[i];
 
-        if (!isInternalFrame(line) && !isNodeFrame(line) && line) {
-            desiredLines.push(line);
-        }
-    }
-    return desiredLines.join("\n");
+		if (!isInternalFrame(line) && !isNodeFrame(line) && line) {
+			desiredLines.push(line);
+		}
+	}
+	return desiredLines.join("\n");
 }
 
 function isNodeFrame(stackLine) {
-    return stackLine.indexOf("(module.js:") !== -1 ||
-           stackLine.indexOf("(node.js:") !== -1;
+	return stackLine.indexOf("(module.js:") !== -1 ||
+		   stackLine.indexOf("(node.js:") !== -1;
 }
 
 function getFileNameAndLineNumber(stackLine) {
-    // Named functions: "at functionName (filename:lineNumber:columnNumber)"
-    // In IE10 function name can have spaces ("Anonymous function") O_o
-    var attempt1 = /at .+ \((.+):(\d+):(?:\d+)\)$/.exec(stackLine);
-    if (attempt1) {
-        return [attempt1[1], Number(attempt1[2])];
-    }
+	// Named functions: "at functionName (filename:lineNumber:columnNumber)"
+	// In IE10 function name can have spaces ("Anonymous function") O_o
+	var attempt1 = /at .+ \((.+):(\d+):(?:\d+)\)$/.exec(stackLine);
+	if (attempt1) {
+		return [attempt1[1], Number(attempt1[2])];
+	}
 
-    // Anonymous functions: "at filename:lineNumber:columnNumber"
-    var attempt2 = /at ([^ ]+):(\d+):(?:\d+)$/.exec(stackLine);
-    if (attempt2) {
-        return [attempt2[1], Number(attempt2[2])];
-    }
+	// Anonymous functions: "at filename:lineNumber:columnNumber"
+	var attempt2 = /at ([^ ]+):(\d+):(?:\d+)$/.exec(stackLine);
+	if (attempt2) {
+		return [attempt2[1], Number(attempt2[2])];
+	}
 
-    // Firefox style: "function@filename:lineNumber or @filename:lineNumber"
-    var attempt3 = /.*@(.+):(\d+)$/.exec(stackLine);
-    if (attempt3) {
-        return [attempt3[1], Number(attempt3[2])];
-    }
+	// Firefox style: "function@filename:lineNumber or @filename:lineNumber"
+	var attempt3 = /.*@(.+):(\d+)$/.exec(stackLine);
+	if (attempt3) {
+		return [attempt3[1], Number(attempt3[2])];
+	}
 }
 
 function isInternalFrame(stackLine) {
-    var fileNameAndLineNumber = getFileNameAndLineNumber(stackLine);
+	var fileNameAndLineNumber = getFileNameAndLineNumber(stackLine);
 
-    if (!fileNameAndLineNumber) {
-        return false;
-    }
+	if (!fileNameAndLineNumber) {
+		return false;
+	}
 
-    var fileName = fileNameAndLineNumber[0];
-    var lineNumber = fileNameAndLineNumber[1];
+	var fileName = fileNameAndLineNumber[0];
+	var lineNumber = fileNameAndLineNumber[1];
 
-    return fileName === qFileName &&
-        lineNumber >= qStartingLine &&
-        lineNumber <= qEndingLine;
+	return fileName === qFileName &&
+		lineNumber >= qStartingLine &&
+		lineNumber <= qEndingLine;
 }
 
 // discover own file name and line number range for filtering stack
 // traces
 function captureLine() {
-    if (!hasStacks) {
-        return;
-    }
+	if (!hasStacks) {
+		return;
+	}
 
-    try {
-        throw new Error();
-    } catch (e) {
-        var lines = e.stack.split("\n");
-        var firstLine = lines[0].indexOf("@") > 0 ? lines[1] : lines[2];
-        var fileNameAndLineNumber = getFileNameAndLineNumber(firstLine);
-        if (!fileNameAndLineNumber) {
-            return;
-        }
+	try {
+		throw new Error();
+	} catch (e) {
+		var lines = e.stack.split("\n");
+		var firstLine = lines[0].indexOf("@") > 0 ? lines[1] : lines[2];
+		var fileNameAndLineNumber = getFileNameAndLineNumber(firstLine);
+		if (!fileNameAndLineNumber) {
+			return;
+		}
 
-        qFileName = fileNameAndLineNumber[0];
-        return fileNameAndLineNumber[1];
-    }
+		qFileName = fileNameAndLineNumber[0];
+		return fileNameAndLineNumber[1];
+	}
 }
 
 function deprecate(callback, name, alternative) {
-    return function () {
-        if (typeof console !== "undefined" &&
-            typeof console.warn === "function") {
-            console.warn(name + " is deprecated, use " + alternative +
-                         " instead.", new Error("").stack);
-        }
-        return callback.apply(callback, arguments);
-    };
+	return function () {
+		if (typeof console !== "undefined" &&
+			typeof console.warn === "function") {
+			console.warn(name + " is deprecated, use " + alternative +
+						 " instead.", new Error("").stack);
+		}
+		return callback.apply(callback, arguments);
+	};
 }
 
 // end of shims
@@ -7968,19 +7968,19 @@ function deprecate(callback, name, alternative) {
  * @param value immediate reference or promise
  */
 function Q(value) {
-    // If the object is already a Promise, return it directly.  This enables
-    // the resolve function to both be used to created references from objects,
-    // but to tolerably coerce non-promises to promises.
-    if (value instanceof Promise) {
-        return value;
-    }
+	// If the object is already a Promise, return it directly.	This enables
+	// the resolve function to both be used to created references from objects,
+	// but to tolerably coerce non-promises to promises.
+	if (value instanceof Promise) {
+		return value;
+	}
 
-    // assimilate thenables
-    if (isPromiseAlike(value)) {
-        return coerce(value);
-    } else {
-        return fulfill(value);
-    }
+	// assimilate thenables
+	if (isPromiseAlike(value)) {
+		return coerce(value);
+	} else {
+		return fulfill(value);
+	}
 }
 Q.resolve = Q;
 
@@ -7997,7 +7997,7 @@ Q.longStackSupport = false;
 
 // enable long stacks if Q_DEBUG is set
 if (typeof process === "object" && process && process.env && process.env.Q_DEBUG) {
-    Q.longStackSupport = true;
+	Q.longStackSupport = true;
 }
 
 /**
@@ -8012,118 +8012,118 @@ if (typeof process === "object" && process && process.env && process.env.Q_DEBUG
  */
 Q.defer = defer;
 function defer() {
-    // if "messages" is an "Array", that indicates that the promise has not yet
-    // been resolved.  If it is "undefined", it has been resolved.  Each
-    // element of the messages array is itself an array of complete arguments to
-    // forward to the resolved promise.  We coerce the resolution value to a
-    // promise using the `resolve` function because it handles both fully
-    // non-thenable values and other thenables gracefully.
-    var messages = [], progressListeners = [], resolvedPromise;
+	// if "messages" is an "Array", that indicates that the promise has not yet
+	// been resolved.  If it is "undefined", it has been resolved.	Each
+	// element of the messages array is itself an array of complete arguments to
+	// forward to the resolved promise.  We coerce the resolution value to a
+	// promise using the `resolve` function because it handles both fully
+	// non-thenable values and other thenables gracefully.
+	var messages = [], progressListeners = [], resolvedPromise;
 
-    var deferred = object_create(defer.prototype);
-    var promise = object_create(Promise.prototype);
+	var deferred = object_create(defer.prototype);
+	var promise = object_create(Promise.prototype);
 
-    promise.promiseDispatch = function (resolve, op, operands) {
-        var args = array_slice(arguments);
-        if (messages) {
-            messages.push(args);
-            if (op === "when" && operands[1]) { // progress operand
-                progressListeners.push(operands[1]);
-            }
-        } else {
-            Q.nextTick(function () {
-                resolvedPromise.promiseDispatch.apply(resolvedPromise, args);
-            });
-        }
-    };
+	promise.promiseDispatch = function (resolve, op, operands) {
+		var args = array_slice(arguments);
+		if (messages) {
+			messages.push(args);
+			if (op === "when" && operands[1]) { // progress operand
+				progressListeners.push(operands[1]);
+			}
+		} else {
+			Q.nextTick(function () {
+				resolvedPromise.promiseDispatch.apply(resolvedPromise, args);
+			});
+		}
+	};
 
-    // XXX deprecated
-    promise.valueOf = function () {
-        if (messages) {
-            return promise;
-        }
-        var nearerValue = nearer(resolvedPromise);
-        if (isPromise(nearerValue)) {
-            resolvedPromise = nearerValue; // shorten chain
-        }
-        return nearerValue;
-    };
+	// XXX deprecated
+	promise.valueOf = function () {
+		if (messages) {
+			return promise;
+		}
+		var nearerValue = nearer(resolvedPromise);
+		if (isPromise(nearerValue)) {
+			resolvedPromise = nearerValue; // shorten chain
+		}
+		return nearerValue;
+	};
 
-    promise.inspect = function () {
-        if (!resolvedPromise) {
-            return { state: "pending" };
-        }
-        return resolvedPromise.inspect();
-    };
+	promise.inspect = function () {
+		if (!resolvedPromise) {
+			return { state: "pending" };
+		}
+		return resolvedPromise.inspect();
+	};
 
-    if (Q.longStackSupport && hasStacks) {
-        try {
-            throw new Error();
-        } catch (e) {
-            // NOTE: don't try to use `Error.captureStackTrace` or transfer the
-            // accessor around; that causes memory leaks as per GH-111. Just
-            // reify the stack trace as a string ASAP.
-            //
-            // At the same time, cut off the first line; it's always just
-            // "[object Promise]\n", as per the `toString`.
-            promise.stack = e.stack.substring(e.stack.indexOf("\n") + 1);
-        }
-    }
+	if (Q.longStackSupport && hasStacks) {
+		try {
+			throw new Error();
+		} catch (e) {
+			// NOTE: don't try to use `Error.captureStackTrace` or transfer the
+			// accessor around; that causes memory leaks as per GH-111. Just
+			// reify the stack trace as a string ASAP.
+			//
+			// At the same time, cut off the first line; it's always just
+			// "[object Promise]\n", as per the `toString`.
+			promise.stack = e.stack.substring(e.stack.indexOf("\n") + 1);
+		}
+	}
 
-    // NOTE: we do the checks for `resolvedPromise` in each method, instead of
-    // consolidating them into `become`, since otherwise we'd create new
-    // promises with the lines `become(whatever(value))`. See e.g. GH-252.
+	// NOTE: we do the checks for `resolvedPromise` in each method, instead of
+	// consolidating them into `become`, since otherwise we'd create new
+	// promises with the lines `become(whatever(value))`. See e.g. GH-252.
 
-    function become(newPromise) {
-        resolvedPromise = newPromise;
-        promise.source = newPromise;
+	function become(newPromise) {
+		resolvedPromise = newPromise;
+		promise.source = newPromise;
 
-        array_reduce(messages, function (undefined, message) {
-            Q.nextTick(function () {
-                newPromise.promiseDispatch.apply(newPromise, message);
-            });
-        }, void 0);
+		array_reduce(messages, function (undefined, message) {
+			Q.nextTick(function () {
+				newPromise.promiseDispatch.apply(newPromise, message);
+			});
+		}, void 0);
 
-        messages = void 0;
-        progressListeners = void 0;
-    }
+		messages = void 0;
+		progressListeners = void 0;
+	}
 
-    deferred.promise = promise;
-    deferred.resolve = function (value) {
-        if (resolvedPromise) {
-            return;
-        }
+	deferred.promise = promise;
+	deferred.resolve = function (value) {
+		if (resolvedPromise) {
+			return;
+		}
 
-        become(Q(value));
-    };
+		become(Q(value));
+	};
 
-    deferred.fulfill = function (value) {
-        if (resolvedPromise) {
-            return;
-        }
+	deferred.fulfill = function (value) {
+		if (resolvedPromise) {
+			return;
+		}
 
-        become(fulfill(value));
-    };
-    deferred.reject = function (reason) {
-        if (resolvedPromise) {
-            return;
-        }
+		become(fulfill(value));
+	};
+	deferred.reject = function (reason) {
+		if (resolvedPromise) {
+			return;
+		}
 
-        become(reject(reason));
-    };
-    deferred.notify = function (progress) {
-        if (resolvedPromise) {
-            return;
-        }
+		become(reject(reason));
+	};
+	deferred.notify = function (progress) {
+		if (resolvedPromise) {
+			return;
+		}
 
-        array_reduce(progressListeners, function (undefined, progressListener) {
-            Q.nextTick(function () {
-                progressListener(progress);
-            });
-        }, void 0);
-    };
+		array_reduce(progressListeners, function (undefined, progressListener) {
+			Q.nextTick(function () {
+				progressListener(progress);
+			});
+		}, void 0);
+	};
 
-    return deferred;
+	return deferred;
 }
 
 /**
@@ -8132,16 +8132,16 @@ function defer() {
  * @returns a nodeback
  */
 defer.prototype.makeNodeResolver = function () {
-    var self = this;
-    return function (error, value) {
-        if (error) {
-            self.reject(error);
-        } else if (arguments.length > 2) {
-            self.resolve(array_slice(arguments, 1));
-        } else {
-            self.resolve(value);
-        }
-    };
+	var self = this;
+	return function (error, value) {
+		if (error) {
+			self.reject(error);
+		} else if (arguments.length > 2) {
+			self.resolve(array_slice(arguments, 1));
+		} else {
+			self.resolve(value);
+		}
+	};
 };
 
 /**
@@ -8153,16 +8153,16 @@ defer.prototype.makeNodeResolver = function () {
 Q.Promise = promise; // ES6
 Q.promise = promise;
 function promise(resolver) {
-    if (typeof resolver !== "function") {
-        throw new TypeError("resolver must be a function.");
-    }
-    var deferred = defer();
-    try {
-        resolver(deferred.resolve, deferred.reject, deferred.notify);
-    } catch (reason) {
-        deferred.reject(reason);
-    }
-    return deferred.promise;
+	if (typeof resolver !== "function") {
+		throw new TypeError("resolver must be a function.");
+	}
+	var deferred = defer();
+	try {
+		resolver(deferred.resolve, deferred.reject, deferred.notify);
+	} catch (reason) {
+		deferred.reject(reason);
+	}
+	return deferred.promise;
 }
 
 promise.race = race; // ES6
@@ -8174,15 +8174,15 @@ promise.resolve = Q; // ES6
 // serializable and should be immediately dispatched to a remote upon request,
 // instead of passing a reference.
 Q.passByCopy = function (object) {
-    //freeze(object);
-    //passByCopies.set(object, true);
-    return object;
+	//freeze(object);
+	//passByCopies.set(object, true);
+	return object;
 };
 
 Promise.prototype.passByCopy = function () {
-    //freeze(object);
-    //passByCopies.set(object, true);
-    return this;
+	//freeze(object);
+	//passByCopies.set(object, true);
+	return this;
 };
 
 /**
@@ -8195,18 +8195,18 @@ Promise.prototype.passByCopy = function () {
  *
  */
 Q.join = function (x, y) {
-    return Q(x).join(y);
+	return Q(x).join(y);
 };
 
 Promise.prototype.join = function (that) {
-    return Q([this, that]).spread(function (x, y) {
-        if (x === y) {
-            // TODO: "===" should be Object.is or equiv
-            return x;
-        } else {
-            throw new Error("Can't join: not the same: " + x + " " + y);
-        }
-    });
+	return Q([this, that]).spread(function (x, y) {
+		if (x === y) {
+			// TODO: "===" should be Object.is or equiv
+			return x;
+		} else {
+			throw new Error("Can't join: not the same: " + x + " " + y);
+		}
+	});
 };
 
 /**
@@ -8216,20 +8216,20 @@ Promise.prototype.join = function (that) {
  */
 Q.race = race;
 function race(answerPs) {
-    return promise(function (resolve, reject) {
-        // Switch to this once we can assume at least ES5
-        // answerPs.forEach(function (answerP) {
-        //     Q(answerP).then(resolve, reject);
-        // });
-        // Use this in the meantime
-        for (var i = 0, len = answerPs.length; i < len; i++) {
-            Q(answerPs[i]).then(resolve, reject);
-        }
-    });
+	return promise(function (resolve, reject) {
+		// Switch to this once we can assume at least ES5
+		// answerPs.forEach(function (answerP) {
+		//	   Q(answerP).then(resolve, reject);
+		// });
+		// Use this in the meantime
+		for (var i = 0, len = answerPs.length; i < len; i++) {
+			Q(answerPs[i]).then(resolve, reject);
+		}
+	});
 }
 
 Promise.prototype.race = function () {
-    return this.then(Q.race);
+	return this.then(Q.race);
 };
 
 /**
@@ -8245,136 +8245,136 @@ Promise.prototype.race = function () {
  */
 Q.makePromise = Promise;
 function Promise(descriptor, fallback, inspect) {
-    if (fallback === void 0) {
-        fallback = function (op) {
-            return reject(new Error(
-                "Promise does not support operation: " + op
-            ));
-        };
-    }
-    if (inspect === void 0) {
-        inspect = function () {
-            return {state: "unknown"};
-        };
-    }
+	if (fallback === void 0) {
+		fallback = function (op) {
+			return reject(new Error(
+				"Promise does not support operation: " + op
+			));
+		};
+	}
+	if (inspect === void 0) {
+		inspect = function () {
+			return {state: "unknown"};
+		};
+	}
 
-    var promise = object_create(Promise.prototype);
+	var promise = object_create(Promise.prototype);
 
-    promise.promiseDispatch = function (resolve, op, args) {
-        var result;
-        try {
-            if (descriptor[op]) {
-                result = descriptor[op].apply(promise, args);
-            } else {
-                result = fallback.call(promise, op, args);
-            }
-        } catch (exception) {
-            result = reject(exception);
-        }
-        if (resolve) {
-            resolve(result);
-        }
-    };
+	promise.promiseDispatch = function (resolve, op, args) {
+		var result;
+		try {
+			if (descriptor[op]) {
+				result = descriptor[op].apply(promise, args);
+			} else {
+				result = fallback.call(promise, op, args);
+			}
+		} catch (exception) {
+			result = reject(exception);
+		}
+		if (resolve) {
+			resolve(result);
+		}
+	};
 
-    promise.inspect = inspect;
+	promise.inspect = inspect;
 
-    // XXX deprecated `valueOf` and `exception` support
-    if (inspect) {
-        var inspected = inspect();
-        if (inspected.state === "rejected") {
-            promise.exception = inspected.reason;
-        }
+	// XXX deprecated `valueOf` and `exception` support
+	if (inspect) {
+		var inspected = inspect();
+		if (inspected.state === "rejected") {
+			promise.exception = inspected.reason;
+		}
 
-        promise.valueOf = function () {
-            var inspected = inspect();
-            if (inspected.state === "pending" ||
-                inspected.state === "rejected") {
-                return promise;
-            }
-            return inspected.value;
-        };
-    }
+		promise.valueOf = function () {
+			var inspected = inspect();
+			if (inspected.state === "pending" ||
+				inspected.state === "rejected") {
+				return promise;
+			}
+			return inspected.value;
+		};
+	}
 
-    return promise;
+	return promise;
 }
 
 Promise.prototype.toString = function () {
-    return "[object Promise]";
+	return "[object Promise]";
 };
 
 Promise.prototype.then = function (fulfilled, rejected, progressed) {
-    var self = this;
-    var deferred = defer();
-    var done = false;   // ensure the untrusted promise makes at most a
-                        // single call to one of the callbacks
+	var self = this;
+	var deferred = defer();
+	var done = false;	// ensure the untrusted promise makes at most a
+						// single call to one of the callbacks
 
-    function _fulfilled(value) {
-        try {
-            return typeof fulfilled === "function" ? fulfilled(value) : value;
-        } catch (exception) {
-            return reject(exception);
-        }
-    }
+	function _fulfilled(value) {
+		try {
+			return typeof fulfilled === "function" ? fulfilled(value) : value;
+		} catch (exception) {
+			return reject(exception);
+		}
+	}
 
-    function _rejected(exception) {
-        if (typeof rejected === "function") {
-            makeStackTraceLong(exception, self);
-            try {
-                return rejected(exception);
-            } catch (newException) {
-                return reject(newException);
-            }
-        }
-        return reject(exception);
-    }
+	function _rejected(exception) {
+		if (typeof rejected === "function") {
+			makeStackTraceLong(exception, self);
+			try {
+				return rejected(exception);
+			} catch (newException) {
+				return reject(newException);
+			}
+		}
+		return reject(exception);
+	}
 
-    function _progressed(value) {
-        return typeof progressed === "function" ? progressed(value) : value;
-    }
+	function _progressed(value) {
+		return typeof progressed === "function" ? progressed(value) : value;
+	}
 
-    Q.nextTick(function () {
-        self.promiseDispatch(function (value) {
-            if (done) {
-                return;
-            }
-            done = true;
+	Q.nextTick(function () {
+		self.promiseDispatch(function (value) {
+			if (done) {
+				return;
+			}
+			done = true;
 
-            deferred.resolve(_fulfilled(value));
-        }, "when", [function (exception) {
-            if (done) {
-                return;
-            }
-            done = true;
+			deferred.resolve(_fulfilled(value));
+		}, "when", [function (exception) {
+			if (done) {
+				return;
+			}
+			done = true;
 
-            deferred.resolve(_rejected(exception));
-        }]);
-    });
+			deferred.resolve(_rejected(exception));
+		}]);
+	});
 
-    // Progress propagator need to be attached in the current tick.
-    self.promiseDispatch(void 0, "when", [void 0, function (value) {
-        var newValue;
-        var threw = false;
-        try {
-            newValue = _progressed(value);
-        } catch (e) {
-            threw = true;
-            if (Q.onerror) {
-                Q.onerror(e);
-            } else {
-                throw e;
-            }
-        }
+	// Progress propagator need to be attached in the current tick.
+	self.promiseDispatch(void 0, "when", [void 0, function (value) {
+		var newValue;
+		var threw = false;
+		try {
+			newValue = _progressed(value);
+		} catch (e) {
+			threw = true;
+			if (Q.onerror) {
+				Q.onerror(e);
+			} else {
+				throw e;
+			}
+		}
 
-        if (!threw) {
-            deferred.notify(newValue);
-        }
-    }]);
+		if (!threw) {
+			deferred.notify(newValue);
+		}
+	}]);
 
-    return deferred.promise;
+	return deferred.promise;
 };
 
 Q.tap = function (promise, callback) {
-    return Q(promise).tap(callback);
+	return Q(promise).tap(callback);
 };
 
 /**
@@ -8385,16 +8385,16 @@ Q.tap = function (promise, callback) {
  * @returns {Q.Promise}
  * @example
  * doSomething()
- *   .then(...)
- *   .tap(console.log)
- *   .then(...);
+ *	 .then(...)
+ *	 .tap(console.log)
+ *	 .then(...);
  */
 Promise.prototype.tap = function (callback) {
-    callback = Q(callback);
+	callback = Q(callback);
 
-    return this.then(function (value) {
-        return callback.fcall(value).thenResolve(value);
-    });
+	return this.then(function (value) {
+		return callback.fcall(value).thenResolve(value);
+	});
 };
 
 /**
@@ -8404,34 +8404,34 @@ Promise.prototype.tap = function (callback) {
  *
  * 1. that fulfilled and rejected will be called only once.
  * 2. that either the fulfilled callback or the rejected callback will be
- *    called, but not both.
+ *	  called, but not both.
  * 3. that fulfilled and rejected will not be called in this turn.
  *
- * @param value      promise or immediate reference to observe
+ * @param value		 promise or immediate reference to observe
  * @param fulfilled  function to be called with the fulfilled value
- * @param rejected   function to be called with the rejection exception
+ * @param rejected	 function to be called with the rejection exception
  * @param progressed function to be called on any progress notifications
  * @return promise for the return value from the invoked callback
  */
 Q.when = when;
 function when(value, fulfilled, rejected, progressed) {
-    return Q(value).then(fulfilled, rejected, progressed);
+	return Q(value).then(fulfilled, rejected, progressed);
 }
 
 Promise.prototype.thenResolve = function (value) {
-    return this.then(function () { return value; });
+	return this.then(function () { return value; });
 };
 
 Q.thenResolve = function (promise, value) {
-    return Q(promise).thenResolve(value);
+	return Q(promise).thenResolve(value);
 };
 
 Promise.prototype.thenReject = function (reason) {
-    return this.then(function () { throw reason; });
+	return this.then(function () { throw reason; });
 };
 
 Q.thenReject = function (promise, reason) {
-    return Q(promise).thenReject(reason);
+	return Q(promise).thenReject(reason);
 };
 
 /**
@@ -8447,13 +8447,13 @@ Q.thenReject = function (promise, reason) {
 // XXX should we re-do this?
 Q.nearer = nearer;
 function nearer(value) {
-    if (isPromise(value)) {
-        var inspected = value.inspect();
-        if (inspected.state === "fulfilled") {
-            return inspected.value;
-        }
-    }
-    return value;
+	if (isPromise(value)) {
+		var inspected = value.inspect();
+		if (inspected.state === "fulfilled") {
+			return inspected.value;
+		}
+	}
+	return value;
 }
 
 /**
@@ -8462,12 +8462,12 @@ function nearer(value) {
  */
 Q.isPromise = isPromise;
 function isPromise(object) {
-    return object instanceof Promise;
+	return object instanceof Promise;
 }
 
 Q.isPromiseAlike = isPromiseAlike;
 function isPromiseAlike(object) {
-    return isObject(object) && typeof object.then === "function";
+	return isObject(object) && typeof object.then === "function";
 }
 
 /**
@@ -8476,11 +8476,11 @@ function isPromiseAlike(object) {
  */
 Q.isPending = isPending;
 function isPending(object) {
-    return isPromise(object) && object.inspect().state === "pending";
+	return isPromise(object) && object.inspect().state === "pending";
 }
 
 Promise.prototype.isPending = function () {
-    return this.inspect().state === "pending";
+	return this.inspect().state === "pending";
 };
 
 /**
@@ -8489,11 +8489,11 @@ Promise.prototype.isPending = function () {
  */
 Q.isFulfilled = isFulfilled;
 function isFulfilled(object) {
-    return !isPromise(object) || object.inspect().state === "fulfilled";
+	return !isPromise(object) || object.inspect().state === "fulfilled";
 }
 
 Promise.prototype.isFulfilled = function () {
-    return this.inspect().state === "fulfilled";
+	return this.inspect().state === "fulfilled";
 };
 
 /**
@@ -8501,11 +8501,11 @@ Promise.prototype.isFulfilled = function () {
  */
 Q.isRejected = isRejected;
 function isRejected(object) {
-    return isPromise(object) && object.inspect().state === "rejected";
+	return isPromise(object) && object.inspect().state === "rejected";
 }
 
 Promise.prototype.isRejected = function () {
-    return this.inspect().state === "rejected";
+	return this.inspect().state === "rejected";
 };
 
 //// BEGIN UNHANDLED REJECTION TRACKING
@@ -8520,66 +8520,66 @@ var reportedUnhandledRejections = [];
 var trackUnhandledRejections = true;
 
 function resetUnhandledRejections() {
-    unhandledReasons.length = 0;
-    unhandledRejections.length = 0;
+	unhandledReasons.length = 0;
+	unhandledRejections.length = 0;
 
-    if (!trackUnhandledRejections) {
-        trackUnhandledRejections = true;
-    }
+	if (!trackUnhandledRejections) {
+		trackUnhandledRejections = true;
+	}
 }
 
 function trackRejection(promise, reason) {
-    if (!trackUnhandledRejections) {
-        return;
-    }
-    if (typeof process === "object" && typeof process.emit === "function") {
-        Q.nextTick.runAfter(function () {
-            if (array_indexOf(unhandledRejections, promise) !== -1) {
-                process.emit("unhandledRejection", reason, promise);
-                reportedUnhandledRejections.push(promise);
-            }
-        });
-    }
+	if (!trackUnhandledRejections) {
+		return;
+	}
+	if (typeof process === "object" && typeof process.emit === "function") {
+		Q.nextTick.runAfter(function () {
+			if (array_indexOf(unhandledRejections, promise) !== -1) {
+				process.emit("unhandledRejection", reason, promise);
+				reportedUnhandledRejections.push(promise);
+			}
+		});
+	}
 
-    unhandledRejections.push(promise);
-    if (reason && typeof reason.stack !== "undefined") {
-        unhandledReasons.push(reason.stack);
-    } else {
-        unhandledReasons.push("(no stack) " + reason);
-    }
+	unhandledRejections.push(promise);
+	if (reason && typeof reason.stack !== "undefined") {
+		unhandledReasons.push(reason.stack);
+	} else {
+		unhandledReasons.push("(no stack) " + reason);
+	}
 }
 
 function untrackRejection(promise) {
-    if (!trackUnhandledRejections) {
-        return;
-    }
+	if (!trackUnhandledRejections) {
+		return;
+	}
 
-    var at = array_indexOf(unhandledRejections, promise);
-    if (at !== -1) {
-        if (typeof process === "object" && typeof process.emit === "function") {
-            Q.nextTick.runAfter(function () {
-                var atReport = array_indexOf(reportedUnhandledRejections, promise);
-                if (atReport !== -1) {
-                    process.emit("rejectionHandled", unhandledReasons[at], promise);
-                    reportedUnhandledRejections.splice(atReport, 1);
-                }
-            });
-        }
-        unhandledRejections.splice(at, 1);
-        unhandledReasons.splice(at, 1);
-    }
+	var at = array_indexOf(unhandledRejections, promise);
+	if (at !== -1) {
+		if (typeof process === "object" && typeof process.emit === "function") {
+			Q.nextTick.runAfter(function () {
+				var atReport = array_indexOf(reportedUnhandledRejections, promise);
+				if (atReport !== -1) {
+					process.emit("rejectionHandled", unhandledReasons[at], promise);
+					reportedUnhandledRejections.splice(atReport, 1);
+				}
+			});
+		}
+		unhandledRejections.splice(at, 1);
+		unhandledReasons.splice(at, 1);
+	}
 }
 
 Q.resetUnhandledRejections = resetUnhandledRejections;
 
 Q.getUnhandledReasons = function () {
-    // Make a copy so that consumers can't interfere with our internal state.
-    return unhandledReasons.slice();
+	// Make a copy so that consumers can't interfere with our internal state.
+	return unhandledReasons.slice();
 };
 
 Q.stopUnhandledRejectionTracking = function () {
-    resetUnhandledRejections();
-    trackUnhandledRejections = false;
+	resetUnhandledRejections();
+	trackUnhandledRejections = false;
 };
 
 resetUnhandledRejections();
@@ -8592,24 +8592,24 @@ resetUnhandledRejections();
  */
 Q.reject = reject;
 function reject(reason) {
-    var rejection = Promise({
-        "when": function (rejected) {
-            // note that the error has been handled
-            if (rejected) {
-                untrackRejection(this);
-            }
-            return rejected ? rejected(reason) : this;
-        }
-    }, function fallback() {
-        return this;
-    }, function inspect() {
-        return { state: "rejected", reason: reason };
-    });
+	var rejection = Promise({
+		"when": function (rejected) {
+			// note that the error has been handled
+			if (rejected) {
+				untrackRejection(this);
+			}
+			return rejected ? rejected(reason) : this;
+		}
+	}, function fallback() {
+		return this;
+	}, function inspect() {
+		return { state: "rejected", reason: reason };
+	});
 
-    // Note that the reason has not been handled.
-    trackRejection(rejection, reason);
+	// Note that the reason has not been handled.
+	trackRejection(rejection, reason);
 
-    return rejection;
+	return rejection;
 }
 
 /**
@@ -8618,37 +8618,37 @@ function reject(reason) {
  */
 Q.fulfill = fulfill;
 function fulfill(value) {
-    return Promise({
-        "when": function () {
-            return value;
-        },
-        "get": function (name) {
-            return value[name];
-        },
-        "set": function (name, rhs) {
-            value[name] = rhs;
-        },
-        "delete": function (name) {
-            delete value[name];
-        },
-        "post": function (name, args) {
-            // Mark Miller proposes that post with no name should apply a
-            // promised function.
-            if (name === null || name === void 0) {
-                return value.apply(void 0, args);
-            } else {
-                return value[name].apply(value, args);
-            }
-        },
-        "apply": function (thisp, args) {
-            return value.apply(thisp, args);
-        },
-        "keys": function () {
-            return object_keys(value);
-        }
-    }, void 0, function inspect() {
-        return { state: "fulfilled", value: value };
-    });
+	return Promise({
+		"when": function () {
+			return value;
+		},
+		"get": function (name) {
+			return value[name];
+		},
+		"set": function (name, rhs) {
+			value[name] = rhs;
+		},
+		"delete": function (name) {
+			delete value[name];
+		},
+		"post": function (name, args) {
+			// Mark Miller proposes that post with no name should apply a
+			// promised function.
+			if (name === null || name === void 0) {
+				return value.apply(void 0, args);
+			} else {
+				return value[name].apply(value, args);
+			}
+		},
+		"apply": function (thisp, args) {
+			return value.apply(thisp, args);
+		},
+		"keys": function () {
+			return object_keys(value);
+		}
+	}, void 0, function inspect() {
+		return { state: "fulfilled", value: value };
+	});
 }
 
 /**
@@ -8657,15 +8657,15 @@ function fulfill(value) {
  * @returns a Q promise
  */
 function coerce(promise) {
-    var deferred = defer();
-    Q.nextTick(function () {
-        try {
-            promise.then(deferred.resolve, deferred.reject, deferred.notify);
-        } catch (exception) {
-            deferred.reject(exception);
-        }
-    });
-    return deferred.promise;
+	var deferred = defer();
+	Q.nextTick(function () {
+		try {
+			promise.then(deferred.resolve, deferred.reject, deferred.notify);
+		} catch (exception) {
+			deferred.reject(exception);
+		}
+	});
+	return deferred.promise;
 }
 
 /**
@@ -8679,13 +8679,13 @@ function coerce(promise) {
  */
 Q.master = master;
 function master(object) {
-    return Promise({
-        "isDef": function () {}
-    }, function fallback(op, args) {
-        return dispatch(object, op, args);
-    }, function () {
-        return Q(object).inspect();
-    });
+	return Promise({
+		"isDef": function () {}
+	}, function fallback(op, args) {
+		return dispatch(object, op, args);
+	}, function () {
+		return Q(object).inspect();
+	});
 }
 
 /**
@@ -8700,13 +8700,13 @@ function master(object) {
  */
 Q.spread = spread;
 function spread(value, fulfilled, rejected) {
-    return Q(value).spread(fulfilled, rejected);
+	return Q(value).spread(fulfilled, rejected);
 }
 
 Promise.prototype.spread = function (fulfilled, rejected) {
-    return this.all().then(function (array) {
-        return fulfilled.apply(void 0, array);
-    }, rejected);
+	return this.all().then(function (array) {
+		return fulfilled.apply(void 0, array);
+	}, rejected);
 };
 
 /**
@@ -8722,67 +8722,67 @@ Promise.prototype.spread = function (fulfilled, rejected) {
  * works on both kinds of generators.
  *
  * Decorates a generator function such that:
- *  - it may yield promises
- *  - execution will continue when that promise is fulfilled
- *  - the value of the yield expression will be the fulfilled value
- *  - it returns a promise for the return value (when the generator
- *    stops iterating)
- *  - the decorated function returns a promise for the return value
- *    of the generator or the first rejected promise among those
- *    yielded.
- *  - if an error is thrown in the generator, it propagates through
- *    every following yield until it is caught, or until it escapes
- *    the generator function altogether, and is translated into a
- *    rejection for the promise returned by the decorated generator.
+ *	- it may yield promises
+ *	- execution will continue when that promise is fulfilled
+ *	- the value of the yield expression will be the fulfilled value
+ *	- it returns a promise for the return value (when the generator
+ *	  stops iterating)
+ *	- the decorated function returns a promise for the return value
+ *	  of the generator or the first rejected promise among those
+ *	  yielded.
+ *	- if an error is thrown in the generator, it propagates through
+ *	  every following yield until it is caught, or until it escapes
+ *	  the generator function altogether, and is translated into a
+ *	  rejection for the promise returned by the decorated generator.
  */
 Q.async = async;
 function async(makeGenerator) {
-    return function () {
-        // when verb is "send", arg is a value
-        // when verb is "throw", arg is an exception
-        function continuer(verb, arg) {
-            var result;
+	return function () {
+		// when verb is "send", arg is a value
+		// when verb is "throw", arg is an exception
+		function continuer(verb, arg) {
+			var result;
 
-            // Until V8 3.19 / Chromium 29 is released, SpiderMonkey is the only
-            // engine that has a deployed base of browsers that support generators.
-            // However, SM's generators use the Python-inspired semantics of
-            // outdated ES6 drafts.  We would like to support ES6, but we'd also
-            // like to make it possible to use generators in deployed browsers, so
-            // we also support Python-style generators.  At some point we can remove
-            // this block.
+			// Until V8 3.19 / Chromium 29 is released, SpiderMonkey is the only
+			// engine that has a deployed base of browsers that support generators.
+			// However, SM's generators use the Python-inspired semantics of
+			// outdated ES6 drafts.  We would like to support ES6, but we'd also
+			// like to make it possible to use generators in deployed browsers, so
+			// we also support Python-style generators.  At some point we can remove
+			// this block.
 
-            if (typeof StopIteration === "undefined") {
-                // ES6 Generators
-                try {
-                    result = generator[verb](arg);
-                } catch (exception) {
-                    return reject(exception);
-                }
-                if (result.done) {
-                    return Q(result.value);
-                } else {
-                    return when(result.value, callback, errback);
-                }
-            } else {
-                // SpiderMonkey Generators
-                // FIXME: Remove this case when SM does ES6 generators.
-                try {
-                    result = generator[verb](arg);
-                } catch (exception) {
-                    if (isStopIteration(exception)) {
-                        return Q(exception.value);
-                    } else {
-                        return reject(exception);
-                    }
-                }
-                return when(result, callback, errback);
-            }
-        }
-        var generator = makeGenerator.apply(this, arguments);
-        var callback = continuer.bind(continuer, "next");
-        var errback = continuer.bind(continuer, "throw");
-        return callback();
-    };
+			if (typeof StopIteration === "undefined") {
+				// ES6 Generators
+				try {
+					result = generator[verb](arg);
+				} catch (exception) {
+					return reject(exception);
+				}
+				if (result.done) {
+					return Q(result.value);
+				} else {
+					return when(result.value, callback, errback);
+				}
+			} else {
+				// SpiderMonkey Generators
+				// FIXME: Remove this case when SM does ES6 generators.
+				try {
+					result = generator[verb](arg);
+				} catch (exception) {
+					if (isStopIteration(exception)) {
+						return Q(exception.value);
+					} else {
+						return reject(exception);
+					}
+				}
+				return when(result, callback, errback);
+			}
+		}
+		var generator = makeGenerator.apply(this, arguments);
+		var callback = continuer.bind(continuer, "next");
+		var errback = continuer.bind(continuer, "throw");
+		return callback();
+	};
 }
 
 /**
@@ -8794,7 +8794,7 @@ function async(makeGenerator) {
  */
 Q.spawn = spawn;
 function spawn(makeGenerator) {
-    Q.done(Q.async(makeGenerator)());
+	Q.done(Q.async(makeGenerator)());
 }
 
 // FIXME: Remove this interface once ES6 generators are in SpiderMonkey.
@@ -8811,20 +8811,20 @@ function spawn(makeGenerator) {
  * @example
  * // ES6 style
  * Q.async(function* () {
- *      var foo = yield getFooPromise();
- *      var bar = yield getBarPromise();
- *      return foo + bar;
+ *		var foo = yield getFooPromise();
+ *		var bar = yield getBarPromise();
+ *		return foo + bar;
  * })
  * // Older SpiderMonkey style
  * Q.async(function () {
- *      var foo = yield getFooPromise();
- *      var bar = yield getBarPromise();
- *      Q.return(foo + bar);
+ *		var foo = yield getFooPromise();
+ *		var bar = yield getBarPromise();
+ *		Q.return(foo + bar);
  * })
  */
 Q["return"] = _return;
 function _return(value) {
-    throw new QReturnValue(value);
+	throw new QReturnValue(value);
 }
 
 /**
@@ -8835,7 +8835,7 @@ function _return(value) {
  *
  * @example
  * var add = Q.promised(function (a, b) {
- *     return a + b;
+ *	   return a + b;
  * });
  * add(Q(a), Q(B));
  *
@@ -8844,11 +8844,11 @@ function _return(value) {
  */
 Q.promised = promised;
 function promised(callback) {
-    return function () {
-        return spread([this, all(arguments)], function (self, args) {
-            return callback.apply(self, args);
-        });
-    };
+	return function () {
+		return spread([this, all(arguments)], function (self, args) {
+			return callback.apply(self, args);
+		});
+	};
 }
 
 /**
@@ -8860,175 +8860,175 @@ function promised(callback) {
  */
 Q.dispatch = dispatch;
 function dispatch(object, op, args) {
-    return Q(object).dispatch(op, args);
+	return Q(object).dispatch(op, args);
 }
 
 Promise.prototype.dispatch = function (op, args) {
-    var self = this;
-    var deferred = defer();
-    Q.nextTick(function () {
-        self.promiseDispatch(deferred.resolve, op, args);
-    });
-    return deferred.promise;
+	var self = this;
+	var deferred = defer();
+	Q.nextTick(function () {
+		self.promiseDispatch(deferred.resolve, op, args);
+	});
+	return deferred.promise;
 };
 
 /**
  * Gets the value of a property in a future turn.
- * @param object    promise or immediate reference for target object
- * @param name      name of property to get
+ * @param object	promise or immediate reference for target object
+ * @param name		name of property to get
  * @return promise for the property value
  */
 Q.get = function (object, key) {
-    return Q(object).dispatch("get", [key]);
+	return Q(object).dispatch("get", [key]);
 };
 
 Promise.prototype.get = function (key) {
-    return this.dispatch("get", [key]);
+	return this.dispatch("get", [key]);
 };
 
 /**
  * Sets the value of a property in a future turn.
- * @param object    promise or immediate reference for object object
- * @param name      name of property to set
- * @param value     new value of property
+ * @param object	promise or immediate reference for object object
+ * @param name		name of property to set
+ * @param value		new value of property
  * @return promise for the return value
  */
 Q.set = function (object, key, value) {
-    return Q(object).dispatch("set", [key, value]);
+	return Q(object).dispatch("set", [key, value]);
 };
 
 Promise.prototype.set = function (key, value) {
-    return this.dispatch("set", [key, value]);
+	return this.dispatch("set", [key, value]);
 };
 
 /**
  * Deletes a property in a future turn.
- * @param object    promise or immediate reference for target object
- * @param name      name of property to delete
+ * @param object	promise or immediate reference for target object
+ * @param name		name of property to delete
  * @return promise for the return value
  */
 Q.del = // XXX legacy
 Q["delete"] = function (object, key) {
-    return Q(object).dispatch("delete", [key]);
+	return Q(object).dispatch("delete", [key]);
 };
 
 Promise.prototype.del = // XXX legacy
 Promise.prototype["delete"] = function (key) {
-    return this.dispatch("delete", [key]);
+	return this.dispatch("delete", [key]);
 };
 
 /**
  * Invokes a method in a future turn.
- * @param object    promise or immediate reference for target object
- * @param name      name of method to invoke
- * @param value     a value to post, typically an array of
- *                  invocation arguments for promises that
- *                  are ultimately backed with `resolve` values,
- *                  as opposed to those backed with URLs
- *                  wherein the posted value can be any
- *                  JSON serializable object.
+ * @param object	promise or immediate reference for target object
+ * @param name		name of method to invoke
+ * @param value		a value to post, typically an array of
+ *					invocation arguments for promises that
+ *					are ultimately backed with `resolve` values,
+ *					as opposed to those backed with URLs
+ *					wherein the posted value can be any
+ *					JSON serializable object.
  * @return promise for the return value
  */
 // bound locally because it is used by other methods
 Q.mapply = // XXX As proposed by "Redsandro"
 Q.post = function (object, name, args) {
-    return Q(object).dispatch("post", [name, args]);
+	return Q(object).dispatch("post", [name, args]);
 };
 
 Promise.prototype.mapply = // XXX As proposed by "Redsandro"
 Promise.prototype.post = function (name, args) {
-    return this.dispatch("post", [name, args]);
+	return this.dispatch("post", [name, args]);
 };
 
 /**
  * Invokes a method in a future turn.
- * @param object    promise or immediate reference for target object
- * @param name      name of method to invoke
- * @param ...args   array of invocation arguments
+ * @param object	promise or immediate reference for target object
+ * @param name		name of method to invoke
+ * @param ...args	array of invocation arguments
  * @return promise for the return value
  */
 Q.send = // XXX Mark Miller's proposed parlance
 Q.mcall = // XXX As proposed by "Redsandro"
 Q.invoke = function (object, name /*...args*/) {
-    return Q(object).dispatch("post", [name, array_slice(arguments, 2)]);
+	return Q(object).dispatch("post", [name, array_slice(arguments, 2)]);
 };
 
 Promise.prototype.send = // XXX Mark Miller's proposed parlance
 Promise.prototype.mcall = // XXX As proposed by "Redsandro"
 Promise.prototype.invoke = function (name /*...args*/) {
-    return this.dispatch("post", [name, array_slice(arguments, 1)]);
+	return this.dispatch("post", [name, array_slice(arguments, 1)]);
 };
 
 /**
  * Applies the promised function in a future turn.
- * @param object    promise or immediate reference for target function
- * @param args      array of application arguments
+ * @param object	promise or immediate reference for target function
+ * @param args		array of application arguments
  */
 Q.fapply = function (object, args) {
-    return Q(object).dispatch("apply", [void 0, args]);
+	return Q(object).dispatch("apply", [void 0, args]);
 };
 
 Promise.prototype.fapply = function (args) {
-    return this.dispatch("apply", [void 0, args]);
+	return this.dispatch("apply", [void 0, args]);
 };
 
 /**
  * Calls the promised function in a future turn.
- * @param object    promise or immediate reference for target function
- * @param ...args   array of application arguments
+ * @param object	promise or immediate reference for target function
+ * @param ...args	array of application arguments
  */
 Q["try"] =
 Q.fcall = function (object /* ...args*/) {
-    return Q(object).dispatch("apply", [void 0, array_slice(arguments, 1)]);
+	return Q(object).dispatch("apply", [void 0, array_slice(arguments, 1)]);
 };
 
 Promise.prototype.fcall = function (/*...args*/) {
-    return this.dispatch("apply", [void 0, array_slice(arguments)]);
+	return this.dispatch("apply", [void 0, array_slice(arguments)]);
 };
 
 /**
  * Binds the promised function, transforming return values into a fulfilled
  * promise and thrown errors into a rejected one.
- * @param object    promise or immediate reference for target function
- * @param ...args   array of application arguments
+ * @param object	promise or immediate reference for target function
+ * @param ...args	array of application arguments
  */
 Q.fbind = function (object /*...args*/) {
-    var promise = Q(object);
-    var args = array_slice(arguments, 1);
-    return function fbound() {
-        return promise.dispatch("apply", [
-            this,
-            args.concat(array_slice(arguments))
-        ]);
-    };
+	var promise = Q(object);
+	var args = array_slice(arguments, 1);
+	return function fbound() {
+		return promise.dispatch("apply", [
+			this,
+			args.concat(array_slice(arguments))
+		]);
+	};
 };
 Promise.prototype.fbind = function (/*...args*/) {
-    var promise = this;
-    var args = array_slice(arguments);
-    return function fbound() {
-        return promise.dispatch("apply", [
-            this,
-            args.concat(array_slice(arguments))
-        ]);
-    };
+	var promise = this;
+	var args = array_slice(arguments);
+	return function fbound() {
+		return promise.dispatch("apply", [
+			this,
+			args.concat(array_slice(arguments))
+		]);
+	};
 };
 
 /**
  * Requests the names of the owned properties of a promised
  * object in a future turn.
- * @param object    promise or immediate reference for target object
+ * @param object	promise or immediate reference for target object
  * @return promise for the keys of the eventually settled object
  */
 Q.keys = function (object) {
-    return Q(object).dispatch("keys", []);
+	return Q(object).dispatch("keys", []);
 };
 
 Promise.prototype.keys = function () {
-    return this.dispatch("keys", []);
+	return this.dispatch("keys", []);
 };
 
 /**
- * Turns an array of promises into a promise for an array.  If any of
+ * Turns an array of promises into a promise for an array.	If any of
  * the promises gets rejected, the whole array is rejected immediately.
  * @param {Array*} an array (or promise for an array) of values (or
  * promises for values)
@@ -9038,42 +9038,42 @@ Promise.prototype.keys = function () {
 // http://wiki.ecmascript.org/doku.php?id=strawman:concurrency&rev=1308776521#allfulfilled
 Q.all = all;
 function all(promises) {
-    return when(promises, function (promises) {
-        var pendingCount = 0;
-        var deferred = defer();
-        array_reduce(promises, function (undefined, promise, index) {
-            var snapshot;
-            if (
-                isPromise(promise) &&
-                (snapshot = promise.inspect()).state === "fulfilled"
-            ) {
-                promises[index] = snapshot.value;
-            } else {
-                ++pendingCount;
-                when(
-                    promise,
-                    function (value) {
-                        promises[index] = value;
-                        if (--pendingCount === 0) {
-                            deferred.resolve(promises);
-                        }
-                    },
-                    deferred.reject,
-                    function (progress) {
-                        deferred.notify({ index: index, value: progress });
-                    }
-                );
-            }
-        }, void 0);
-        if (pendingCount === 0) {
-            deferred.resolve(promises);
-        }
-        return deferred.promise;
-    });
+	return when(promises, function (promises) {
+		var pendingCount = 0;
+		var deferred = defer();
+		array_reduce(promises, function (undefined, promise, index) {
+			var snapshot;
+			if (
+				isPromise(promise) &&
+				(snapshot = promise.inspect()).state === "fulfilled"
+			) {
+				promises[index] = snapshot.value;
+			} else {
+				++pendingCount;
+				when(
+					promise,
+					function (value) {
+						promises[index] = value;
+						if (--pendingCount === 0) {
+							deferred.resolve(promises);
+						}
+					},
+					deferred.reject,
+					function (progress) {
+						deferred.notify({ index: index, value: progress });
+					}
+				);
+			}
+		}, void 0);
+		if (pendingCount === 0) {
+			deferred.resolve(promises);
+		}
+		return deferred.promise;
+	});
 }
 
 Promise.prototype.all = function () {
-    return all(this);
+	return all(this);
 };
 
 /**
@@ -9086,49 +9086,49 @@ Promise.prototype.all = function () {
 Q.any = any;
 
 function any(promises) {
-    if (promises.length === 0) {
-        return Q.resolve();
-    }
+	if (promises.length === 0) {
+		return Q.resolve();
+	}
 
-    var deferred = Q.defer();
-    var pendingCount = 0;
-    array_reduce(promises, function (prev, current, index) {
-        var promise = promises[index];
+	var deferred = Q.defer();
+	var pendingCount = 0;
+	array_reduce(promises, function (prev, current, index) {
+		var promise = promises[index];
 
-        pendingCount++;
+		pendingCount++;
 
-        when(promise, onFulfilled, onRejected, onProgress);
-        function onFulfilled(result) {
-            deferred.resolve(result);
-        }
-        function onRejected() {
-            pendingCount--;
-            if (pendingCount === 0) {
-                deferred.reject(new Error(
-                    "Can't get fulfillment value from any promise, all " +
-                    "promises were rejected."
-                ));
-            }
-        }
-        function onProgress(progress) {
-            deferred.notify({
-                index: index,
-                value: progress
-            });
-        }
-    }, undefined);
+		when(promise, onFulfilled, onRejected, onProgress);
+		function onFulfilled(result) {
+			deferred.resolve(result);
+		}
+		function onRejected() {
+			pendingCount--;
+			if (pendingCount === 0) {
+				deferred.reject(new Error(
+					"Can't get fulfillment value from any promise, all " +
+					"promises were rejected."
+				));
+			}
+		}
+		function onProgress(progress) {
+			deferred.notify({
+				index: index,
+				value: progress
+			});
+		}
+	}, undefined);
 
-    return deferred.promise;
+	return deferred.promise;
 }
 
 Promise.prototype.any = function () {
-    return any(this);
+	return any(this);
 };
 
 /**
  * Waits for all promises to be settled, either fulfilled or
  * rejected.  This is distinct from `all` since that would stop
- * waiting at the first rejection.  The promise returned by
+ * waiting at the first rejection.	The promise returned by
  * `allResolved` will never be rejected.
  * @param promises a promise for an array (or an array) of promises
  * (or values)
@@ -9136,18 +9136,18 @@ Promise.prototype.any = function () {
  */
 Q.allResolved = deprecate(allResolved, "allResolved", "allSettled");
 function allResolved(promises) {
-    return when(promises, function (promises) {
-        promises = array_map(promises, Q);
-        return when(all(array_map(promises, function (promise) {
-            return when(promise, noop, noop);
-        })), function () {
-            return promises;
-        });
-    });
+	return when(promises, function (promises) {
+		promises = array_map(promises, Q);
+		return when(all(array_map(promises, function (promise) {
+			return when(promise, noop, noop);
+		})), function () {
+			return promises;
+		});
+	});
 }
 
 Promise.prototype.allResolved = function () {
-    return allResolved(this);
+	return allResolved(this);
 };
 
 /**
@@ -9155,7 +9155,7 @@ Promise.prototype.allResolved = function () {
  */
 Q.allSettled = allSettled;
 function allSettled(promises) {
-    return Q(promises).allSettled();
+	return Q(promises).allSettled();
 }
 
 /**
@@ -9166,15 +9166,15 @@ function allSettled(promises) {
  * @returns {Array[State]} an array of states for the respective values.
  */
 Promise.prototype.allSettled = function () {
-    return this.then(function (promises) {
-        return all(array_map(promises, function (promise) {
-            promise = Q(promise);
-            function regardless() {
-                return promise.inspect();
-            }
-            return promise.then(regardless, regardless);
-        }));
-    });
+	return this.then(function (promises) {
+		return all(array_map(promises, function (promise) {
+			promise = Q(promise);
+			function regardless() {
+				return promise.inspect();
+			}
+			return promise.then(regardless, regardless);
+		}));
+	});
 };
 
 /**
@@ -9188,12 +9188,12 @@ Promise.prototype.allSettled = function () {
  */
 Q.fail = // XXX legacy
 Q["catch"] = function (object, rejected) {
-    return Q(object).then(void 0, rejected);
+	return Q(object).then(void 0, rejected);
 };
 
 Promise.prototype.fail = // XXX legacy
 Promise.prototype["catch"] = function (rejected) {
-    return this.then(void 0, rejected);
+	return this.then(void 0, rejected);
 };
 
 /**
@@ -9206,16 +9206,16 @@ Promise.prototype["catch"] = function (rejected) {
  */
 Q.progress = progress;
 function progress(object, progressed) {
-    return Q(object).then(void 0, void 0, progressed);
+	return Q(object).then(void 0, void 0, progressed);
 }
 
 Promise.prototype.progress = function (progressed) {
-    return this.then(void 0, void 0, progressed);
+	return this.then(void 0, void 0, progressed);
 };
 
 /**
  * Provides an opportunity to observe the settling of a promise,
- * regardless of whether the promise is fulfilled or rejected.  Forwards
+ * regardless of whether the promise is fulfilled or rejected.	Forwards
  * the resolution to the returned promise when the callback is done.
  * The callback can return a promise to defer completion.
  * @param {Any*} promise
@@ -9226,22 +9226,22 @@ Promise.prototype.progress = function (progressed) {
  */
 Q.fin = // XXX legacy
 Q["finally"] = function (object, callback) {
-    return Q(object)["finally"](callback);
+	return Q(object)["finally"](callback);
 };
 
 Promise.prototype.fin = // XXX legacy
 Promise.prototype["finally"] = function (callback) {
-    callback = Q(callback);
-    return this.then(function (value) {
-        return callback.fcall().then(function () {
-            return value;
-        });
-    }, function (reason) {
-        // TODO attempt to recycle the rejection with "this".
-        return callback.fcall().then(function () {
-            throw reason;
-        });
-    });
+	callback = Q(callback);
+	return this.then(function (value) {
+		return callback.fcall().then(function () {
+			return value;
+		});
+	}, function (reason) {
+		// TODO attempt to recycle the rejection with "this".
+		return callback.fcall().then(function () {
+			throw reason;
+		});
+	});
 };
 
 /**
@@ -9251,33 +9251,33 @@ Promise.prototype["finally"] = function (callback) {
  * @returns nothing
  */
 Q.done = function (object, fulfilled, rejected, progress) {
-    return Q(object).done(fulfilled, rejected, progress);
+	return Q(object).done(fulfilled, rejected, progress);
 };
 
 Promise.prototype.done = function (fulfilled, rejected, progress) {
-    var onUnhandledError = function (error) {
-        // forward to a future turn so that ``when``
-        // does not catch it and turn it into a rejection.
-        Q.nextTick(function () {
-            makeStackTraceLong(error, promise);
-            if (Q.onerror) {
-                Q.onerror(error);
-            } else {
-                throw error;
-            }
-        });
-    };
+	var onUnhandledError = function (error) {
+		// forward to a future turn so that ``when``
+		// does not catch it and turn it into a rejection.
+		Q.nextTick(function () {
+			makeStackTraceLong(error, promise);
+			if (Q.onerror) {
+				Q.onerror(error);
+			} else {
+				throw error;
+			}
+		});
+	};
 
-    // Avoid unnecessary `nextTick`ing via an unnecessary `when`.
-    var promise = fulfilled || rejected || progress ?
-        this.then(fulfilled, rejected, progress) :
-        this;
+	// Avoid unnecessary `nextTick`ing via an unnecessary `when`.
+	var promise = fulfilled || rejected || progress ?
+		this.then(fulfilled, rejected, progress) :
+		this;
 
-    if (typeof process === "object" && process && process.domain) {
-        onUnhandledError = process.domain.bind(onUnhandledError);
-    }
+	if (typeof process === "object" && process && process.domain) {
+		onUnhandledError = process.domain.bind(onUnhandledError);
+	}
 
-    promise.then(void 0, onUnhandledError);
+	promise.then(void 0, onUnhandledError);
 };
 
 /**
@@ -9290,28 +9290,28 @@ Promise.prototype.done = function (fulfilled, rejected, progress) {
  * fulfilled before the timeout, otherwise rejected.
  */
 Q.timeout = function (object, ms, error) {
-    return Q(object).timeout(ms, error);
+	return Q(object).timeout(ms, error);
 };
 
 Promise.prototype.timeout = function (ms, error) {
-    var deferred = defer();
-    var timeoutId = setTimeout(function () {
-        if (!error || "string" === typeof error) {
-            error = new Error(error || "Timed out after " + ms + " ms");
-            error.code = "ETIMEDOUT";
-        }
-        deferred.reject(error);
-    }, ms);
+	var deferred = defer();
+	var timeoutId = setTimeout(function () {
+		if (!error || "string" === typeof error) {
+			error = new Error(error || "Timed out after " + ms + " ms");
+			error.code = "ETIMEDOUT";
+		}
+		deferred.reject(error);
+	}, ms);
 
-    this.then(function (value) {
-        clearTimeout(timeoutId);
-        deferred.resolve(value);
-    }, function (exception) {
-        clearTimeout(timeoutId);
-        deferred.reject(exception);
-    }, deferred.notify);
+	this.then(function (value) {
+		clearTimeout(timeoutId);
+		deferred.resolve(value);
+	}, function (exception) {
+		clearTimeout(timeoutId);
+		deferred.reject(exception);
+	}, deferred.notify);
 
-    return deferred.promise;
+	return deferred.promise;
 };
 
 /**
@@ -9324,42 +9324,42 @@ Promise.prototype.timeout = function (ms, error) {
  * If the given promise rejects, that is passed immediately.
  */
 Q.delay = function (object, timeout) {
-    if (timeout === void 0) {
-        timeout = object;
-        object = void 0;
-    }
-    return Q(object).delay(timeout);
+	if (timeout === void 0) {
+		timeout = object;
+		object = void 0;
+	}
+	return Q(object).delay(timeout);
 };
 
 Promise.prototype.delay = function (timeout) {
-    return this.then(function (value) {
-        var deferred = defer();
-        setTimeout(function () {
-            deferred.resolve(value);
-        }, timeout);
-        return deferred.promise;
-    });
+	return this.then(function (value) {
+		var deferred = defer();
+		setTimeout(function () {
+			deferred.resolve(value);
+		}, timeout);
+		return deferred.promise;
+	});
 };
 
 /**
  * Passes a continuation to a Node function, which is called with the given
  * arguments provided as an array, and returns a promise.
  *
- *      Q.nfapply(FS.readFile, [__filename])
- *      .then(function (content) {
- *      })
+ *		Q.nfapply(FS.readFile, [__filename])
+ *		.then(function (content) {
+ *		})
  *
  */
 Q.nfapply = function (callback, args) {
-    return Q(callback).nfapply(args);
+	return Q(callback).nfapply(args);
 };
 
 Promise.prototype.nfapply = function (args) {
-    var deferred = defer();
-    var nodeArgs = array_slice(args);
-    nodeArgs.push(deferred.makeNodeResolver());
-    this.fapply(nodeArgs).fail(deferred.reject);
-    return deferred.promise;
+	var deferred = defer();
+	var nodeArgs = array_slice(args);
+	nodeArgs.push(deferred.makeNodeResolver());
+	this.fapply(nodeArgs).fail(deferred.reject);
+	return deferred.promise;
 };
 
 /**
@@ -9372,16 +9372,16 @@ Promise.prototype.nfapply = function (args) {
  *
  */
 Q.nfcall = function (callback /*...args*/) {
-    var args = array_slice(arguments, 1);
-    return Q(callback).nfapply(args);
+	var args = array_slice(arguments, 1);
+	return Q(callback).nfapply(args);
 };
 
 Promise.prototype.nfcall = function (/*...args*/) {
-    var nodeArgs = array_slice(arguments);
-    var deferred = defer();
-    nodeArgs.push(deferred.makeNodeResolver());
-    this.fapply(nodeArgs).fail(deferred.reject);
-    return deferred.promise;
+	var nodeArgs = array_slice(arguments);
+	var deferred = defer();
+	nodeArgs.push(deferred.makeNodeResolver());
+	this.fapply(nodeArgs).fail(deferred.reject);
+	return deferred.promise;
 };
 
 /**
@@ -9394,41 +9394,41 @@ Promise.prototype.nfcall = function (/*...args*/) {
  */
 Q.nfbind =
 Q.denodeify = function (callback /*...args*/) {
-    var baseArgs = array_slice(arguments, 1);
-    return function () {
-        var nodeArgs = baseArgs.concat(array_slice(arguments));
-        var deferred = defer();
-        nodeArgs.push(deferred.makeNodeResolver());
-        Q(callback).fapply(nodeArgs).fail(deferred.reject);
-        return deferred.promise;
-    };
+	var baseArgs = array_slice(arguments, 1);
+	return function () {
+		var nodeArgs = baseArgs.concat(array_slice(arguments));
+		var deferred = defer();
+		nodeArgs.push(deferred.makeNodeResolver());
+		Q(callback).fapply(nodeArgs).fail(deferred.reject);
+		return deferred.promise;
+	};
 };
 
 Promise.prototype.nfbind =
 Promise.prototype.denodeify = function (/*...args*/) {
-    var args = array_slice(arguments);
-    args.unshift(this);
-    return Q.denodeify.apply(void 0, args);
+	var args = array_slice(arguments);
+	args.unshift(this);
+	return Q.denodeify.apply(void 0, args);
 };
 
 Q.nbind = function (callback, thisp /*...args*/) {
-    var baseArgs = array_slice(arguments, 2);
-    return function () {
-        var nodeArgs = baseArgs.concat(array_slice(arguments));
-        var deferred = defer();
-        nodeArgs.push(deferred.makeNodeResolver());
-        function bound() {
-            return callback.apply(thisp, arguments);
-        }
-        Q(bound).fapply(nodeArgs).fail(deferred.reject);
-        return deferred.promise;
-    };
+	var baseArgs = array_slice(arguments, 2);
+	return function () {
+		var nodeArgs = baseArgs.concat(array_slice(arguments));
+		var deferred = defer();
+		nodeArgs.push(deferred.makeNodeResolver());
+		function bound() {
+			return callback.apply(thisp, arguments);
+		}
+		Q(bound).fapply(nodeArgs).fail(deferred.reject);
+		return deferred.promise;
+	};
 };
 
 Promise.prototype.nbind = function (/*thisp, ...args*/) {
-    var args = array_slice(arguments, 0);
-    args.unshift(this);
-    return Q.nbind.apply(void 0, args);
+	var args = array_slice(arguments, 0);
+	args.unshift(this);
+	return Q.nbind.apply(void 0, args);
 };
 
 /**
@@ -9442,16 +9442,16 @@ Promise.prototype.nbind = function (/*thisp, ...args*/) {
  */
 Q.nmapply = // XXX As proposed by "Redsandro"
 Q.npost = function (object, name, args) {
-    return Q(object).npost(name, args);
+	return Q(object).npost(name, args);
 };
 
 Promise.prototype.nmapply = // XXX As proposed by "Redsandro"
 Promise.prototype.npost = function (name, args) {
-    var nodeArgs = array_slice(args || []);
-    var deferred = defer();
-    nodeArgs.push(deferred.makeNodeResolver());
-    this.dispatch("post", [name, nodeArgs]).fail(deferred.reject);
-    return deferred.promise;
+	var nodeArgs = array_slice(args || []);
+	var deferred = defer();
+	nodeArgs.push(deferred.makeNodeResolver());
+	this.dispatch("post", [name, nodeArgs]).fail(deferred.reject);
+	return deferred.promise;
 };
 
 /**
@@ -9467,27 +9467,27 @@ Promise.prototype.npost = function (name, args) {
 Q.nsend = // XXX Based on Mark Miller's proposed "send"
 Q.nmcall = // XXX Based on "Redsandro's" proposal
 Q.ninvoke = function (object, name /*...args*/) {
-    var nodeArgs = array_slice(arguments, 2);
-    var deferred = defer();
-    nodeArgs.push(deferred.makeNodeResolver());
-    Q(object).dispatch("post", [name, nodeArgs]).fail(deferred.reject);
-    return deferred.promise;
+	var nodeArgs = array_slice(arguments, 2);
+	var deferred = defer();
+	nodeArgs.push(deferred.makeNodeResolver());
+	Q(object).dispatch("post", [name, nodeArgs]).fail(deferred.reject);
+	return deferred.promise;
 };
 
 Promise.prototype.nsend = // XXX Based on Mark Miller's proposed "send"
 Promise.prototype.nmcall = // XXX Based on "Redsandro's" proposal
 Promise.prototype.ninvoke = function (name /*...args*/) {
-    var nodeArgs = array_slice(arguments, 1);
-    var deferred = defer();
-    nodeArgs.push(deferred.makeNodeResolver());
-    this.dispatch("post", [name, nodeArgs]).fail(deferred.reject);
-    return deferred.promise;
+	var nodeArgs = array_slice(arguments, 1);
+	var deferred = defer();
+	nodeArgs.push(deferred.makeNodeResolver());
+	this.dispatch("post", [name, nodeArgs]).fail(deferred.reject);
+	return deferred.promise;
 };
 
 /**
  * If a function would like to support both Node continuation-passing-style and
  * promise-returning-style, it can end its internal promise chain with
- * `nodeify(nodeback)`, forwarding the optional nodeback argument.  If the user
+ * `nodeify(nodeback)`, forwarding the optional nodeback argument.	If the user
  * elects to use a nodeback, the result will be sent there.  If they do not
  * pass a nodeback, they will receive the result promise.
  * @param object a result (or a promise for a result)
@@ -9496,27 +9496,27 @@ Promise.prototype.ninvoke = function (name /*...args*/) {
  */
 Q.nodeify = nodeify;
 function nodeify(object, nodeback) {
-    return Q(object).nodeify(nodeback);
+	return Q(object).nodeify(nodeback);
 }
 
 Promise.prototype.nodeify = function (nodeback) {
-    if (nodeback) {
-        this.then(function (value) {
-            Q.nextTick(function () {
-                nodeback(null, value);
-            });
-        }, function (error) {
-            Q.nextTick(function () {
-                nodeback(error);
-            });
-        });
-    } else {
-        return this;
-    }
+	if (nodeback) {
+		this.then(function (value) {
+			Q.nextTick(function () {
+				nodeback(null, value);
+			});
+		}, function (error) {
+			Q.nextTick(function () {
+				nodeback(error);
+			});
+		});
+	} else {
+		return this;
+	}
 };
 
 Q.noConflict = function() {
-    throw new Error("Q.noConflict only works when Q is used as a global");
+	throw new Error("Q.noConflict only works when Q is used as a global");
 };
 
 // All code before this point will be filtered from stack traces.
@@ -9529,14 +9529,14 @@ return Q;
 }).call(this,require('_process'))
 },{"_process":6}],8:[function(require,module,exports){
 /********************************************************************************
-*   Ledger Node JS API
-*   (c) 2016-2017 Ledger
+*	Ledger Node JS API
+*	(c) 2016-2017 Ledger
 *
 *  Licensed under the Apache License, Version 2.0 (the "License");
 *  you may not use this file except in compliance with the License.
 *  You may obtain a copy of the License at
 *
-*      http://www.apache.org/licenses/LICENSE-2.0
+*	   http://www.apache.org/licenses/LICENSE-2.0
 *
 *  Unless required by applicable law or agreed to in writing, software
 *  distributed under the License is distributed on an "AS IS" BASIS,
@@ -9558,14 +9558,14 @@ module.exports = ledger;
 },{"./ledger-btc":9,"./ledger-comm-u2f":10,"./ledger-eth":11}],9:[function(require,module,exports){
 (function (Buffer){
 /********************************************************************************
-*   Ledger Node JS API
-*   (c) 2016-2017 Ledger
+*	Ledger Node JS API
+*	(c) 2016-2017 Ledger
 *
 *  Licensed under the Apache License, Version 2.0 (the "License");
 *  you may not use this file except in compliance with the License.
 *  You may obtain a copy of the License at
 *
-*      http://www.apache.org/licenses/LICENSE-2.0
+*	   http://www.apache.org/licenses/LICENSE-2.0
 *
 *  Unless required by applicable law or agreed to in writing, software
 *  distributed under the License is distributed on an "AS IS" BASIS,
@@ -9636,7 +9636,7 @@ LedgerBtc.prototype.getTrustedInputRaw_async = function(firstRound, indexLookup,
 LedgerBtc.prototype.getTrustedInput_async = function(indexLookup, transaction, isPeercoin) {
 	var currentObject = this;
 	var deferred = Q.defer();
-	var processScriptBlocks = function(script, sequence) {          	
+	var processScriptBlocks = function(script, sequence) {				
 		var internalPromise = Q.defer();
 		var scriptBlocks = [];
 		var offset = 0;
@@ -9658,7 +9658,7 @@ LedgerBtc.prototype.getTrustedInput_async = function(indexLookup, transaction, i
 					finishedCallback();
 				}).fail(function (err) { internalPromise.reject(err); });
 			},
-			function(finished) {          	  		
+			function(finished) {					
 				internalPromise.resolve();
 			}
 		);
@@ -9668,12 +9668,12 @@ LedgerBtc.prototype.getTrustedInput_async = function(indexLookup, transaction, i
 		async.eachSeries(
 			transaction['inputs'], 
 			function (input, finishedCallback) {
-				data = Buffer.concat([input['prevout'], currentObject.createVarint(input['script'].length)]);   
+				data = Buffer.concat([input['prevout'], currentObject.createVarint(input['script'].length)]);	
 				currentObject.getTrustedInputRaw_async(false, undefined, data).then(function (result) {
 					// iteration (eachSeries) ended
 					// TODO notify progress
 					// deferred.notify("input");
-					processScriptBlocks(input['script'], input['sequence']).then(function (result) {  	
+					processScriptBlocks(input['script'], input['sequence']).then(function (result) {	
 						finishedCallback();
 					}).fail(function(err) { deferred.reject(err); });
 				}).fail(function (err) { deferred.reject(err); });
@@ -9684,7 +9684,7 @@ LedgerBtc.prototype.getTrustedInput_async = function(indexLookup, transaction, i
 					processOutputs();
 				}).fail(function (err) { deferred.reject(err); });
 			}
-		);          	
+		);				
 	}
 	var processOutputs = function() {
 		async.eachSeries(
@@ -9705,14 +9705,14 @@ LedgerBtc.prototype.getTrustedInput_async = function(indexLookup, transaction, i
 					deferred.resolve(result);
 				}).fail(function (err) { deferred.reject(err); });
 			}
-		);          	
+		);				
 	}
-    if(isPeercoin) {
-        var data = Buffer.concat([transaction['version'], transaction['time'], currentObject.createVarint(transaction['inputs'].length)]);
-    }
-    else {
-	    var data = Buffer.concat([transaction['version'], currentObject.createVarint(transaction['inputs'].length)]);
-    }
+	if(isPeercoin) {
+		var data = Buffer.concat([transaction['version'], transaction['time'], currentObject.createVarint(transaction['inputs'].length)]);
+	}
+	else {
+		var data = Buffer.concat([transaction['version'], currentObject.createVarint(transaction['inputs'].length)]);
+	}
 	currentObject.getTrustedInputRaw_async(true, indexLookup, data).then(function (result) {
 		processInputs();
 	}).fail(function (err) { deferred.reject(err); });
@@ -9748,16 +9748,16 @@ LedgerBtc.prototype.startUntrustedHashTransactionInput_async = function (newTran
 	var currentObject = this;
 
 	var data; 
-    if (isPeercoin) {
-         data = Buffer.concat([transaction['version'],
-            transaction['time'],
-	        currentObject.createVarint(transaction['inputs'].length)]);
-    
-    }
-    else { 
-        data = Buffer.concat([transaction['version'],
-	        currentObject.createVarint(transaction['inputs'].length)]);
-    }
+	if (isPeercoin) {
+		 data = Buffer.concat([transaction['version'],
+			transaction['time'],
+			currentObject.createVarint(transaction['inputs'].length)]);
+	
+	}
+	else { 
+		data = Buffer.concat([transaction['version'],
+			currentObject.createVarint(transaction['inputs'].length)]);
+	}
 	var deferred = Q.defer();
 	currentObject.startUntrustedHashTransactionInputRaw_async(newTransaction, true, data).then(function (result) {
 		var i = 0;
@@ -9979,9 +9979,9 @@ LedgerBtc.prototype.createPaymentTransactionNew_async = function(inputs, associa
 	if (typeof sigHashType == "undefined") {
 		sigHashType = LedgerBtc.SIGHASH_ALL;
 	}
-    if (typeof isPeercoin == "undefined") {
-        isPeercoin = 0;
-    }
+	if (typeof isPeercoin == "undefined") {
+		isPeercoin = 0;
+	}
 
 	var deferred = Q.defer();
 
@@ -10000,16 +10000,16 @@ LedgerBtc.prototype.createPaymentTransactionNew_async = function(inputs, associa
 	}).then(function () {
 		// Pre-build the target transaction
 		targetTransaction['version'] = defaultVersion;
-        if (isPeercoin) {
-            targetTransaction['time'] = defaultTime; 
-            }
+		if (isPeercoin) {
+			targetTransaction['time'] = defaultTime; 
+			}
 		targetTransaction['inputs'] = [];
 
 		for (var i = 0; i < inputs.length; i++) {
 			var tmpInput = {};
 			var tmp = Buffer.alloc(4);
 			var sequence;
-			if ((inputs[i].length >= 4) && (typeof inputs[i][3] != "undefined")) {                
+			if ((inputs[i].length >= 4) && (typeof inputs[i][3] != "undefined")) {				  
 				sequence = inputs[i][3];
 			}
 			else {
@@ -10028,7 +10028,7 @@ LedgerBtc.prototype.createPaymentTransactionNew_async = function(inputs, associa
 					return p;
 				});
 			}).then(function (result) {
-				for (var index = 0; index < result.length; index++) {                        
+				for (var index = 0; index < result.length; index++) {						 
 					publicKeys.push(self.compressPublicKey(Buffer.from(result[index]['publicKey'], 'hex')));
 				}
 			});
@@ -10116,13 +10116,13 @@ LedgerBtc.prototype.signP2SHTransaction_async = function(inputs, associatedKeyse
 		sigHashType = LedgerBtc.SIGHASH_ALL;
 	}	
 
-    if (typeof timeStamp == "undefined") {
-        defaultTime.writeUInt32LE(0, 0);
-    }
-    else {
-        defaultTime.writeUInt32LE(timeStamp, 0)
-        isPeercoin = 1;
-    }
+	if (typeof timeStamp == "undefined") {
+		defaultTime.writeUInt32LE(0, 0);
+	}
+	else {
+		defaultTime.writeUInt32LE(timeStamp, 0)
+		isPeercoin = 1;
+	}
 
 	var deferred = Q.defer();
 
@@ -10141,16 +10141,16 @@ LedgerBtc.prototype.signP2SHTransaction_async = function(inputs, associatedKeyse
 	}).then(function () {
 		// Pre-build the target transaction
 		targetTransaction['version'] = defaultVersion;
-        if (isPeercoin) {
-            targetTransaction['time'] = defaultTime; 
-            }
+		if (isPeercoin) {
+			targetTransaction['time'] = defaultTime; 
+			}
 		targetTransaction['inputs'] = [];
 
 		for (var i = 0; i < inputs.length; i++) {
 			var tmpInput = {};
 			var tmp = Buffer.alloc(4);
 			var sequence;
-			if ((inputs[i].length >= 4) && (typeof inputs[i][3] != "undefined")) {                
+			if ((inputs[i].length >= 4) && (typeof inputs[i][3] != "undefined")) {				  
 				sequence = inputs[i][3];
 			}
 			else {
@@ -10234,12 +10234,12 @@ LedgerBtc.prototype.splitTransaction = function(transaction,isPeercoin) {
 	var offset = 0;
 	var transaction = Buffer.from(transaction, 'hex');
 	var version = transaction.slice(offset, offset + 4);
-    var timestamp = 0;
+	var timestamp = 0;
 	offset += 4;
-    if (isPeercoin) {
-        timestamp = transaction.slice(offset, offset + 4);
-        offset += 4; // timestamp
-    } 
+	if (isPeercoin) {
+		timestamp = transaction.slice(offset, offset + 4);
+		offset += 4; // timestamp
+	} 
 	var varint = this.getVarint(transaction, offset);
 	var numberInputs = varint[0];
 	offset += varint[1];
@@ -10270,9 +10270,9 @@ LedgerBtc.prototype.splitTransaction = function(transaction,isPeercoin) {
 	}
 	var locktime = transaction.slice(offset, offset + 4);
 	result['version'] = version;
-    if (isPeercoin) {
-        result['time'] = timestamp;
-    }
+	if (isPeercoin) {
+		result['time'] = timestamp;
+	}
 	result['inputs'] = inputs;
 	result['outputs'] = outputs;
 	result['locktime'] = locktime;
@@ -10312,14 +10312,14 @@ LedgerBtc.prototype.serializeTransaction = function (transaction, isPeercoin) {
 		outputBuffer = Buffer.concat([outputBuffer, transaction['locktime']]);
 	}
 
-    if(isPeercoin) {
-        return Buffer.concat([
-                transaction['version'],
-                transaction['time'],
-                self.createVarint(transaction['inputs'].length),
-                inputBuffer,
-                outputBuffer]);
-    }
+	if(isPeercoin) {
+		return Buffer.concat([
+				transaction['version'],
+				transaction['time'],
+				self.createVarint(transaction['inputs'].length),
+				inputBuffer,
+				outputBuffer]);
+	}
 
 	return Buffer.concat([
 		transaction['version'],
@@ -10354,14 +10354,14 @@ module.exports = LedgerBtc;
 },{"./utils":13,"async":1,"buffer":3,"q":7}],10:[function(require,module,exports){
 (function (Buffer){
 /********************************************************************************
-*   Ledger Node JS API
-*   (c) 2016-2017 Ledger
+*	Ledger Node JS API
+*	(c) 2016-2017 Ledger
 *
 *  Licensed under the Apache License, Version 2.0 (the "License");
 *  you may not use this file except in compliance with the License.
 *  You may obtain a copy of the License at
 *
-*      http://www.apache.org/licenses/LICENSE-2.0
+*	   http://www.apache.org/licenses/LICENSE-2.0
 *
 *  Unless required by applicable law or agreed to in writing, software
 *  distributed under the License is distributed on an "AS IS" BASIS,
@@ -10389,12 +10389,12 @@ Ledger3.wrapApdu = function(apdu, key) {
 
 // Convert from normal to web-safe, strip trailing "="s
 Ledger3.webSafe64 = function(base64) {
-    return base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+	return base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 }
 
 // Convert from web-safe to normal, add trailing "="s
 Ledger3.normal64 = function(base64) {
-    return base64.replace(/\-/g, '+').replace(/_/g, '/') + '=='.substring(0, (3*base64.length)%4);
+	return base64.replace(/\-/g, '+').replace(/_/g, '/') + '=='.substring(0, (3*base64.length)%4);
 }
 
 Ledger3.prototype.u2fCallback = function(response, deferred, statusList) {
@@ -10458,14 +10458,14 @@ module.exports = Ledger3
 },{"./u2f-api":12,"buffer":3,"q":7}],11:[function(require,module,exports){
 (function (Buffer){
 /********************************************************************************
-*   Ledger Node JS API
-*   (c) 2016-2017 Ledger
+*	Ledger Node JS API
+*	(c) 2016-2017 Ledger
 *
 *  Licensed under the Apache License, Version 2.0 (the "License");
 *  you may not use this file except in compliance with the License.
 *  You may obtain a copy of the License at
 *
-*      http://www.apache.org/licenses/LICENSE-2.0
+*	   http://www.apache.org/licenses/LICENSE-2.0
 *
 *  Unless required by applicable law or agreed to in writing, software
 *  distributed under the License is distributed on an "AS IS" BASIS,
@@ -10668,12 +10668,12 @@ var js_api_version;
  * @enum {string}
  */
 u2f.MessageTypes = {
-    'U2F_REGISTER_REQUEST': 'u2f_register_request',
-    'U2F_REGISTER_RESPONSE': 'u2f_register_response',
-    'U2F_SIGN_REQUEST': 'u2f_sign_request',
-    'U2F_SIGN_RESPONSE': 'u2f_sign_response',
-    'U2F_GET_API_VERSION_REQUEST': 'u2f_get_api_version_request',
-    'U2F_GET_API_VERSION_RESPONSE': 'u2f_get_api_version_response'
+	'U2F_REGISTER_REQUEST': 'u2f_register_request',
+	'U2F_REGISTER_RESPONSE': 'u2f_register_response',
+	'U2F_SIGN_REQUEST': 'u2f_sign_request',
+	'U2F_SIGN_RESPONSE': 'u2f_sign_response',
+	'U2F_GET_API_VERSION_REQUEST': 'u2f_get_api_version_request',
+	'U2F_GET_API_VERSION_RESPONSE': 'u2f_get_api_version_response'
 };
 
 
@@ -10683,22 +10683,22 @@ u2f.MessageTypes = {
  * @enum {number}
  */
 u2f.ErrorCodes = {
-    'OK': 0,
-    'OTHER_ERROR': 1,
-    'BAD_REQUEST': 2,
-    'CONFIGURATION_UNSUPPORTED': 3,
-    'DEVICE_INELIGIBLE': 4,
-    'TIMEOUT': 5
+	'OK': 0,
+	'OTHER_ERROR': 1,
+	'BAD_REQUEST': 2,
+	'CONFIGURATION_UNSUPPORTED': 3,
+	'DEVICE_INELIGIBLE': 4,
+	'TIMEOUT': 5
 };
 
 
 /**
  * A message for registration requests
  * @typedef {{
- *   type: u2f.MessageTypes,
- *   appId: ?string,
- *   timeoutSeconds: ?number,
- *   requestId: ?number
+ *	 type: u2f.MessageTypes,
+ *	 appId: ?string,
+ *	 timeoutSeconds: ?number,
+ *	 requestId: ?number
  * }}
  */
 u2f.U2fRequest;
@@ -10707,9 +10707,9 @@ u2f.U2fRequest;
 /**
  * A message for registration responses
  * @typedef {{
- *   type: u2f.MessageTypes,
- *   responseData: (u2f.Error | u2f.RegisterResponse | u2f.SignResponse),
- *   requestId: ?number
+ *	 type: u2f.MessageTypes,
+ *	 responseData: (u2f.Error | u2f.RegisterResponse | u2f.SignResponse),
+ *	 requestId: ?number
  * }}
  */
 u2f.U2fResponse;
@@ -10718,8 +10718,8 @@ u2f.U2fResponse;
 /**
  * An error object for responses
  * @typedef {{
- *   errorCode: u2f.ErrorCodes,
- *   errorMessage: ?string
+ *	 errorCode: u2f.ErrorCodes,
+ *	 errorMessage: ?string
  * }}
  */
 u2f.Error;
@@ -10740,10 +10740,10 @@ u2f.Transports;
 /**
  * Data object for a single sign request.
  * @typedef {{
- *   version: string,
- *   challenge: string,
- *   keyHandle: string,
- *   appId: string
+ *	 version: string,
+ *	 challenge: string,
+ *	 keyHandle: string,
+ *	 appId: string
  * }}
  */
 u2f.SignRequest;
@@ -10752,9 +10752,9 @@ u2f.SignRequest;
 /**
  * Data object for a sign response.
  * @typedef {{
- *   keyHandle: string,
- *   signatureData: string,
- *   clientData: string
+ *	 keyHandle: string,
+ *	 signatureData: string,
+ *	 clientData: string
  * }}
  */
 u2f.SignResponse;
@@ -10763,8 +10763,8 @@ u2f.SignResponse;
 /**
  * Data object for a registration request.
  * @typedef {{
- *   version: string,
- *   challenge: string
+ *	 version: string,
+ *	 challenge: string
  * }}
  */
 u2f.RegisterRequest;
@@ -10773,10 +10773,10 @@ u2f.RegisterRequest;
 /**
  * Data object for a registration response.
  * @typedef {{
- *   version: string,
- *   keyHandle: string,
- *   transports: Transports,
- *   appId: string
+ *	 version: string,
+ *	 keyHandle: string,
+ *	 transports: Transports,
+ *	 appId: string
  * }}
  */
 u2f.RegisterResponse;
@@ -10785,10 +10785,10 @@ u2f.RegisterResponse;
 /**
  * Data object for a registered key.
  * @typedef {{
- *   version: string,
- *   keyHandle: string,
- *   transports: ?Transports,
- *   appId: ?string
+ *	 version: string,
+ *	 keyHandle: string,
+ *	 transports: ?Transports,
+ *	 appId: ?string
  * }}
  */
 u2f.RegisteredKey;
@@ -10797,7 +10797,7 @@ u2f.RegisteredKey;
 /**
  * Data object for a get API register response.
  * @typedef {{
- *   js_api_version: number
+ *	 js_api_version: number
  * }}
  */
 u2f.GetJsApiVersionResponse;
@@ -10812,32 +10812,32 @@ u2f.GetJsApiVersionResponse;
  */
 u2f.getMessagePort = function(callback) {
   if (typeof chrome != 'undefined' && chrome.runtime) {
-    // The actual message here does not matter, but we need to get a reply
-    // for the callback to run. Thus, send an empty signature request
-    // in order to get a failure response.
-    var msg = {
-        type: u2f.MessageTypes.U2F_SIGN_REQUEST,
-        signRequests: []
-    };
-    chrome.runtime.sendMessage(u2f.EXTENSION_ID, msg, function() {
-      if (!chrome.runtime.lastError) {
-        // We are on a whitelisted origin and can talk directly
-        // with the extension.
-        u2f.getChromeRuntimePort_(callback);
-      } else {
-        // chrome.runtime was available, but we couldn't message
-        // the extension directly, use iframe
-        u2f.getIframePort_(callback);
-      }
-    });
+	// The actual message here does not matter, but we need to get a reply
+	// for the callback to run. Thus, send an empty signature request
+	// in order to get a failure response.
+	var msg = {
+		type: u2f.MessageTypes.U2F_SIGN_REQUEST,
+		signRequests: []
+	};
+	chrome.runtime.sendMessage(u2f.EXTENSION_ID, msg, function() {
+	  if (!chrome.runtime.lastError) {
+		// We are on a whitelisted origin and can talk directly
+		// with the extension.
+		u2f.getChromeRuntimePort_(callback);
+	  } else {
+		// chrome.runtime was available, but we couldn't message
+		// the extension directly, use iframe
+		u2f.getIframePort_(callback);
+	  }
+	});
   } else if (u2f.isAndroidChrome_()) {
-    u2f.getAuthenticatorPort_(callback);
+	u2f.getAuthenticatorPort_(callback);
   } else if (u2f.isIosChrome_()) {
-    u2f.getIosPort_(callback);
+	u2f.getIosPort_(callback);
   } else {
-    // chrome.runtime was not available at all, which is normal
-    // when this origin doesn't have access to any extensions.
-    u2f.getIframePort_(callback);
+	// chrome.runtime was not available at all, which is normal
+	// when this origin doesn't have access to any extensions.
+	u2f.getIframePort_(callback);
   }
 };
 
@@ -10866,9 +10866,9 @@ u2f.isIosChrome_ = function() {
  */
 u2f.getChromeRuntimePort_ = function(callback) {
   var port = chrome.runtime.connect(u2f.EXTENSION_ID,
-      {'includeTlsChannelId': true});
+	  {'includeTlsChannelId': true});
   setTimeout(function() {
-    callback(new u2f.WrappedChromeRuntimePort_(port));
+	callback(new u2f.WrappedChromeRuntimePort_(port));
   }, 0);
 };
 
@@ -10879,7 +10879,7 @@ u2f.getChromeRuntimePort_ = function(callback) {
  */
 u2f.getAuthenticatorPort_ = function(callback) {
   setTimeout(function() {
-    callback(new u2f.WrappedAuthenticatorPort_());
+	callback(new u2f.WrappedAuthenticatorPort_());
   }, 0);
 };
 
@@ -10890,7 +10890,7 @@ u2f.getAuthenticatorPort_ = function(callback) {
  */
 u2f.getIosPort_ = function(callback) {
   setTimeout(function() {
-    callback(new u2f.WrappedIosPort_());
+	callback(new u2f.WrappedIosPort_());
   }, 0);
 };
 
@@ -10914,31 +10914,31 @@ u2f.WrappedChromeRuntimePort_ = function(port) {
 u2f.formatSignRequest_ =
   function(appId, challenge, registeredKeys, timeoutSeconds, reqId) {
   if (js_api_version === undefined || js_api_version < 1.1) {
-    // Adapt request to the 1.0 JS API
-    var signRequests = [];
-    for (var i = 0; i < registeredKeys.length; i++) {
-      signRequests[i] = {
-          version: registeredKeys[i].version,
-          challenge: challenge,
-          keyHandle: registeredKeys[i].keyHandle,
-          appId: appId
-      };
-    }
-    return {
-      type: u2f.MessageTypes.U2F_SIGN_REQUEST,
-      signRequests: signRequests,
-      timeoutSeconds: timeoutSeconds,
-      requestId: reqId
-    };
+	// Adapt request to the 1.0 JS API
+	var signRequests = [];
+	for (var i = 0; i < registeredKeys.length; i++) {
+	  signRequests[i] = {
+		  version: registeredKeys[i].version,
+		  challenge: challenge,
+		  keyHandle: registeredKeys[i].keyHandle,
+		  appId: appId
+	  };
+	}
+	return {
+	  type: u2f.MessageTypes.U2F_SIGN_REQUEST,
+	  signRequests: signRequests,
+	  timeoutSeconds: timeoutSeconds,
+	  requestId: reqId
+	};
   }
   // JS 1.1 API
   return {
-    type: u2f.MessageTypes.U2F_SIGN_REQUEST,
-    appId: appId,
-    challenge: challenge,
-    registeredKeys: registeredKeys,
-    timeoutSeconds: timeoutSeconds,
-    requestId: reqId
+	type: u2f.MessageTypes.U2F_SIGN_REQUEST,
+	appId: appId,
+	challenge: challenge,
+	registeredKeys: registeredKeys,
+	timeoutSeconds: timeoutSeconds,
+	requestId: reqId
   };
 };
 
@@ -10953,35 +10953,35 @@ u2f.formatSignRequest_ =
 u2f.formatRegisterRequest_ =
   function(appId, registeredKeys, registerRequests, timeoutSeconds, reqId) {
   if (js_api_version === undefined || js_api_version < 1.1) {
-    // Adapt request to the 1.0 JS API
-    for (var i = 0; i < registerRequests.length; i++) {
-      registerRequests[i].appId = appId;
-    }
-    var signRequests = [];
-    for (var i = 0; i < registeredKeys.length; i++) {
-      signRequests[i] = {
-          version: registeredKeys[i].version,
-          challenge: registerRequests[0],
-          keyHandle: registeredKeys[i].keyHandle,
-          appId: appId
-      };
-    }
-    return {
-      type: u2f.MessageTypes.U2F_REGISTER_REQUEST,
-      signRequests: signRequests,
-      registerRequests: registerRequests,
-      timeoutSeconds: timeoutSeconds,
-      requestId: reqId
-    };
+	// Adapt request to the 1.0 JS API
+	for (var i = 0; i < registerRequests.length; i++) {
+	  registerRequests[i].appId = appId;
+	}
+	var signRequests = [];
+	for (var i = 0; i < registeredKeys.length; i++) {
+	  signRequests[i] = {
+		  version: registeredKeys[i].version,
+		  challenge: registerRequests[0],
+		  keyHandle: registeredKeys[i].keyHandle,
+		  appId: appId
+	  };
+	}
+	return {
+	  type: u2f.MessageTypes.U2F_REGISTER_REQUEST,
+	  signRequests: signRequests,
+	  registerRequests: registerRequests,
+	  timeoutSeconds: timeoutSeconds,
+	  requestId: reqId
+	};
   }
   // JS 1.1 API
   return {
-    type: u2f.MessageTypes.U2F_REGISTER_REQUEST,
-    appId: appId,
-    registerRequests: registerRequests,
-    registeredKeys: registeredKeys,
-    timeoutSeconds: timeoutSeconds,
-    requestId: reqId
+	type: u2f.MessageTypes.U2F_REGISTER_REQUEST,
+	appId: appId,
+	registerRequests: registerRequests,
+	registeredKeys: registeredKeys,
+	timeoutSeconds: timeoutSeconds,
+	requestId: reqId
   };
 };
 
@@ -11002,15 +11002,15 @@ u2f.WrappedChromeRuntimePort_.prototype.postMessage = function(message) {
  * @param {function({data: Object})} handler
  */
 u2f.WrappedChromeRuntimePort_.prototype.addEventListener =
-    function(eventName, handler) {
+	function(eventName, handler) {
   var name = eventName.toLowerCase();
   if (name == 'message' || name == 'onmessage') {
-    this.port_.onMessage.addListener(function(message) {
-      // Emulate a minimal MessageEvent object
-      handler({'data': message});
-    });
+	this.port_.onMessage.addListener(function(message) {
+	  // Emulate a minimal MessageEvent object
+	  handler({'data': message});
+	});
   } else {
-    console.error('WrappedChromeRuntimePort only supports onMessage');
+	console.error('WrappedChromeRuntimePort only supports onMessage');
   }
 };
 
@@ -11030,9 +11030,9 @@ u2f.WrappedAuthenticatorPort_ = function() {
  */
 u2f.WrappedAuthenticatorPort_.prototype.postMessage = function(message) {
   var intentUrl =
-    u2f.WrappedAuthenticatorPort_.INTENT_URL_BASE_ +
-    ';S.request=' + encodeURIComponent(JSON.stringify(message)) +
-    ';end';
+	u2f.WrappedAuthenticatorPort_.INTENT_URL_BASE_ +
+	';S.request=' + encodeURIComponent(JSON.stringify(message)) +
+	';end';
   document.location = intentUrl;
 };
 
@@ -11053,13 +11053,13 @@ u2f.WrappedAuthenticatorPort_.prototype.getPortType = function() {
 u2f.WrappedAuthenticatorPort_.prototype.addEventListener = function(eventName, handler) {
   var name = eventName.toLowerCase();
   if (name == 'message') {
-    var self = this;
-    /* Register a callback to that executes when
-     * chrome injects the response. */
-    window.addEventListener(
-        'message', self.onRequestUpdate_.bind(self, handler), false);
+	var self = this;
+	/* Register a callback to that executes when
+	 * chrome injects the response. */
+	window.addEventListener(
+		'message', self.onRequestUpdate_.bind(self, handler), false);
   } else {
-    console.error('WrappedAuthenticatorPort only supports message');
+	console.error('WrappedAuthenticatorPort only supports message');
   }
 };
 
@@ -11069,15 +11069,15 @@ u2f.WrappedAuthenticatorPort_.prototype.addEventListener = function(eventName, h
  * @param {Object} message message Object
  */
 u2f.WrappedAuthenticatorPort_.prototype.onRequestUpdate_ =
-    function(callback, message) {
+	function(callback, message) {
   var messageObject = JSON.parse(message.data);
   var intentUrl = messageObject['intentURL'];
 
   var errorCode = messageObject['errorCode'];
   var responseObject = null;
   if (messageObject.hasOwnProperty('data')) {
-    responseObject = /** @type {Object} */ (
-        JSON.parse(messageObject['data']));
+	responseObject = /** @type {Object} */ (
+		JSON.parse(messageObject['data']));
   }
 
   callback({'data': responseObject});
@@ -11091,7 +11091,7 @@ u2f.WrappedAuthenticatorPort_.prototype.onRequestUpdate_ =
 /*
 u2f.WrappedAuthenticatorPort_.INTENT_URL_BASE_ =
   'intent:#Intent;action=com.google.android.apps.authenticator.AUTHENTICATE';
-*/  
+*/	
 u2f.WrappedAuthenticatorPort_.INTENT_URL_BASE_ =
   'intent:#Intent;action=com.ledger.android.u2f.bridge.AUTHENTICATE';
 
@@ -11129,7 +11129,7 @@ u2f.WrappedIosPort_.prototype.getPortType = function() {
 u2f.WrappedIosPort_.prototype.addEventListener = function(eventName, handler) {
   var name = eventName.toLowerCase();
   if (name !== 'message') {
-    console.error('WrappedIosPort only supports message');
+	console.error('WrappedIosPort only supports message');
   }
 };
 
@@ -11148,19 +11148,19 @@ u2f.getIframePort_ = function(callback) {
 
   var channel = new MessageChannel();
   var ready = function(message) {
-    if (message.data == 'ready') {
-      channel.port1.removeEventListener('message', ready);
-      callback(channel.port1);
-    } else {
-      console.error('First event on iframe port was not "ready"');
-    }
+	if (message.data == 'ready') {
+	  channel.port1.removeEventListener('message', ready);
+	  callback(channel.port1);
+	} else {
+	  console.error('First event on iframe port was not "ready"');
+	}
   };
   channel.port1.addEventListener('message', ready);
   channel.port1.start();
 
   iframe.addEventListener('load', function() {
-    // Deliver the port to the iframe and initialize
-    iframe.contentWindow.postMessage('init', iframeOrigin, [channel.port2]);
+	// Deliver the port to the iframe and initialize
+	iframe.contentWindow.postMessage('init', iframeOrigin, [channel.port2]);
   });
 };
 
@@ -11197,7 +11197,7 @@ u2f.reqCounter_ = 0;
 /**
  * A map from requestIds to client callbacks
  * @type {Object.<number,(function((u2f.Error|u2f.RegisterResponse))
- *                       |function((u2f.Error|u2f.SignResponse)))>}
+ *						 |function((u2f.Error|u2f.SignResponse)))>}
  * @private
  */
 u2f.callbackMap_ = {};
@@ -11209,20 +11209,20 @@ u2f.callbackMap_ = {};
  */
 u2f.getPortSingleton_ = function(callback) {
   if (u2f.port_) {
-    callback(u2f.port_);
+	callback(u2f.port_);
   } else {
-    if (u2f.waitingForPort_.length == 0) {
-      u2f.getMessagePort(function(port) {
-        u2f.port_ = port;
-        u2f.port_.addEventListener('message',
-            /** @type {function(Event)} */ (u2f.responseHandler_));
+	if (u2f.waitingForPort_.length == 0) {
+	  u2f.getMessagePort(function(port) {
+		u2f.port_ = port;
+		u2f.port_.addEventListener('message',
+			/** @type {function(Event)} */ (u2f.responseHandler_));
 
-        // Careful, here be async callbacks. Maybe.
-        while (u2f.waitingForPort_.length)
-          u2f.waitingForPort_.shift()(u2f.port_);
-      });
-    }
-    u2f.waitingForPort_.push(callback);
+		// Careful, here be async callbacks. Maybe.
+		while (u2f.waitingForPort_.length)
+		  u2f.waitingForPort_.shift()(u2f.port_);
+	  });
+	}
+	u2f.waitingForPort_.push(callback);
   }
 };
 
@@ -11235,8 +11235,8 @@ u2f.responseHandler_ = function(message) {
   var response = message.data;
   var reqId = response['requestId'];
   if (!reqId || !u2f.callbackMap_[reqId]) {
-    console.error('Unknown or missing requestId in response.');
-    return;
+	console.error('Unknown or missing requestId in response.');
+	return;
   }
   var cb = u2f.callbackMap_[reqId];
   delete u2f.callbackMap_[reqId];
@@ -11256,16 +11256,16 @@ u2f.responseHandler_ = function(message) {
  */
 u2f.sign = function(appId, challenge, registeredKeys, callback, opt_timeoutSeconds) {
   if (js_api_version === undefined) {
-    // Send a message to get the extension to JS API version, then send the actual sign request.
-    u2f.getApiVersion(
-        function (response) {
-          js_api_version = response['js_api_version'] === undefined ? 0 : response['js_api_version'];
-          //console.log("Extension JS API Version: ", js_api_version);
-          u2f.sendSignRequest(appId, challenge, registeredKeys, callback, opt_timeoutSeconds);
-        });
+	// Send a message to get the extension to JS API version, then send the actual sign request.
+	u2f.getApiVersion(
+		function (response) {
+		  js_api_version = response['js_api_version'] === undefined ? 0 : response['js_api_version'];
+		  //console.log("Extension JS API Version: ", js_api_version);
+		  u2f.sendSignRequest(appId, challenge, registeredKeys, callback, opt_timeoutSeconds);
+		});
   } else {
-    // We know the JS API version. Send the actual sign request in the supported API version.
-    u2f.sendSignRequest(appId, challenge, registeredKeys, callback, opt_timeoutSeconds);
+	// We know the JS API version. Send the actual sign request in the supported API version.
+	u2f.sendSignRequest(appId, challenge, registeredKeys, callback, opt_timeoutSeconds);
   }
 };
 
@@ -11279,12 +11279,12 @@ u2f.sign = function(appId, challenge, registeredKeys, callback, opt_timeoutSecon
  */
 u2f.sendSignRequest = function(appId, challenge, registeredKeys, callback, opt_timeoutSeconds) {
   u2f.getPortSingleton_(function(port) {
-    var reqId = ++u2f.reqCounter_;
-    u2f.callbackMap_[reqId] = callback;
-    var timeoutSeconds = (typeof opt_timeoutSeconds !== 'undefined' ?
-        opt_timeoutSeconds : u2f.EXTENSION_TIMEOUT_SEC);
-    var req = u2f.formatSignRequest_(appId, challenge, registeredKeys, timeoutSeconds, reqId);
-    port.postMessage(req);
+	var reqId = ++u2f.reqCounter_;
+	u2f.callbackMap_[reqId] = callback;
+	var timeoutSeconds = (typeof opt_timeoutSeconds !== 'undefined' ?
+		opt_timeoutSeconds : u2f.EXTENSION_TIMEOUT_SEC);
+	var req = u2f.formatSignRequest_(appId, challenge, registeredKeys, timeoutSeconds, reqId);
+	port.postMessage(req);
   });
 };
 
@@ -11302,18 +11302,18 @@ u2f.sendSignRequest = function(appId, challenge, registeredKeys, callback, opt_t
  */
 u2f.register = function(appId, registerRequests, registeredKeys, callback, opt_timeoutSeconds) {
   if (js_api_version === undefined) {
-    // Send a message to get the extension to JS API version, then send the actual register request.
-    u2f.getApiVersion(
-        function (response) {
-          js_api_version = response['js_api_version'] === undefined ? 0: response['js_api_version'];
-          //console.log("Extension JS API Version: ", js_api_version);
-          u2f.sendRegisterRequest(appId, registerRequests, registeredKeys,
-              callback, opt_timeoutSeconds);
-        });
+	// Send a message to get the extension to JS API version, then send the actual register request.
+	u2f.getApiVersion(
+		function (response) {
+		  js_api_version = response['js_api_version'] === undefined ? 0: response['js_api_version'];
+		  //console.log("Extension JS API Version: ", js_api_version);
+		  u2f.sendRegisterRequest(appId, registerRequests, registeredKeys,
+			  callback, opt_timeoutSeconds);
+		});
   } else {
-    // We know the JS API version. Send the actual register request in the supported API version.
-    u2f.sendRegisterRequest(appId, registerRequests, registeredKeys,
-        callback, opt_timeoutSeconds);
+	// We know the JS API version. Send the actual register request in the supported API version.
+	u2f.sendRegisterRequest(appId, registerRequests, registeredKeys,
+		callback, opt_timeoutSeconds);
   }
 };
 
@@ -11328,13 +11328,13 @@ u2f.register = function(appId, registerRequests, registeredKeys, callback, opt_t
  */
 u2f.sendRegisterRequest = function(appId, registerRequests, registeredKeys, callback, opt_timeoutSeconds) {
   u2f.getPortSingleton_(function(port) {
-    var reqId = ++u2f.reqCounter_;
-    u2f.callbackMap_[reqId] = callback;
-    var timeoutSeconds = (typeof opt_timeoutSeconds !== 'undefined' ?
-        opt_timeoutSeconds : u2f.EXTENSION_TIMEOUT_SEC);
-    var req = u2f.formatRegisterRequest_(
-        appId, registeredKeys, registerRequests, timeoutSeconds, reqId);
-    port.postMessage(req);
+	var reqId = ++u2f.reqCounter_;
+	u2f.callbackMap_[reqId] = callback;
+	var timeoutSeconds = (typeof opt_timeoutSeconds !== 'undefined' ?
+		opt_timeoutSeconds : u2f.EXTENSION_TIMEOUT_SEC);
+	var req = u2f.formatRegisterRequest_(
+		appId, registeredKeys, registerRequests, timeoutSeconds, reqId);
+	port.postMessage(req);
   });
 };
 
@@ -11352,42 +11352,42 @@ u2f.getApiVersion = function(callback, opt_timeoutSeconds) {
    // If we are using Android Google Authenticator or iOS client app,
    // do not fire an intent to ask which JS API version to use.
    if (port.getPortType) {
-     var apiVersion;
-     switch (port.getPortType()) {
-       case 'WrappedIosPort_':
-       case 'WrappedAuthenticatorPort_':
-         apiVersion = 1.1;
-         break;
+	 var apiVersion;
+	 switch (port.getPortType()) {
+	   case 'WrappedIosPort_':
+	   case 'WrappedAuthenticatorPort_':
+		 apiVersion = 1.1;
+		 break;
 
-       default:
-         apiVersion = 0;
-         break;
-     }
-     callback({ 'js_api_version': apiVersion });
-     return;
+	   default:
+		 apiVersion = 0;
+		 break;
+	 }
+	 callback({ 'js_api_version': apiVersion });
+	 return;
    }
-    var reqId = ++u2f.reqCounter_;
-    u2f.callbackMap_[reqId] = callback;
-    var req = {
-      type: u2f.MessageTypes.U2F_GET_API_VERSION_REQUEST,
-      timeoutSeconds: (typeof opt_timeoutSeconds !== 'undefined' ?
-          opt_timeoutSeconds : u2f.EXTENSION_TIMEOUT_SEC),
-      requestId: reqId
-    };
-    port.postMessage(req);
+	var reqId = ++u2f.reqCounter_;
+	u2f.callbackMap_[reqId] = callback;
+	var req = {
+	  type: u2f.MessageTypes.U2F_GET_API_VERSION_REQUEST,
+	  timeoutSeconds: (typeof opt_timeoutSeconds !== 'undefined' ?
+		  opt_timeoutSeconds : u2f.EXTENSION_TIMEOUT_SEC),
+	  requestId: reqId
+	};
+	port.postMessage(req);
   });
 };
 
 },{}],13:[function(require,module,exports){
 /********************************************************************************
-*   Ledger Node JS API
-*   (c) 2016-2017 Ledger
+*	Ledger Node JS API
+*	(c) 2016-2017 Ledger
 *
 *  Licensed under the Apache License, Version 2.0 (the "License");
 *  you may not use this file except in compliance with the License.
 *  You may obtain a copy of the License at
 *
-*      http://www.apache.org/licenses/LICENSE-2.0
+*	   http://www.apache.org/licenses/LICENSE-2.0
 *
 *  Unless required by applicable law or agreed to in writing, software
 *  distributed under the License is distributed on an "AS IS" BASIS,

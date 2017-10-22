@@ -33,123 +33,123 @@
 
 	coinjs.opcode = {
 		// push value
-		OP_FALSE     : 0,
-		OP_0         : 0,
+		OP_FALSE	 : 0,
+		OP_0		 : 0,
 		OP_PUSHDATA1 : 76,
 		OP_PUSHDATA2 : 77,
 		OP_PUSHDATA4 : 78,
-		OP_1NEGATE   : 79,
+		OP_1NEGATE	 : 79,
 		OP_RESERVED  : 80,
-		OP_1         : 81,
-		OP_TRUE      : 81,
-		OP_2         : 82,
-		OP_3         : 83,
-		OP_4         : 84,
-		OP_5         : 85,
-		OP_6         : 86,
-		OP_7         : 87,
-		OP_8         : 88,
-		OP_9         : 89,
-		OP_10        : 90,
-		OP_11        : 91,
-		OP_12        : 92,
-		OP_13        : 93,
-		OP_14        : 94,
-		OP_15        : 95,
-		OP_16        : 96,
+		OP_1		 : 81,
+		OP_TRUE		 : 81,
+		OP_2		 : 82,
+		OP_3		 : 83,
+		OP_4		 : 84,
+		OP_5		 : 85,
+		OP_6		 : 86,
+		OP_7		 : 87,
+		OP_8		 : 88,
+		OP_9		 : 89,
+		OP_10		 : 90,
+		OP_11		 : 91,
+		OP_12		 : 92,
+		OP_13		 : 93,
+		OP_14		 : 94,
+		OP_15		 : 95,
+		OP_16		 : 96,
 
 		// control
-		OP_NOP       : 97,
-		OP_VER       : 98,
-		OP_IF        : 99,
-		OP_NOTIF     : 100,
-		OP_VERIF     : 101,
+		OP_NOP		 : 97,
+		OP_VER		 : 98,
+		OP_IF		 : 99,
+		OP_NOTIF	 : 100,
+		OP_VERIF	 : 101,
 		OP_VERNOTIF  : 102,
-		OP_ELSE      : 103,
-		OP_ENDIF     : 104,
-		OP_VERIFY    : 105,
-		OP_RETURN    : 106,
+		OP_ELSE		 : 103,
+		OP_ENDIF	 : 104,
+		OP_VERIFY	 : 105,
+		OP_RETURN	 : 106,
 
 		// stack ops
-		OP_TOALTSTACK   : 107,
+		OP_TOALTSTACK	: 107,
 		OP_FROMALTSTACK : 108,
-		OP_2DROP        : 109,
-		OP_2DUP         : 110,
-		OP_3DUP         : 111,
-		OP_2OVER        : 112,
-		OP_2ROT         : 113,
-		OP_2SWAP        : 114,
-		OP_IFDUP        : 115,
-		OP_DEPTH        : 116,
-		OP_DROP         : 117,
-		OP_DUP          : 118,
-		OP_NIP          : 119,
-		OP_OVER         : 120,
-		OP_PICK         : 121,
-		OP_ROLL         : 122,
-		OP_ROT          : 123,
-		OP_SWAP         : 124,
-		OP_TUCK         : 125,
+		OP_2DROP		: 109,
+		OP_2DUP			: 110,
+		OP_3DUP			: 111,
+		OP_2OVER		: 112,
+		OP_2ROT			: 113,
+		OP_2SWAP		: 114,
+		OP_IFDUP		: 115,
+		OP_DEPTH		: 116,
+		OP_DROP			: 117,
+		OP_DUP			: 118,
+		OP_NIP			: 119,
+		OP_OVER			: 120,
+		OP_PICK			: 121,
+		OP_ROLL			: 122,
+		OP_ROT			: 123,
+		OP_SWAP			: 124,
+		OP_TUCK			: 125,
 
 		// splice ops
-		OP_CAT          : 126,
-		OP_SUBSTR       : 127,
-		OP_LEFT         : 128,
-		OP_RIGHT        : 129,
-		OP_SIZE         : 130,
+		OP_CAT			: 126,
+		OP_SUBSTR		: 127,
+		OP_LEFT			: 128,
+		OP_RIGHT		: 129,
+		OP_SIZE			: 130,
 
 		// bit logic
-		OP_INVERT       : 131,
-		OP_AND          : 132,
-		OP_OR           : 133,
-		OP_XOR          : 134,
-		OP_EQUAL        : 135,
-		OP_EQUALVERIFY  : 136,
-		OP_RESERVED1    : 137,
-		OP_RESERVED2    : 138,
+		OP_INVERT		: 131,
+		OP_AND			: 132,
+		OP_OR			: 133,
+		OP_XOR			: 134,
+		OP_EQUAL		: 135,
+		OP_EQUALVERIFY	: 136,
+		OP_RESERVED1	: 137,
+		OP_RESERVED2	: 138,
 
 		// numeric
-		OP_1ADD         : 139,
-		OP_1SUB         : 140,
-		OP_2MUL         : 141,
-		OP_2DIV         : 142,
-		OP_NEGATE       : 143,
-		OP_ABS          : 144,
-		OP_NOT          : 145,
-		OP_0NOTEQUAL    : 146,
+		OP_1ADD			: 139,
+		OP_1SUB			: 140,
+		OP_2MUL			: 141,
+		OP_2DIV			: 142,
+		OP_NEGATE		: 143,
+		OP_ABS			: 144,
+		OP_NOT			: 145,
+		OP_0NOTEQUAL	: 146,
 
-		OP_ADD          : 147,
-		OP_SUB          : 148,
-		OP_MUL          : 149,
-		OP_DIV          : 150,
-		OP_MOD          : 151,
-		OP_LSHIFT       : 152,
-		OP_RSHIFT       : 153,
+		OP_ADD			: 147,
+		OP_SUB			: 148,
+		OP_MUL			: 149,
+		OP_DIV			: 150,
+		OP_MOD			: 151,
+		OP_LSHIFT		: 152,
+		OP_RSHIFT		: 153,
 
-		OP_BOOLAND             : 154,
-		OP_BOOLOR              : 155,
-		OP_NUMEQUAL            : 156,
-		OP_NUMEQUALVERIFY      : 157,
-		OP_NUMNOTEQUAL         : 158,
-		OP_LESSTHAN            : 159,
-		OP_GREATERTHAN         : 160,
-		OP_LESSTHANOREQUAL     : 161,
+		OP_BOOLAND			   : 154,
+		OP_BOOLOR			   : 155,
+		OP_NUMEQUAL			   : 156,
+		OP_NUMEQUALVERIFY	   : 157,
+		OP_NUMNOTEQUAL		   : 158,
+		OP_LESSTHAN			   : 159,
+		OP_GREATERTHAN		   : 160,
+		OP_LESSTHANOREQUAL	   : 161,
 		OP_GREATERTHANOREQUAL  : 162,
-		OP_MIN                 : 163,
-		OP_MAX                 : 164,
+		OP_MIN				   : 163,
+		OP_MAX				   : 164,
 
-		OP_WITHIN              : 165,
+		OP_WITHIN			   : 165,
 
 		// crypto
-		OP_RIPEMD160           : 166,
-		OP_SHA1                : 167,
-		OP_SHA256              : 168,
-		OP_HASH160             : 169,
-		OP_HASH256             : 170,
-		OP_CODESEPARATOR       : 171,
-		OP_CHECKSIG            : 172,
-		OP_CHECKSIGVERIFY      : 173,
-		OP_CHECKMULTISIG       : 174,
+		OP_RIPEMD160		   : 166,
+		OP_SHA1				   : 167,
+		OP_SHA256			   : 168,
+		OP_HASH160			   : 169,
+		OP_HASH256			   : 170,
+		OP_CODESEPARATOR	   : 171,
+		OP_CHECKSIG			   : 172,
+		OP_CHECKSIGVERIFY	   : 173,
+		OP_CHECKMULTISIG	   : 174,
 		OP_CHECKMULTISIGVERIFY : 175,
 
 		// expansion
@@ -165,8 +165,8 @@
 		OP_NOP10 : 185,
 
 		// template matching params
-		OP_PUBKEYHASH    : 253,
-		OP_PUBKEY        : 254,
+		OP_PUBKEYHASH	 : 253,
+		OP_PUBKEY		 : 254,
 		OP_INVALIDOPCODE : 255
 	};
 
@@ -292,7 +292,7 @@
 		return {'address':coinjs.scripthash2address(Crypto.util.bytesToHex(x), coinjs.multisig),  'scriptHash':Crypto.util.bytesToHex(x), 'redeemScript':redeemScript};
 	}
 
-	/* provide a privkey and return an WIF  */
+	/* provide a privkey and return an WIF	*/
 	coinjs.privkey2wif = function(h){
 		var r = Crypto.util.hexToBytes(h);
 
@@ -418,27 +418,27 @@
 		}
 	}
 
-    /* compress public key */
-    coinjs.pubkeycompress = function(pubkey) {
-        var curve = EllipticCurve.getSECCurveByName("secp256k1");
-        try {
-            var pt = curve.curve.decodePointHex(pubkey);
-            var x = pt.getX().toBigInteger();
-            var y = pt.getY().toBigInteger();
+	/* compress public key */
+	coinjs.pubkeycompress = function(pubkey) {
+		var curve = EllipticCurve.getSECCurveByName("secp256k1");
+		try {
+			var pt = curve.curve.decodePointHex(pubkey);
+			var x = pt.getX().toBigInteger();
+			var y = pt.getY().toBigInteger();
 
-            var publicKeyBytes = EllipticCurve.integerToBytes(x, 32);
-            if (y % 2) {
-                publicKeyBytes.unshift(0x02);
-                }
-            else {
-                publicKeyBytes.unshift(0x03);
-                }
-            return Crypto.util.bytesToHex(publicKeyBytes);
-        } catch (e) {
-            if (coinjs.debug) {console.log(e.stack)};
-            return false;
-        }
-    }
+			var publicKeyBytes = EllipticCurve.integerToBytes(x, 32);
+			if (y % 2) {
+				publicKeyBytes.unshift(0x02);
+				}
+			else {
+				publicKeyBytes.unshift(0x03);
+				}
+			return Crypto.util.bytesToHex(publicKeyBytes);
+		} catch (e) {
+			if (coinjs.debug) {console.log(e.stack)};
+			return false;
+		}
+	}
 
 	coinjs.testdeterministicK = function() {
 		// https://github.com/bitpay/bitcore/blob/9a5193d8e94b0bd5b8e7f00038e7c0b935405a03/test/crypto/ecdsa.js
@@ -537,13 +537,13 @@
 			var K15 = Crypto.util.bytesToHex(KBigInt15.toByteArrayUnsigned());
 
 			if (K != test_vectors[i]['k_bad00']) {
-				result_txt += 'Failed Test #' + (i + 1) + '\n       K = ' + K + '\nExpected = ' + test_vectors[i]['k_bad00'] + '\n\n';
+				result_txt += 'Failed Test #' + (i + 1) + '\n		K = ' + K + '\nExpected = ' + test_vectors[i]['k_bad00'] + '\n\n';
 			} else if (K0 != test_vectors[i]['k_bad00']) {
-				result_txt += 'Failed Test #' + (i + 1) + '\n      K0 = ' + K0 + '\nExpected = ' + test_vectors[i]['k_bad00'] + '\n\n';
+				result_txt += 'Failed Test #' + (i + 1) + '\n	   K0 = ' + K0 + '\nExpected = ' + test_vectors[i]['k_bad00'] + '\n\n';
 			} else if (K1 != test_vectors[i]['k_bad01']) {
-				result_txt += 'Failed Test #' + (i + 1) + '\n      K1 = ' + K1 + '\nExpected = ' + test_vectors[i]['k_bad01'] + '\n\n';
+				result_txt += 'Failed Test #' + (i + 1) + '\n	   K1 = ' + K1 + '\nExpected = ' + test_vectors[i]['k_bad01'] + '\n\n';
 			} else if (K15 != test_vectors[i]['k_bad15']) {
-				result_txt += 'Failed Test #' + (i + 1) + '\n     K15 = ' + K15 + '\nExpected = ' + test_vectors[i]['k_bad15'] + '\n\n';
+				result_txt += 'Failed Test #' + (i + 1) + '\n	  K15 = ' + K15 + '\nExpected = ' + test_vectors[i]['k_bad15'] + '\n\n';
 			};
 		};
 
@@ -578,11 +578,11 @@
 
 			// actual parsing code
 			if(bytes && bytes.length>0) {
- 				r.version = coinjs.uint(bytes.slice(0, 4) , 4);
- 				r.depth = coinjs.uint(bytes.slice(4, 5) ,1);
+				r.version = coinjs.uint(bytes.slice(0, 4) , 4);
+				r.depth = coinjs.uint(bytes.slice(4, 5) ,1);
 				r.parent_fingerprint = bytes.slice(5, 9);
 				r.child_index = coinjs.uint(bytes.slice(9, 13), 4);
- 				r.chain_code = bytes.slice(13, 45);
+				r.chain_code = bytes.slice(13, 45);
 				r.key_bytes = bytes.slice(45, 78);
 
 				var c = coinjs.compressed; // get current default
@@ -632,7 +632,7 @@
 			var blob = (Crypto.util.hexToBytes(this.keys.pubkey)).concat(coinjs.numToBytes(i,4).reverse());
 
 			var j = new jsSHA(Crypto.util.bytesToHex(blob), 'HEX');
- 			var hash = j.getHMAC(Crypto.util.bytesToHex(r.chain_code), "HEX", "SHA-512", "HEX");
+			var hash = j.getHMAC(Crypto.util.bytesToHex(r.chain_code), "HEX", "SHA-512", "HEX");
 
 			var il = new BigInteger(hash.slice(0, 64), 16);
 			var ir = Crypto.util.hexToBytes(hash.slice(64,128));
@@ -783,7 +783,7 @@
 			while (i < this.buffer.length) {
 				var opcode = this.buffer[i++];
 				if (opcode >= 0xF0) {
- 					opcode = (opcode << 8) | this.buffer[i++];
+					opcode = (opcode << 8) | this.buffer[i++];
 				}
 
 				var len;
@@ -793,7 +793,7 @@
 					len = this.buffer[i++];
 					readChunk(len);
 				} else if (opcode == 77) { //OP_PUSHDATA2
- 					len = (this.buffer[i++] << 8) | this.buffer[i++];
+					len = (this.buffer[i++] << 8) | this.buffer[i++];
 					readChunk(len);
 				} else if (opcode == 78) { //OP_PUSHDATA4
 					len = (this.buffer[i++] << 24) | (this.buffer[i++] << 16) | (this.buffer[i++] << 8) | this.buffer[i++];
@@ -1270,61 +1270,34 @@
 		
 		/* sign a multisig input */
 		r.signmultisig = function(index, wif){
-			var redeemScript = this.extractRedeemScript(this.ins[index].script);
-			var sighash = Crypto.util.hexToBytes(this.transactionHash(index));
-			var newSignature = Crypto.util.hexToBytes(this.transactionSig(index, wif));
-			var s = coinjs.script();
+			var newSignature = this.transactionSig(index, wif);
 
-			s.writeOp(0);
-
-			if(this.ins[index].script.chunks[this.ins[index].script.chunks.length-1]==174){
-				s.writeBytes(newSignature);
-
-			}  else if (this.ins[index].script.chunks[0]==0 && this.ins[index].script.chunks[this.ins[index].script.chunks.length-1][this.ins[index].script.chunks[this.ins[index].script.chunks.length-1].length-1]==174){
-				var pubkeyList = this.scriptListPubkey(coinjs.script(redeemScript));
-				var sigsList = this.scriptListSigs(this.ins[index].script);
-				sigsList[sigsList.length] = newSignature;
-
-				var signatures = {};
-				var pubkey;
-				
-				for (var y = 0; y < sigsList.length; y++) {
-					pubkey = coinjs.verifySignature(sighash, sigsList[y], pubkeyList)
-					if(pubkey){
-						signatures[pubkey] = sigsList[y];
-					}
-				}
-
-				for (var i in pubkeyList) {
-					if (signatures[pubkeyList[i]]) {
-						s.writeBytes(signatures[pubkeyList[i]]);
-					}
-				}
-
-			}
-
-			s.writeBytes(redeemScript);
-			this.ins[index].script = s;
-			return true;
+			if (!this.addsignaturemultisig(index, newSignature)) {
+                throw new Error("Wrong key used for signing");
+            }
 		}
 
-		/* sign a multisig input */
+		/* add signature to multisig script of input */
 		r.addsignaturemultisig = function(index, signature){
 			var redeemScript = this.extractRedeemScript(this.ins[index].script);
-            var sighash = Crypto.util.hexToBytes(this.transactionHash(index));
+			var sighash = Crypto.util.hexToBytes(this.transactionHash(index));
 			var newSignature = Crypto.util.hexToBytes(signature);
 			var s = coinjs.script();
 
-			s.writeOp(0);
+			var pubkeyList = this.scriptListPubkey(coinjs.script(redeemScript));
+			var sigsList = this.scriptListSigs(this.ins[index].script);
+			sigsList[sigsList.length] = newSignature;
 
 			if(this.ins[index].script.chunks[this.ins[index].script.chunks.length-1]==174){
-				s.writeBytes(newSignature);
-
+				pubkey = coinjs.verifySignature(sighash, sigsList[0], pubkeyList)
+				if (pubkey) {
+					s.writeOp(0);
+					s.writeBytes(newSignature);
+				}
+				else {
+					return false;
+				}
 			}  else if (this.ins[index].script.chunks[0]==0 && this.ins[index].script.chunks[this.ins[index].script.chunks.length-1][this.ins[index].script.chunks[this.ins[index].script.chunks.length-1].length-1]==174){
-				var pubkeyList = this.scriptListPubkey(coinjs.script(redeemScript));
-				var sigsList = this.scriptListSigs(this.ins[index].script);
-				sigsList[sigsList.length] = newSignature;
-
 				var signatures = {};
 				var pubkey;
 				
@@ -1333,7 +1306,12 @@
 					if(pubkey){
 						signatures[pubkey] = sigsList[y];
 					}
+					else if (sigsList[y] == newSignature) {
+						return false;
+					}
 				}
+
+				s.writeOp(0);
 
 				for (var i in pubkeyList) {
 					if (signatures[pubkeyList[i]]) {
@@ -1466,7 +1444,7 @@
 
 			for (var i = 0; i < this.outs.length; i++) {
 				var txout = this.outs[i];
- 				buffer = buffer.concat(coinjs.numToBytes(txout.value,8));
+				buffer = buffer.concat(coinjs.numToBytes(txout.value,8));
 				var scriptBytes = txout.script.buffer;
 				buffer = buffer.concat(coinjs.numToVarInt(scriptBytes.length));
 				buffer = buffer.concat(scriptBytes);
@@ -1525,7 +1503,7 @@
 				obj.ins.push({
 					outpoint: {
 						hash: Crypto.util.bytesToHex(readBytes(32).reverse()),
- 						index: readAsInt(4)
+						index: readAsInt(4)
 					},
 					script: coinjs.script(readVarString()),
 					sequence: readAsInt(4)
@@ -1540,7 +1518,7 @@
 				});
 			}
 
- 			obj.lock_time = readAsInt(4);
+			obj.lock_time = readAsInt(4);
 			
 			if (coinjs.txExtraUnitField) {
 				obj.nUnit = readAsInt(1);
@@ -1699,7 +1677,7 @@
 				temp[key] = coinjs.clone(obj[key]);
 			}
 		}
- 		return temp;
+		return temp;
 	}
 
 	coinjs.numToBytes = function(num,bytes) {
