@@ -996,20 +996,18 @@
 
 		/* add data to a transaction */
 		r.addHexData = function(hexString){
-			var r = false;
 			if(((hexString.match(/^[a-f0-9]+$/gi)) && hexString.length<160) && (hexString.length%2)==0) {
 				return r.addOpReturnData(Crypto.util.hexToBytes(hexString))
 			}
-			return r;
+			return false;
 		}
 
 		r.addTextData = function(text) {
-			var r = false;
 			var data = Crypto.charenc.Binary.stringToBytes(text);
 			if (data.length <= 80) {
 				return r.addOpReturnData(data);
 			}
-			return r;
+			return false;
 		}
 
 		r.addOpReturnData = function(bytes) {
